@@ -2,3 +2,4 @@
 
 require_relative "logicuit/version"
 require_relative "logicuit/and"
+require_relative "logicuit/or"

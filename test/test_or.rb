@@ -1,0 +1,12 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+class TestAnd < Minitest::Test
+  def test_signal
+    assert_equal [1], Logicuit::Or.new(1, 1).signal
+    assert_equal [1], Logicuit::Or.new(1, 0).signal
+    assert_equal [1], Logicuit::Or.new(0, 1).signal
+    assert_equal [0], Logicuit::Or.new(0, 0).signal
+  end
+end
