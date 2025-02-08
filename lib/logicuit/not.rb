@@ -9,7 +9,7 @@ module Logicuit
 
     def signal
       a = @a.call
-      [a == 1 ? 0 : 1]
+      [a == 1 ? -> { 0 } : -> { 1 }]
     end
   end
 end

@@ -11,7 +11,7 @@ module Logicuit
     def signal
       a = @a.call
       b = @b.call
-      [a == 1 && b == 1 ? 1 : 0]
+      [a == 1 && b == 1 ? -> { 1 } : -> { 0 }]
     end
   end
 end
