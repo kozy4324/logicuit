@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class TestOr < Minitest::Test
+class OrTest < Minitest::Test
   def test_signal # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
     assert_equal [1], Logicuit::Or.new(1, 1).signal.map(&:call)
     assert_equal [1], Logicuit::Or.new(1, 0).signal.map(&:call)
