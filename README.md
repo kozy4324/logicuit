@@ -19,10 +19,10 @@ gem install logicuit
 ## Usage
 
 ```
-Logicuit::And.new(1, 1).signal # [1]
-Logicuit::And.new(1, 0).signal # [0]
-Logicuit::And.new(0, 1).signal # [0]
-Logicuit::And.new(0, 0).signal # [0]
+Logicuit::And.new(1, 1).y.current # true
+Logicuit::And.new(1, 0).y.current # false
+Logicuit::And.new(0, 1).y.current # false
+Logicuit::And.new(0, 0).y.current # false
 ```
 
 This is all for now :)
