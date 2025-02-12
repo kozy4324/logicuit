@@ -7,8 +7,13 @@ module Logicuit
   #
   class Not
     def initialize(a) # rubocop:disable Naming/MethodParameterName
+      updater = -> { @a.current ? @y.off : @y.on }
+
       @a = a.is_a?(Signal) ? a : Signal.new(a == 1)
-      @y = Signal.new(@a.current.!)
+      @a.updater = updater
+
+      @y = Signal.new(false)
+      updater.call
     end
 
     attr_reader :a, :y
