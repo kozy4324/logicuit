@@ -3,31 +3,18 @@
 module Logicuit
   # Signal
   class Signal
-    ON = 1
-    OFF = 0
-
-    def initialize(initial_state)
-      @state = initial_state
+    def initialize(current)
+      @current = current
     end
 
-    def on?
-      @state == ON
-    end
-
-    def off?
-      !on?
-    end
+    attr_reader :current
 
     def on
-      changed = @state == OFF
-      @state = ON
-      changed
+      @current = true
     end
 
     def off
-      changed = @state == ON
-      @state = OFF
-      changed
+      @current = false
     end
   end
 end

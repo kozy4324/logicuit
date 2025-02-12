@@ -4,32 +4,26 @@ require "test_helper"
 
 class SignalTest < Minitest::Test
   def test_signal_behavior # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-    signal = Logicuit::Signal.new(Logicuit::Signal::ON)
-    assert_equal true, signal.on?
-    assert_equal false, signal.off?
+    signal = Logicuit::Signal.new(true)
+    assert_equal true, signal.current
 
     # ON -> ON
-    assert_equal false, signal.on
-    assert_equal true, signal.on?
-    assert_equal false, signal.off?
+    signal.on
+    assert_equal true, signal.current
 
     # ON -> OFF
-    assert_equal true, signal.off
-    assert_equal false, signal.on?
-    assert_equal true, signal.off?
+    signal.off
+    assert_equal false, signal.current
 
     # OFF -> OFF
-    assert_equal false, signal.off
-    assert_equal false, signal.on?
-    assert_equal true, signal.off?
+    signal.off
+    assert_equal false, signal.current
 
     # OFF -> ON
-    assert_equal true, signal.on
-    assert_equal true, signal.on?
-    assert_equal false, signal.off?
+    signal.on
+    assert_equal true, signal.current
 
-    signal = Logicuit::Signal.new(Logicuit::Signal::OFF)
-    assert_equal false, signal.on?
-    assert_equal true, signal.off?
+    signal = Logicuit::Signal.new(false)
+    assert_equal false, signal.current
   end
 end
