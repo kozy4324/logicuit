@@ -2,14 +2,15 @@
 
 module Logicuit
   # NOT circuit
+  #
+  # A -|>o- Y
+  #
   class Not
     def initialize(a) # rubocop:disable Naming/MethodParameterName
-      @a = a.respond_to?(:call) ? a : -> { a }
+      @a = a.is_a?(Signal) ? a : Signal.new(a == 1)
+      @y = Signal.new(@a.current.!)
     end
 
-    def signal
-      a = @a.call
-      [a == 1 ? -> { 0 } : -> { 1 }]
-    end
+    attr_reader :a, :y
   end
 end
