@@ -17,7 +17,11 @@ module Logicuit
     attr_reader :a, :y
 
     def evaluate
-      @a.current ? @y.off : @y.on
+      a.current ? y.off : y.on
+    end
+
+    def to_s
+      "#{a} =|NOT|=> #{y}"
     end
   end
 end

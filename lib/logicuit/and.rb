@@ -22,7 +22,11 @@ module Logicuit
     attr_reader :a, :b, :y
 
     def evaluate
-      @a.current && @b.current ? @y.on : @y.off
+      a.current && b.current ? y.on : y.off
+    end
+
+    def to_s
+      "[#{a},#{b}] =|AND|=> #{y}"
     end
   end
 end
