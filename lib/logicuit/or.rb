@@ -9,18 +9,20 @@ module Logicuit
   #
   class Or
     def initialize(a, b) # rubocop:disable Naming/MethodParameterName
-      updater = -> { @a.current || @b.current ? @y.on : @y.off }
-
       @a = a.is_a?(Signal) ? a : Signal.new(a == 1)
-      @a.updater = updater
+      @a.on_change << self
 
       @b = b.is_a?(Signal) ? b : Signal.new(b == 1)
-      @b.updater = updater
+      @b.on_change << self
 
       @y = Signal.new(false)
-      updater.call
+      evaluate
     end
 
     attr_reader :a, :b, :y
+
+    def evaluate
+      @a.current || @b.current ? @y.on : @y.off
+    end
   end
 end

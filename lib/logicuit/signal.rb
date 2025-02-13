@@ -5,21 +5,21 @@ module Logicuit
   class Signal
     def initialize(current)
       @current = current
+      @on_change = []
     end
 
-    attr_reader :current
-    attr_accessor :updater
+    attr_reader :current, :on_change
 
     def on
       changed = @current.!
       @current = true
-      @updater.call if changed && @updater.nil?.!
+      @on_change.each(&:evaluate) if changed
     end
 
     def off
       changed = @current
       @current = false
-      @updater.call if changed && @updater.nil?.!
+      @on_change.each(&:evaluate) if changed
     end
   end
 end
