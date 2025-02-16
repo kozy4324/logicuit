@@ -3,7 +3,7 @@
 module Logicuit
   # NOT circuit
   #
-  # A -|>o- Y
+  # (A)->|NOT|->(Y)
   #
   class Not
     def initialize(a) # rubocop:disable Naming/MethodParameterName
@@ -21,7 +21,9 @@ module Logicuit
     end
 
     def to_s
-      "#{a} =|NOT|=> #{y}"
+      <<~CIRCUIT
+        (#{a})->|NOT|->(#{y})
+      CIRCUIT
     end
   end
 end
