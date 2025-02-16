@@ -3,9 +3,9 @@
 module Logicuit
   # AND circuit
   #
-  # (A)--|
-  #      |AND|--(Y)
-  # (B)--|
+  # (A)-|
+  #     |AND|-(Y)
+  # (B)-|
   #
   class And
     def initialize(a, b) # rubocop:disable Naming/MethodParameterName
@@ -27,9 +27,9 @@ module Logicuit
 
     def to_s
       <<~CIRCUIT
-        (#{a})--|
-             |AND|--(#{y})
-        (#{b})--|
+        (#{a})-|
+            |AND|-(#{y})
+        (#{b})-|
       CIRCUIT
     end
   end

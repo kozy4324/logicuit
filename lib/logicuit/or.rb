@@ -3,9 +3,9 @@
 module Logicuit
   # OR circuit
   #
-  # (A)--|
-  #      |OR|--(Y)
-  # (B)--|
+  # (A)-|
+  #     |OR|-(Y)
+  # (B)-|
   #
   class Or
     def initialize(a, b) # rubocop:disable Naming/MethodParameterName
@@ -27,9 +27,9 @@ module Logicuit
 
     def to_s
       <<~CIRCUIT
-        (#{a})--|
-             |OR|--(#{y})
-        (#{b})--|
+        (#{a})-|
+            |OR|-(#{y})
+        (#{b})-|
       CIRCUIT
     end
   end

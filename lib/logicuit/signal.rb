@@ -22,6 +22,10 @@ module Logicuit
       @on_change.each(&:evaluate) if changed
     end
 
+    def toggle
+      @current ? off : on
+    end
+
     def to_s
       current ? "1" : "0"
     end
