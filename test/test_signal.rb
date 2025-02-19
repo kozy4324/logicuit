@@ -26,4 +26,22 @@ class SignalTest < Minitest::Test
     signal = Logicuit::Signal.new(false)
     assert_equal false, signal.current
   end
+
+  def test_connects_to
+    signal = Logicuit::Signal.new(true)
+    signal_other = Logicuit::Signal.new(false)
+    assert_equal false, signal_other.current
+
+    signal >> signal_other
+    assert_equal true, signal.current
+    assert_equal true, signal_other.current
+
+    signal.off
+    assert_equal false, signal.current
+    assert_equal false, signal_other.current
+
+    signal.on
+    assert_equal true, signal.current
+    assert_equal true, signal_other.current
+  end
 end
