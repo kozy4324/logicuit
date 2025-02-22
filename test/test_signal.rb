@@ -27,7 +27,7 @@ class SignalTest < Minitest::Test
     assert_equal false, signal.current
   end
 
-  def test_connects_to
+  def test_connects_to # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     signal = Logicuit::Signal.new(true)
     signal_other = Logicuit::Signal.new(false)
     assert_equal false, signal_other.current
