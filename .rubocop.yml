@@ -7,3 +7,5 @@ Style/StringLiterals:
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+require: rubocop-minitest
