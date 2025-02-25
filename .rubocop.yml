@@ -8,4 +8,6 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
-require: rubocop-minitest
+require:
+  - rubocop-minitest
+  - rubocop-rake
