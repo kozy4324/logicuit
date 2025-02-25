@@ -5,12 +5,12 @@ module Logicuit
   class Signal
     def initialize(current)
       @current = current
-      @connected_to = nil
+      @connected_by = nil
       @on_change = []
     end
 
     attr_reader :current, :on_change
-    attr_accessor :connected_to
+    attr_accessor :connected_by
 
     def on
       changed = @current.!
@@ -29,16 +29,16 @@ module Logicuit
     end
 
     def connects_to(other)
-      other.connected_to = self
+      other.connected_by = self
       other.evaluate
       on_change << other
     end
     alias >> connects_to
 
     def evaluate
-      return if @connected_to.nil?
+      return if @connected_by.nil?
 
-      @connected_to.current ? on : off
+      @connected_by.current ? on : off
     end
 
     def to_s
