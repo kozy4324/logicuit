@@ -19,18 +19,18 @@ gem install logicuit
 ## Usage
 
 ```
-and_circuit = Logicuit::And.new(1, 1)
-and_circuit.y.current # true: {a:1,b:1} => {y:1}
+and_gate = Logicuit::And.new(1, 1)
+and_gate.y.current # true: {a:1,b:1} => {y:1}
 
-and_circuit.a.off
-and_circuit.y.current # false: {a:0,b:1} => {y:0}
+and_gate.a.off
+and_gate.y.current # false: {a:0,b:1} => {y:0}
 
-and_circuit.b.off
-and_circuit.y.current # false: {a:0,b:0} => {y:0}
+and_gate.b.off
+and_gate.y.current # false: {a:0,b:0} => {y:0}
 
-and_circuit.b.on
-and_circuit.b.on
-and_circuit.y.current # true: {a:1,b:1} => {y:1}
+and_gate.b.on
+and_gate.b.on
+and_gate.y.current # true: {a:1,b:1} => {y:1}
 ```
 
 This is all for now :)

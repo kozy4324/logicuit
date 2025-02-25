@@ -4,72 +4,72 @@ require "test_helper"
 
 class AndTest < Minitest::Test
   def test_initialize # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    and_circuit = Logicuit::And.new(1, 1)
+    and_gate = Logicuit::And.new(1, 1)
 
-    assert and_circuit.a.current
-    assert and_circuit.b.current
-    assert and_circuit.y.current
+    assert and_gate.a.current
+    assert and_gate.b.current
+    assert and_gate.y.current
 
-    and_circuit = Logicuit::And.new(1, 0)
+    and_gate = Logicuit::And.new(1, 0)
 
-    assert and_circuit.a.current
-    refute and_circuit.b.current
-    refute and_circuit.y.current
+    assert and_gate.a.current
+    refute and_gate.b.current
+    refute and_gate.y.current
 
-    and_circuit = Logicuit::And.new(0, 1)
+    and_gate = Logicuit::And.new(0, 1)
 
-    refute and_circuit.a.current
-    assert and_circuit.b.current
-    refute and_circuit.y.current
+    refute and_gate.a.current
+    assert and_gate.b.current
+    refute and_gate.y.current
 
-    and_circuit = Logicuit::And.new(0, 0)
+    and_gate = Logicuit::And.new(0, 0)
 
-    refute and_circuit.a.current
-    refute and_circuit.b.current
-    refute and_circuit.y.current
+    refute and_gate.a.current
+    refute and_gate.b.current
+    refute and_gate.y.current
   end
 
   def test_change_input_state # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    and_circuit = Logicuit::And.new(1, 1)
+    and_gate = Logicuit::And.new(1, 1)
 
-    assert and_circuit.a.current
-    assert and_circuit.b.current
-    assert and_circuit.y.current
+    assert and_gate.a.current
+    assert and_gate.b.current
+    assert and_gate.y.current
 
-    and_circuit.a.off
+    and_gate.a.off
 
-    refute and_circuit.a.current
-    assert and_circuit.b.current
-    refute and_circuit.y.current
+    refute and_gate.a.current
+    assert and_gate.b.current
+    refute and_gate.y.current
 
-    and_circuit.a.on
+    and_gate.a.on
 
-    assert and_circuit.a.current
-    assert and_circuit.b.current
-    assert and_circuit.y.current
+    assert and_gate.a.current
+    assert and_gate.b.current
+    assert and_gate.y.current
 
-    and_circuit.b.off
+    and_gate.b.off
 
-    assert and_circuit.a.current
-    refute and_circuit.b.current
-    refute and_circuit.y.current
+    assert and_gate.a.current
+    refute and_gate.b.current
+    refute and_gate.y.current
 
-    and_circuit.a.off
+    and_gate.a.off
 
-    refute and_circuit.a.current
-    refute and_circuit.b.current
-    refute and_circuit.y.current
+    refute and_gate.a.current
+    refute and_gate.b.current
+    refute and_gate.y.current
 
-    and_circuit.a.on
+    and_gate.a.on
 
-    assert and_circuit.a.current
-    refute and_circuit.b.current
-    refute and_circuit.y.current
+    assert and_gate.a.current
+    refute and_gate.b.current
+    refute and_gate.y.current
 
-    and_circuit.b.on
+    and_gate.b.on
 
-    assert and_circuit.a.current
-    assert and_circuit.b.current
-    assert and_circuit.y.current
+    assert and_gate.a.current
+    assert and_gate.b.current
+    assert and_gate.y.current
   end
 end

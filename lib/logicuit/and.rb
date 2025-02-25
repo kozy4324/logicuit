@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Logicuit
-  # AND circuit
+  # AND gate
   #
   # (A)-|
   #     |AND|-(Y)
