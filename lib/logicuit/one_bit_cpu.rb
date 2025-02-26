@@ -10,7 +10,7 @@ module Logicuit
   #   (CK)-|>  |
   #
   class OneBitCpu
-    def initialize(ck = nil)
+    def initialize(ck = nil) # rubocop:disable Naming/MethodParameterName
       @dff = Logicuit::DFlipFlop.new(0, ck)
       @not = Logicuit::Not.new
       @dff.q >> @not.a
