@@ -10,13 +10,13 @@ module Logicuit
     #
     class And
       def initialize(a = 0, b = 0) # rubocop:disable Naming/MethodParameterName
-        @a = a.is_a?(Logicuit::Signals::Signal) ? a : Logicuit::Signals::Signal.new(a == 1)
+        @a = a.is_a?(Signals::Signal) ? a : Signals::Signal.new(a == 1)
         @a.on_change << self
 
-        @b = b.is_a?(Logicuit::Signals::Signal) ? b : Logicuit::Signals::Signal.new(b == 1)
+        @b = b.is_a?(Signals::Signal) ? b : Signals::Signal.new(b == 1)
         @b.on_change << self
 
-        @y = Logicuit::Signals::Signal.new(false)
+        @y = Signals::Signal.new(false)
         evaluate
       end
 
