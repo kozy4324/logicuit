@@ -19,21 +19,43 @@ gem install logicuit
 ## Usage
 
 ```
-and_gate = Logicuit::And.new(1, 1)
-and_gate.y.current # true: {a:1,b:1} => {y:1}
+require "logicuit"
 
-and_gate.a.off
-and_gate.y.current # false: {a:0,b:1} => {y:0}
+# 1 bit CPU
+#
+#  +-(Y)-|NOT|-(A)-+
+#  |               |
+#  +-(D)-|   |-(Q)-+
+#        |DFF|
+#   (CK)-|>  |
+#
+class OneBitCpu
+  def initialize
+    @dff = Logicuit::Circuits::Sequential::DFlipFlop.new
+    @not = Logicuit::Gates::Not.new
+    @dff.q >> @not.a
+    @not.y >> @dff.d
+  end
 
-and_gate.b.off
-and_gate.y.current # false: {a:0,b:0} => {y:0}
+  def to_s
+    <<~CIRCUIT
+      +-(#{@not.y})-|NOT|-(#{@not.a})-+
+      |               |
+      +-(#{@dff.d})-|   |-(#{@dff.q})-+
+            |DFF|
+       (CK)-|>  |
+    CIRCUIT
+  end
+end
 
-and_gate.b.on
-and_gate.b.on
-and_gate.y.current # true: {a:1,b:1} => {y:1}
+obc = OneBitCpu.new
+loop do
+  system("clear")
+  puts obc
+  sleep 1
+  Logicuit::Signals::Clock.tick
+end
 ```
-
-This is all for now :)
 
 ## Development
 
