@@ -11,10 +11,14 @@ module Logicuit
   #
   class OneBitCpu
     def initialize(ck = nil) # rubocop:disable Naming/MethodParameterName
-      @dff = Logicuit::DFlipFlop.new(0, ck)
+      @dff = Logicuit::DFlipFlop.new(ck)
       @not = Logicuit::Not.new
       @dff.q >> @not.a
       @not.y >> @dff.d
+    end
+
+    def ck
+      @dff.ck
     end
 
     def to_s
@@ -25,6 +29,16 @@ module Logicuit
               |DFF|
          (CK)-|>  |
       CIRCUIT
+    end
+
+    def self.run
+      obc = new
+      loop do
+        system("clear")
+        puts obc
+        sleep 1
+        obc.ck.tick
+      end
     end
   end
 end
