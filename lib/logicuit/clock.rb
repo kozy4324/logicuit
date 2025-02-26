@@ -12,5 +12,17 @@ module Logicuit
     def tick
       @on_tick.each(&:evaluate)
     end
+
+    def self.instance
+      @instance ||= new
+    end
+
+    def self.on_tick
+      instance.on_tick
+    end
+
+    def self.tick
+      instance.tick
+    end
   end
 end

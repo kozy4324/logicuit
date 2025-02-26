@@ -4,25 +4,22 @@ require "test_helper"
 
 class DFlipFlopTest < Minitest::Test
   def test_initialize
-    clock = Logicuit::Clock.new
-
-    d_flip_flop = Logicuit::DFlipFlop.new(clock, 0)
+    d_flip_flop = Logicuit::DFlipFlop.new(0)
 
     refute d_flip_flop.q.current
 
-    d_flip_flop = Logicuit::DFlipFlop.new(clock, 1)
+    d_flip_flop = Logicuit::DFlipFlop.new(1)
 
     assert d_flip_flop.q.current
   end
 
   def test_tick # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    clock = Logicuit::Clock.new
     signal = Logicuit::Signal.new(false)
-    d_flip_flop = Logicuit::DFlipFlop.new(clock, signal)
+    d_flip_flop = Logicuit::DFlipFlop.new(signal)
 
     refute d_flip_flop.q.current
 
-    clock.tick
+    Logicuit::Clock.tick
 
     refute d_flip_flop.q.current
 
@@ -30,7 +27,7 @@ class DFlipFlopTest < Minitest::Test
 
     refute d_flip_flop.q.current
 
-    clock.tick
+    Logicuit::Clock.tick
 
     assert d_flip_flop.q.current
 
@@ -38,7 +35,7 @@ class DFlipFlopTest < Minitest::Test
 
     assert d_flip_flop.q.current
 
-    clock.tick
+    Logicuit::Clock.tick
 
     refute d_flip_flop.q.current
   end

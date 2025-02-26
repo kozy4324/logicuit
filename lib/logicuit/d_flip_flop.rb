@@ -8,9 +8,8 @@ module Logicuit
   # (CK)-|>  |
   #
   class DFlipFlop
-    def initialize(ck = nil, d = 0) # rubocop:disable Naming/MethodParameterName
-      @ck = ck.is_a?(Logicuit::Clock) ? ck : Logicuit::Clock.new
-      @ck.on_tick << self
+    def initialize(d = 0) # rubocop:disable Naming/MethodParameterName
+      Logicuit::Clock.on_tick << self
 
       @d = d.is_a?(Logicuit::Signal) ? d : Signal.new(d == 1)
 
@@ -18,7 +17,7 @@ module Logicuit
       evaluate
     end
 
-    attr_reader :d, :ck, :q
+    attr_reader :d, :q
 
     def evaluate
       if d.current

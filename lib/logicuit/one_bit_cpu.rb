@@ -10,15 +10,11 @@ module Logicuit
   #   (CK)-|>  |
   #
   class OneBitCpu
-    def initialize(ck = nil) # rubocop:disable Naming/MethodParameterName
-      @dff = Logicuit::DFlipFlop.new(ck)
+    def initialize
+      @dff = Logicuit::DFlipFlop.new
       @not = Logicuit::Not.new
       @dff.q >> @not.a
       @not.y >> @dff.d
-    end
-
-    def ck
-      @dff.ck
     end
 
     def to_s
@@ -37,7 +33,7 @@ module Logicuit
         system("clear")
         puts obc
         sleep 1
-        obc.ck.tick
+        Logicuit::Clock.tick
       end
     end
   end
