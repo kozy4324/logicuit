@@ -10,10 +10,10 @@ module Logicuit
     #
     class Or
       def initialize(a = 0, b = 0) # rubocop:disable Naming/MethodParameterName
-        @a = a.is_a?(Signals::Signal) ? a : Signals::Signal.new(a == 1)
+        @a = Signals::Signal.new(a == 1)
         @a.on_change << self
 
-        @b = b.is_a?(Signals::Signal) ? b : Signals::Signal.new(b == 1)
+        @b = Signals::Signal.new(b == 1)
         @b.on_change << self
 
         @y = Signals::Signal.new(false)
