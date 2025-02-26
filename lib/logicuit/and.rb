@@ -8,7 +8,7 @@ module Logicuit
   # (B)-|
   #
   class And
-    def initialize(a, b) # rubocop:disable Naming/MethodParameterName
+    def initialize(a = 0, b = 0) # rubocop:disable Naming/MethodParameterName
       @a = a.is_a?(Signal) ? a : Signal.new(a == 1)
       @a.on_change << self
 

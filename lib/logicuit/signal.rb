@@ -3,7 +3,7 @@
 module Logicuit
   # Signal
   class Signal
-    def initialize(current)
+    def initialize(current = false) # rubocop:disable Style/OptionalBooleanParameter
       @current = current
       @connected_by = nil
       @on_change = []
