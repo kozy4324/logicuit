@@ -9,11 +9,11 @@ module Logicuit
   #
   class DFlipFlop
     def initialize(d = 0) # rubocop:disable Naming/MethodParameterName
-      Logicuit::Clock.on_tick << self
+      Signals::Clock.on_tick << self
 
-      @d = d.is_a?(Logicuit::Signal) ? d : Signal.new(d == 1)
+      @d = d.is_a?(Signals::Signal) ? d : Signals::Signal.new(d == 1)
 
-      @q = Signal.new(false)
+      @q = Signals::Signal.new(false)
       evaluate
     end
 

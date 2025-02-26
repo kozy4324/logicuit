@@ -11,8 +11,8 @@ module Logicuit
   #
   class OneBitCpu
     def initialize
-      @dff = Logicuit::DFlipFlop.new
-      @not = Logicuit::Not.new
+      @dff = DFlipFlop.new
+      @not = Gates::Not.new
       @dff.q >> @not.a
       @not.y >> @dff.d
     end
@@ -33,7 +33,7 @@ module Logicuit
         system("clear")
         puts obc
         sleep 1
-        Logicuit::Clock.tick
+        Clock.tick
       end
     end
   end

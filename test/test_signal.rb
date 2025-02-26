@@ -4,7 +4,7 @@ require "test_helper"
 
 class SignalTest < Minitest::Test
   def test_signal_behavior # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    signal = Logicuit::Signal.new(true)
+    signal = Logicuit::Signals::Signal.new(true)
 
     assert signal.current
 
@@ -28,14 +28,14 @@ class SignalTest < Minitest::Test
 
     assert signal.current
 
-    signal = Logicuit::Signal.new(false)
+    signal = Logicuit::Signals::Signal.new(false)
 
     refute signal.current
   end
 
   def test_connects_to # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    signal = Logicuit::Signal.new(true)
-    signal_other = Logicuit::Signal.new(false)
+    signal = Logicuit::Signals::Signal.new(true)
+    signal_other = Logicuit::Signals::Signal.new(false)
 
     refute signal_other.current
 

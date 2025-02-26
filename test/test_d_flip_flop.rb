@@ -14,12 +14,12 @@ class DFlipFlopTest < Minitest::Test
   end
 
   def test_tick # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    signal = Logicuit::Signal.new(false)
+    signal = Logicuit::Signals::Signal.new(false)
     d_flip_flop = Logicuit::DFlipFlop.new(signal)
 
     refute d_flip_flop.q.current
 
-    Logicuit::Clock.tick
+    Logicuit::Signals::Clock.tick
 
     refute d_flip_flop.q.current
 
@@ -27,7 +27,7 @@ class DFlipFlopTest < Minitest::Test
 
     refute d_flip_flop.q.current
 
-    Logicuit::Clock.tick
+    Logicuit::Signals::Clock.tick
 
     assert d_flip_flop.q.current
 
@@ -35,7 +35,7 @@ class DFlipFlopTest < Minitest::Test
 
     assert d_flip_flop.q.current
 
-    Logicuit::Clock.tick
+    Logicuit::Signals::Clock.tick
 
     refute d_flip_flop.q.current
   end
