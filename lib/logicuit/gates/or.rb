@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative "base"
+
 module Logicuit
   module Gates
     # OR gate
@@ -8,8 +10,10 @@ module Logicuit
     #     |OR|-(Y)
     # (B)-|
     #
-    class Or
+    class Or < Base
       def initialize(a = 0, b = 0) # rubocop:disable Naming/MethodParameterName
+        super()
+
         @a = Signals::Signal.new(a == 1)
         @a.on_change << self
 

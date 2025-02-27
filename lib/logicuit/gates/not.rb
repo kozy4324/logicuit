@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 
+require_relative "base"
+
 module Logicuit
   module Gates
     # NOT gate
     #
     # (A)-|NOT|-(Y)
     #
-    class Not
+    class Not < Base
       def initialize(a = 0) # rubocop:disable Naming/MethodParameterName
+        super()
+
         @a = Signals::Signal.new(a == 1)
         @a.on_change << self
 
