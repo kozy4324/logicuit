@@ -9,17 +9,8 @@ module Logicuit
     # (A)-|NOT|-(Y)
     #
     class Not < Base
-      def initialize(a = 0) # rubocop:disable Naming/MethodParameterName
-        super()
-
-        @a = Signals::Signal.new(a == 1)
-        @a.on_change << self
-
-        @y = Signals::Signal.new(false)
-        evaluate
-      end
-
-      attr_reader :a, :y
+      define_inputs :a
+      define_outputs :y
 
       def evaluate
         a.current ? y.off : y.on
