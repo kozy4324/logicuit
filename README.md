@@ -18,6 +18,8 @@ gem install logicuit
 
 ## Usage
 
+This is the code to create a 1-bit CPU:
+
 ```
 require "logicuit"
 
@@ -55,6 +57,12 @@ loop do
   sleep 1
   Logicuit::Signals::Clock.tick
 end
+```
+
+you can execute the following as a one-liner:
+
+```
+$ ruby -r logicuit -e 'Logicuit::Circuits::SystemLevel::OneBitCpu.run'
 ```
 
 ## Development
