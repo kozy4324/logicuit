@@ -12,11 +12,7 @@ module Logicuit
     #
     class And < Base
       define_inputs :a, :b
-      define_outputs :y
-
-      def evaluate
-        a.current && b.current ? y.on : y.off
-      end
+      define_outputs y: ->(a, b) { a && b }
 
       def to_s
         <<~CIRCUIT

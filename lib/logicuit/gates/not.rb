@@ -10,11 +10,7 @@ module Logicuit
     #
     class Not < Base
       define_inputs :a
-      define_outputs :y
-
-      def evaluate
-        a.current ? y.off : y.on
-      end
+      define_outputs y: ->(a) { !a } # rubocop:disable Style/SymbolProc
 
       def to_s
         <<~CIRCUIT
