@@ -5,14 +5,11 @@ require_relative "base"
 module Logicuit
   module Gates
     # AND gate
-    #
-    # (A)-|
-    #     |AND|-(Y)
-    # (B)-|
-    #
     class And < Base
       define_inputs :a, :b
+
       define_outputs y: ->(a, b) { a && b }
+
       diagram <<~DIAGRAM
         (A)-|
             |AND|-(Y)
