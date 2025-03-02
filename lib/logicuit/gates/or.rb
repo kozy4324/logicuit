@@ -13,14 +13,11 @@ module Logicuit
     class Or < Base
       define_inputs :a, :b
       define_outputs y: ->(a, b) { a || b }
-
-      def to_s
-        <<~CIRCUIT
-          (#{a})-|
-              |OR|-(#{y})
-          (#{b})-|
-        CIRCUIT
-      end
+      diagram <<~DIAGRAM
+        (A)-|
+            |OR|-(Y)
+        (B)-|
+      DIAGRAM
     end
   end
 end

@@ -13,14 +13,11 @@ module Logicuit
     class And < Base
       define_inputs :a, :b
       define_outputs y: ->(a, b) { a && b }
-
-      def to_s
-        <<~CIRCUIT
-          (#{a})-|
-              |AND|-(#{y})
-          (#{b})-|
-        CIRCUIT
-      end
+      diagram <<~DIAGRAM
+        (A)-|
+            |AND|-(Y)
+        (B)-|
+      DIAGRAM
     end
   end
 end

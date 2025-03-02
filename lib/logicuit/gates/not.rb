@@ -11,12 +11,9 @@ module Logicuit
     class Not < Base
       define_inputs :a
       define_outputs y: ->(a) { !a } # rubocop:disable Style/SymbolProc
-
-      def to_s
-        <<~CIRCUIT
-          (#{a})-|NOT|-(#{y})
-        CIRCUIT
-      end
+      diagram <<~DIAGRAM
+        (A)-|NOT|-(Y)
+      DIAGRAM
     end
   end
 end
