@@ -3,32 +3,33 @@
 require "test_helper"
 
 class NotTest < Minitest::Test
-  def test_initialize # rubocop:disable Minitest/MultipleAssertions
-    not_gate = Logicuit::Gates::Not.new(1)
+  def test_initialize
+    test_cases = [
+      [1, true, false],
+      [0, false, true]
+    ]
 
-    assert not_gate.a.current
-    refute not_gate.y.current
+    test_cases.each do |input_a, a, y|
+      not_gate = Logicuit::Gates::Not.new(input_a)
 
-    not_gate = Logicuit::Gates::Not.new(0)
-
-    refute not_gate.a.current
-    assert not_gate.y.current
+      assert_equal a, not_gate.a.current
+      assert_equal y, not_gate.y.current
+    end
   end
 
-  def test_change_input_state # rubocop:disable Metrics/AbcSize,Minitest/MultipleAssertions
-    not_gate = Logicuit::Gates::Not.new(1)
+  def test_change_input_state
+    not_gate = Logicuit::Gates::Not.new(1, 1)
 
-    assert not_gate.a.current
-    refute not_gate.y.current
+    test_cases = [
+      [:a, :off, false, true],
+      [:a, :on, true, false]
+    ]
 
-    not_gate.a.off
+    test_cases.each do |input, state, a, y|
+      not_gate.send(input).send(state)
 
-    refute not_gate.a.current
-    assert not_gate.y.current
-
-    not_gate.a.on
-
-    assert not_gate.a.current
-    refute not_gate.y.current
+      assert_equal a, not_gate.a.current
+      assert_equal y, not_gate.y.current
+    end
   end
 end

@@ -3,73 +3,41 @@
 require "test_helper"
 
 class OrTest < Minitest::Test
-  def test_initialize # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    or_gate = Logicuit::Gates::Or.new(1, 1)
+  def test_initialize # rubocop:disable Metrics/MethodLength
+    test_cases = [
+      [1, 1, true, true, true],
+      [1, 0, true, false, true],
+      [0, 1, false, true, true],
+      [0, 0, false, false, false]
+    ]
 
-    assert or_gate.a.current
-    assert or_gate.b.current
-    assert or_gate.y.current
+    test_cases.each do |input_a, input_b, a, b, y|
+      and_gate = Logicuit::Gates::Or.new(input_a, input_b)
 
-    or_gate = Logicuit::Gates::Or.new(1, 0)
-
-    assert or_gate.a.current
-    refute or_gate.b.current
-    assert or_gate.y.current
-
-    or_gate = Logicuit::Gates::Or.new(0, 1)
-
-    refute or_gate.a.current
-    assert or_gate.b.current
-    assert or_gate.y.current
-
-    or_gate = Logicuit::Gates::Or.new(0, 0)
-
-    refute or_gate.a.current
-    refute or_gate.b.current
-    refute or_gate.y.current
+      assert_equal a, and_gate.a.current
+      assert_equal b, and_gate.b.current
+      assert_equal y, and_gate.y.current
+    end
   end
 
-  def test_change_input_state # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
+  def test_change_input_state # rubocop:disable Metrics/MethodLength
     or_gate = Logicuit::Gates::Or.new(1, 1)
 
-    assert or_gate.a.current
-    assert or_gate.b.current
-    assert or_gate.y.current
+    test_cases = [
+      [:a, :off, false, true, true],
+      [:a, :on, true, true, true],
+      [:b, :off, true, false, true],
+      [:a, :off, false, false, false],
+      [:a, :on, true, false, true],
+      [:b, :on, true, true, true]
+    ]
 
-    or_gate.a.off
+    test_cases.each do |input, state, a, b, y|
+      or_gate.send(input).send(state)
 
-    refute or_gate.a.current
-    assert or_gate.b.current
-    assert or_gate.y.current
-
-    or_gate.a.on
-
-    assert or_gate.a.current
-    assert or_gate.b.current
-    assert or_gate.y.current
-
-    or_gate.b.off
-
-    assert or_gate.a.current
-    refute or_gate.b.current
-    assert or_gate.y.current
-
-    or_gate.a.off
-
-    refute or_gate.a.current
-    refute or_gate.b.current
-    refute or_gate.y.current
-
-    or_gate.a.on
-
-    assert or_gate.a.current
-    refute or_gate.b.current
-    assert or_gate.y.current
-
-    or_gate.b.on
-
-    assert or_gate.a.current
-    assert or_gate.b.current
-    assert or_gate.y.current
+      assert_equal a, or_gate.a.current
+      assert_equal b, or_gate.b.current
+      assert_equal y, or_gate.y.current
+    end
   end
 end
