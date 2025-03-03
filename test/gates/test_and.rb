@@ -14,9 +14,9 @@ class AndTest < Minitest::Test
     test_cases.each do |input_a, input_b, a, b, y|
       and_gate = Logicuit::Gates::And.new(input_a, input_b)
 
-      assert_equal a, and_gate.a.current
-      assert_equal b, and_gate.b.current
-      assert_equal y, and_gate.y.current
+      assert_equal a, and_gate.a.current, "And.new(#{input_a}, #{input_b}).a should be #{a}"
+      assert_equal b, and_gate.b.current, "And.new(#{input_a}, #{input_b}).b should be #{b}"
+      assert_equal y, and_gate.y.current, "And.new(#{input_a}, #{input_b}).y should be #{y}"
     end
   end
 
@@ -35,9 +35,9 @@ class AndTest < Minitest::Test
     test_cases.each do |input, state, a, b, y|
       and_gate.send(input).send(state)
 
-      assert_equal a, and_gate.a.current
-      assert_equal b, and_gate.b.current
-      assert_equal y, and_gate.y.current
+      assert_equal a, and_gate.a.current, "and_gate.#{input}.#{state} should set a to #{a}"
+      assert_equal b, and_gate.b.current, "and_gate.#{input}.#{state} should set b to #{b}"
+      assert_equal y, and_gate.y.current, "and_gate.#{input}.#{state} should set y to #{y}"
     end
   end
 end

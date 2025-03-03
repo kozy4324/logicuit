@@ -12,8 +12,8 @@ class NotTest < Minitest::Test
     test_cases.each do |input_a, a, y|
       not_gate = Logicuit::Gates::Not.new(input_a)
 
-      assert_equal a, not_gate.a.current
-      assert_equal y, not_gate.y.current
+      assert_equal a, not_gate.a.current, "Not.new(#{input_a}).a should be #{a}"
+      assert_equal y, not_gate.y.current, "Not.new(#{input_a}).y should be #{y}"
     end
   end
 
@@ -28,8 +28,8 @@ class NotTest < Minitest::Test
     test_cases.each do |input, state, a, y|
       not_gate.send(input).send(state)
 
-      assert_equal a, not_gate.a.current
-      assert_equal y, not_gate.y.current
+      assert_equal a, not_gate.a.current, "not_gate.#{input}.#{state} should set a to #{a}"
+      assert_equal y, not_gate.y.current, "not_gate.#{input}.#{state} should set y to #{y}"
     end
   end
 end
