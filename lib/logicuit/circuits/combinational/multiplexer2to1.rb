@@ -5,10 +5,6 @@ module Logicuit
     module Combinational
       # A Multiplexer with 2 inputs and 1 output
       #
-      # (C0)-|   |
-      # (C1)-|MUX|--(Y)
-      # (A)--|   |
-      #
       # (C0)---------|
       #              |AND|--+
       #      +-|NOT|-|      +--|
@@ -17,17 +13,24 @@ module Logicuit
       #      |       |AND|--+
       # (A)--+-------|
       #
+      # C0 | C1 | A | Y
+      # ---+----+---+---
+      #  0 |  x | 0 | 0
+      #  1 |  x | 0 | 1
+      #  x |  0 | 1 | 0
+      #  x |  1 | 1 | 1
+      #
       class Multiplexer2To1
         def initialize(c0 = 0, c1 = 0, a = 0) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Naming/MethodParameterName
           @c0 = Signals::Signal.new(c0 == 1)
           @c1 = Signals::Signal.new(c1 == 1)
           @a  = Signals::Signal.new(a == 1)
-          @y = Signals::Signal.new(false)
+          @y  = Signals::Signal.new(false)
 
-          @not = Not.new
-          @and0 = And.new
-          @and1 = And.new
-          @or   = Or.new
+          @not  = Gates::Not.new
+          @and0 = Gates::And.new
+          @and1 = Gates::And.new
+          @or   = Gates::Or.new
 
           @c0     >> @and0.a
           @c1     >> @and1.a
