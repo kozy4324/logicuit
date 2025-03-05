@@ -18,7 +18,7 @@ module Logicuit
           (c0 && !a) || (c1 && a)
         }
 
-        diagram <<-DIAGRAM
+        diagram <<~DIAGRAM
           (C0)---------|
                        |AND|--+
                +-|NOT|-|      +--|
