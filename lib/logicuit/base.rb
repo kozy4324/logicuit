@@ -63,5 +63,31 @@ module Logicuit
         end
       end
     end
+
+    def self.truth_table(source) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+      define_method(:truth_table) do # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+        rows = source.strip.split("\n")
+        headers = rows.shift.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map(&:to_sym)
+        rows.shift # devide line
+        table = rows.map do |row|
+          values = row.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map do |v|
+            case v
+            when "x"
+              :any
+            when "1"
+              true
+            when "0"
+              false
+            else
+              raise "Invalid value in truth table: #{v}"
+            end
+          end
+          next unless headers.size == values.size
+
+          headers.zip(values).to_h
+        end
+        table
+      end
+    end
   end
 end
