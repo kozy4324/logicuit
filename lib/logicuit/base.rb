@@ -65,12 +65,12 @@ module Logicuit
     end
 
     def self.truth_table(source) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
-      define_method(:truth_table) do # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+      define_method(:truth_table) do # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/BlockLength
         rows = source.strip.split("\n")
         headers = rows.shift.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map(&:to_sym)
         rows.shift # devide line
         table = rows.map do |row|
-          values = row.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map do |v|
+          row.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map do |v|
             case v
             when "x"
               :any
@@ -82,8 +82,23 @@ module Logicuit
               raise "Invalid value in truth table: #{v}"
             end
           end
-          next unless headers.size == values.size
-
+        end.select do |values| # rubocop:disable Style/MultilineBlockChain
+          headers.size == values.size
+        end.map do |values| # rubocop:disable Style/MultilineBlockChain
+          array = [values]
+          while array.any? { |values| values.any? { |v| v == :any } }
+            target_index = array.find_index { |values| values.any? { |v| v == :any } }
+            target = array[target_index]
+            prop_index = target.find_index { |v| v == :any }
+            array.delete_at(target_index)
+            array.insert(target_index, *[true, false].map do |v|
+              target.dup.tap do |a|
+                a[prop_index] = v
+              end
+            end)
+          end
+          array
+        end.flatten!(1).map do |values| # rubocop:disable Style/MultilineBlockChain
           headers.zip(values).to_h
         end
         table
