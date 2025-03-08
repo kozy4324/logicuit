@@ -3,20 +3,17 @@
 require "test_helper"
 
 class AndTest < Minitest::Test
-  def test_initialize # rubocop:disable Metrics/MethodLength
-    test_cases = [
-      [1, 1, true, true, true],
-      [1, 0, true, false, false],
-      [0, 1, false, true, false],
-      [0, 0, false, false, false]
-    ]
+  def test_initialize # rubocop:disable Metrics/AbcSize
+    test_cases = Logicuit::Gates::And.new.truth_table.map do |row|
+      { inputs: row.values.to_a.slice(0, 2).map { _1 ? 1 : 0 }, outputs: row }
+    end
 
-    test_cases.each do |input_a, input_b, a, b, y|
-      and_gate = Logicuit::Gates::And.new(input_a, input_b)
+    test_cases.each do |row|
+      and_gate = Logicuit::Gates::And.new(*row[:inputs])
 
-      assert_equal a, and_gate.a.current, "And.new(#{input_a}, #{input_b}).a should be #{a}"
-      assert_equal b, and_gate.b.current, "And.new(#{input_a}, #{input_b}).b should be #{b}"
-      assert_equal y, and_gate.y.current, "And.new(#{input_a}, #{input_b}).y should be #{y}"
+      row[:outputs].each do |key, value|
+        assert_equal value, and_gate.send(key).current, "And.new(#{row[:inputs].join ", "}).#{key} should be #{value}"
+      end
     end
   end
 
