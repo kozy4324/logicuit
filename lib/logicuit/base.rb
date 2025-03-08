@@ -11,6 +11,8 @@ module Logicuit
       evaluate
     end
 
+    attr_reader :input_targets, :output_targets
+
     def self.define_inputs(*inputs) # rubocop:disable Metrics/MethodLength
       inputs.each do |input|
         define_method(input) do

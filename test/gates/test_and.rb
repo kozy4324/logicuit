@@ -3,16 +3,15 @@
 require "test_helper"
 
 class AndTest < Minitest::Test
-  def test_initialize # rubocop:disable Metrics/AbcSize
-    test_cases = Logicuit::Gates::And.new.truth_table.map do |row|
-      { inputs: row.values.to_a.slice(0, 2).map { _1 ? 1 : 0 }, outputs: row }
-    end
+  def test_initialize
+    subject_class = Logicuit::Gates::And
+    subject_class.new.truth_table.each do |row|
+      args = row.values_at(*subject_class.new.input_targets).map { _1 ? 1 : 0 }
+      subject = subject_class.new(*args)
 
-    test_cases.each do |row|
-      and_gate = Logicuit::Gates::And.new(*row[:inputs])
-
-      row[:outputs].each do |key, value|
-        assert_equal value, and_gate.send(key).current, "And.new(#{row[:inputs].join ", "}).#{key} should be #{value}"
+      row.each do |key, value|
+        assert_equal value, subject.send(key).current,
+                     "#{subject_class}.new(#{args.join ", "}).#{key} should be #{value}"
       end
     end
   end
