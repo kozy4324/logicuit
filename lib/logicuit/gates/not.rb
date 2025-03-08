@@ -11,6 +11,13 @@ module Logicuit
       diagram <<~DIAGRAM
         (A)-|NOT|-(Y)
       DIAGRAM
+
+      truth_table <<~TRUTH_TABLE
+        | A | Y |
+        | - | - |
+        | 0 | 1 |
+        | 1 | 0 |
+      TRUTH_TABLE
     end
   end
 end
