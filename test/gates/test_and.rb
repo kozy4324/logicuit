@@ -4,16 +4,7 @@ require "test_helper"
 
 class AndTest < Minitest::Test
   def test_initialize
-    subject_class = Logicuit::Gates::And
-    subject_class.new.truth_table.each do |row|
-      args = row.values_at(*subject_class.new.input_targets).map { _1 ? 1 : 0 }
-      subject = subject_class.new(*args)
-
-      row.each do |key, value|
-        assert_equal value, subject.send(key).current,
-                     "#{subject_class}.new(#{args.join ", "}).#{key} should be #{value}"
-      end
-    end
+    assert_as_truth_table(Logicuit::Gates::And)
   end
 
   def test_change_input_state # rubocop:disable Metrics/MethodLength

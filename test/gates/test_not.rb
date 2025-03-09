@@ -4,17 +4,7 @@ require "test_helper"
 
 class NotTest < Minitest::Test
   def test_initialize
-    test_cases = [
-      [1, true, false],
-      [0, false, true]
-    ]
-
-    test_cases.each do |input_a, a, y|
-      not_gate = Logicuit::Gates::Not.new(input_a)
-
-      assert_equal a, not_gate.a.current, "Not.new(#{input_a}).a should be #{a}"
-      assert_equal y, not_gate.y.current, "Not.new(#{input_a}).y should be #{y}"
-    end
+    assert_as_truth_table(Logicuit::Gates::Not)
   end
 
   def test_change_input_state

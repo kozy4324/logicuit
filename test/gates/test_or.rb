@@ -3,21 +3,8 @@
 require "test_helper"
 
 class OrTest < Minitest::Test
-  def test_initialize # rubocop:disable Metrics/MethodLength
-    test_cases = [
-      [1, 1, true, true, true],
-      [1, 0, true, false, true],
-      [0, 1, false, true, true],
-      [0, 0, false, false, false]
-    ]
-
-    test_cases.each do |input_a, input_b, a, b, y|
-      and_gate = Logicuit::Gates::Or.new(input_a, input_b)
-
-      assert_equal a, and_gate.a.current, "Or.new(#{input_a}, #{input_b}).a should be #{a}"
-      assert_equal b, and_gate.b.current, "Or.new(#{input_a}, #{input_b}).b should be #{b}"
-      assert_equal y, and_gate.y.current, "Or.new(#{input_a}, #{input_b}).y should be #{y}"
-    end
+  def test_initialize
+    assert_as_truth_table(Logicuit::Gates::Or)
   end
 
   def test_change_input_state # rubocop:disable Metrics/MethodLength

@@ -3,28 +3,8 @@
 require "test_helper"
 
 class Multiplexer2To1Test < Minitest::Test
-  def test_initialize # rubocop:disable Metrics/MethodLength,Minitest/MultipleAssertions,Metrics/AbcSize
-    test_cases = [
-      { c0: 0, c1: 0, a: 0, y: false },
-      { c0: 0, c1: 0, a: 1, y: false },
-      { c0: 1, c1: 0, a: 0, y: true },
-      { c0: 1, c1: 0, a: 1, y: false },
-      { c0: 0, c1: 1, a: 0, y: false },
-      { c0: 0, c1: 1, a: 1, y: true },
-      { c0: 1, c1: 1, a: 0, y: true },
-      { c0: 1, c1: 1, a: 1, y: true }
-    ]
-
-    test_cases.each do |test_case|
-      c0, c1, a, y = test_case.values_at(:c0, :c1, :a, :y)
-
-      mux = Logicuit::Circuits::Combinational::Multiplexer2To1.new(c0, c1, a)
-
-      assert_equal c0 == 1, mux.c0.current, "Multiplexer2To1.new(#{c0}, #{c1}, #{a}).c0 should be #{c0 == 1}"
-      assert_equal c1 == 1, mux.c1.current, "Multiplexer2To1.new(#{c0}, #{c1}, #{a}).c1 should be #{c1 == 1}"
-      assert_equal a == 1, mux.a.current, "Multiplexer2To1.new(#{c0}, #{c1}, #{a}).a should be #{a == 1}"
-      assert_equal y, mux.y.current, "Multiplexer2To1.new(#{c0}, #{c1}, #{a}).y should be #{y}"
-    end
+  def test_initialize
+    assert_as_truth_table(Logicuit::Circuits::Combinational::Multiplexer2To1)
   end
 
   def test_change_input_state # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
