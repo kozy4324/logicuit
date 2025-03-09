@@ -60,7 +60,7 @@ module Logicuit
 
     def self.diagram(source)
       define_method(:to_s) do
-        @input_targets.concat(@output_targets).reduce(source) do |result, input|
+        (@input_targets + @output_targets).reduce(source) do |result, input|
           result.gsub(/\(#{input}\)/i, "(#{instance_variable_get("@#{input}")})#{"-" * (input.size - 1)}")
         end
       end
