@@ -8,9 +8,9 @@ module Logicuit
         define_inputs :a, :b
 
         define_outputs c: lambda { |a, b|
-          true # TODO: Implement the logic
+          a && b
         }, s: lambda { |a, b|
-          true # TODO: Implement the logic
+          (a && !b) || (!a && b)
         }
 
         diagram <<~DIAGRAM
