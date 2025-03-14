@@ -14,7 +14,17 @@ module Logicuit
         }
 
         diagram <<~DIAGRAM
-          TODO: Implement the diagram
+          (A)---+-+---------|
+                | |         |AND|--+
+                | + +-|NOT|-|      +--|
+                | | |                 |OR|--(S)
+                | +---|NOT|-|      +--|
+                |   |       |AND|--+
+          (B)-+-----+-------|
+              | |
+              | +-----------|
+              |             |AND|-----------(C)
+              +-------------|
         DIAGRAM
 
         truth_table <<~TRUTH_TABLE
