@@ -7,11 +7,8 @@ module Logicuit
       class HalfAdder < Base
         define_inputs :a, :b
 
-        define_outputs c: lambda { |a, b|
-          a && b
-        }, s: lambda { |a, b|
-          (a && !b) || (!a && b)
-        }
+        define_outputs c: ->(a, b) { a && b },
+                       s: ->(a, b) { (a && !b) || (!a && b) }
 
         diagram <<~DIAGRAM
           (A)---+-+---------|

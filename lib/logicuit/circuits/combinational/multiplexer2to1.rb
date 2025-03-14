@@ -7,9 +7,7 @@ module Logicuit
       class Multiplexer2To1 < Base
         define_inputs :c0, :c1, :a
 
-        define_outputs y: lambda { |c0, c1, a|
-          (c0 && !a) || (c1 && a)
-        }
+        define_outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 
         diagram <<~DIAGRAM
           (C0)---------|
