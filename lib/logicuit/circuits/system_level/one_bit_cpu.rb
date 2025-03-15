@@ -28,6 +28,13 @@ module Logicuit
 
           dff.q >> y
         end
+
+        truth_table <<~TRUTH_TABLE
+          | CK | prev Y | Y |
+          | -- | ------ | - |
+          |  ^ |      0 | 1 |
+          |  ^ |      1 | 0 |
+        TRUTH_TABLE
       end
     end
   end
