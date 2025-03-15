@@ -2,13 +2,14 @@
 
 module Logicuit
   # base class for all gates and circuits
-  class Base
+  class Base # rubocop:disable Metrics/ClassLength
     def initialize(*args)
       @input_targets = []
       @output_targets = []
       define_inputs(*args)
       define_outputs
       evaluate
+      assembling if respond_to?(:assembling)
     end
 
     attr_reader :input_targets, :output_targets
@@ -44,8 +45,10 @@ module Logicuit
         end
       end
 
-      define_method(:evaluate) do
+      define_method(:evaluate) do # rubocop:disable Metrics/MethodLength
         outputs.each do |output, evaluator|
+          next unless evaluator.is_a?(Proc)
+
           signal = instance_variable_get("@#{output}")
           if evaluator.call(*@input_targets.map do |input|
             instance_variable_get("@#{input}").current
@@ -55,6 +58,12 @@ module Logicuit
             signal.off
           end
         end
+      end
+    end
+
+    def self.assembling
+      define_method(:assembling) do
+        yield(*(@input_targets + @output_targets).map { |target| instance_variable_get("@#{target}") })
       end
     end
 
