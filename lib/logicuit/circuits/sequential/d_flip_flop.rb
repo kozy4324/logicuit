@@ -16,6 +16,13 @@ module Logicuit
         define_inputs :d, clock: :ck
 
         define_outputs q: ->(d) { d }
+
+        truth_table <<~TRUTH_TABLE
+          | CK | D | Q |
+          | -- | - | - |
+          |  ^ | 0 | 0 |
+          |  ^ | 1 | 1 |
+        TRUTH_TABLE
       end
     end
   end

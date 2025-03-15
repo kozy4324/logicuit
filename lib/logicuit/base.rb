@@ -97,6 +97,8 @@ module Logicuit
         table = rows.map do |row|
           row.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map do |v|
             case v
+            when "^"
+              :clock
             when "x"
               :any
             when "1"

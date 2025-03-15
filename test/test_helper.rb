@@ -7,12 +7,16 @@ require "minitest/autorun"
 
 module Minitest
   class Test
-    def assert_as_truth_table(subject_class)
+    def assert_as_truth_table(subject_class) # rubocop:disable Metrics/AbcSize
       subject_class.new.truth_table.each do |row|
         args = row.values_at(*subject_class.new.input_targets).map { _1 ? 1 : 0 }
         subject = subject_class.new(*args)
 
+        Logicuit::Signals::Clock.tick if row.values.find :clock
+
         row.each do |key, value|
+          next if value == :clock
+
           assert_equal value, subject.send(key).current,
                        "#{subject_class}.new(#{args.join(", ")}).#{key} should be #{value}"
         end
@@ -32,6 +36,8 @@ module Minitest
           state_before_action = input_targets.map { |attr| [attr, subject.send(attr).current] }.to_h
 
           subject.send(input_target).send(target_action)
+          Logicuit::Signals::Clock.tick if subject.clock
+
           state_after_action = input_targets.map { |attr| [attr, subject.send(attr).current] }.to_h
           target_state = truth_table.find { |r| r.slice(*input_targets) == state_after_action }
 
