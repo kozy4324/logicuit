@@ -4,38 +4,16 @@ module Logicuit
   module Circuits
     module Sequential
       # D Flip-Flop
-      #
-      # (D)--|   |--(Q)
-      #      |DFF|
-      # (CK)-|>  |
-      #
-      class DFlipFlop
-        def initialize(d = 0) # rubocop:disable Naming/MethodParameterName
-          Signals::Clock.on_tick << self
+      class DFlipFlop < Base
+        diagram <<~DIAGRAM
+          (D)--|   |--(Q)
+               |DFF|
+          (CK)-|>  |
+        DIAGRAM
 
-          @d = d.is_a?(Signals::Signal) ? d : Signals::Signal.new(d == 1)
+        define_inputs :d, clock: :ck
 
-          @q = Signals::Signal.new(false)
-          evaluate
-        end
-
-        attr_reader :d, :q
-
-        def evaluate
-          if d.current
-            q.on
-          else
-            q.off
-          end
-        end
-
-        def to_s
-          <<~CIRCUIT
-            (#{d})--|   |--(#{q})
-                 |DFF|
-            (CK)-|>  |
-          CIRCUIT
-        end
+        define_outputs q: ->(d) { d }
       end
     end
   end

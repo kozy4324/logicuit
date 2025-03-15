@@ -14,8 +14,7 @@ class DFlipFlopTest < Minitest::Test
   end
 
   def test_tick # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Minitest/MultipleAssertions
-    signal = Logicuit::Signals::Signal.new(false)
-    d_flip_flop = Logicuit::Circuits::Sequential::DFlipFlop.new(signal)
+    d_flip_flop = Logicuit::Circuits::Sequential::DFlipFlop.new
 
     refute d_flip_flop.q.current
 
@@ -23,7 +22,7 @@ class DFlipFlopTest < Minitest::Test
 
     refute d_flip_flop.q.current
 
-    signal.on
+    d_flip_flop.d.on
 
     refute d_flip_flop.q.current
 
@@ -31,7 +30,7 @@ class DFlipFlopTest < Minitest::Test
 
     assert d_flip_flop.q.current
 
-    signal.off
+    d_flip_flop.d.off
 
     assert d_flip_flop.q.current
 
