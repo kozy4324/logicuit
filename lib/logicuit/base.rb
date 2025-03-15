@@ -133,7 +133,7 @@ module Logicuit
     end
   end
 
-  def self.run(sym) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def self.run(sym) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity
     circuit = Base.registry[sym.upcase.to_sym].new
 
     render = lambda {
@@ -141,7 +141,7 @@ module Logicuit
       puts circuit
       puts
       puts "tick: #{Signals::Clock.tick_count}" if circuit.clock
-      puts "#{circuit.input_targets.join ","}?"
+      puts "input: #{circuit.input_targets.join ","}?" if circuit.input_targets.any?
     }
 
     if circuit.clock
@@ -152,9 +152,9 @@ module Logicuit
           Signals::Clock.tick
         end
       end
+    else
+      render.call
     end
-
-    render.call
 
     while (input = gets)
       key = input.chomp.to_sym
