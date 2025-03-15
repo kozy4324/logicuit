@@ -4,6 +4,18 @@
 module Logicuit
   # base class for all gates and circuits
   class Base # rubocop:disable Metrics/ClassLength
+    def self.tag(*tags)
+      tags.each do |tag|
+        registry[tag] = self
+      end
+    end
+
+    @@registry = {} # rubocop:disable Style/ClassVars
+
+    def self.registry
+      @@registry
+    end
+
     def initialize(*args)
       @input_targets = []
       @output_targets = []
@@ -121,19 +133,13 @@ module Logicuit
   end
 
   def self.run(sym) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-    circuit = case sym
-              when :and
-                Gates::And.new
-              when :dff
-                Circuits::Sequential::DFlipFlop.new
-              end
+    circuit = Base.registry[sym.upcase.to_sym].new
 
     render = lambda {
       system("clear")
-      puts "tick: #{Signals::Clock.tick_count}"
-      puts
       puts circuit
       puts
+      puts "tick: #{Signals::Clock.tick_count}" if circuit.clock
       puts "#{circuit.input_targets.join ","}?"
     }
 

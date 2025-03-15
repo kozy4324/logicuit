@@ -4,6 +4,8 @@ module Logicuit
   module Gates
     # AND gate
     class And < Base
+      tag :AND
+
       diagram <<~DIAGRAM
         (A)-|
             |AND|-(Y)

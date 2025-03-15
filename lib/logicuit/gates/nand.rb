@@ -4,6 +4,8 @@ module Logicuit
   module Gates
     # NAND gate
     class Nand < Base
+      tag :NAND
+
       diagram <<~DIAGRAM
         (A)-|
             |NAND|-(Y)

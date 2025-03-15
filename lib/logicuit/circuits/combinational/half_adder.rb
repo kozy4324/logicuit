@@ -5,6 +5,8 @@ module Logicuit
     module Combinational
       # HalfAdder class
       class HalfAdder < Base
+        tag :HADD
+
         diagram <<~DIAGRAM
           (A)---+-|
                 | |XOR|-(S)
