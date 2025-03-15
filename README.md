@@ -21,48 +21,47 @@ gem install logicuit
 This is the code to create a 1-bit CPU:
 
 ```
-require "logicuit"
+require 'logicuit'
 
-# 1 bit CPU
-#
-#  +-(Y)-|NOT|-(A)-+
-#  |               |
-#  +-(D)-|   |-(Q)-+
-#        |DFF|
-#   (CK)-|>  |
-#
-class OneBitCpu
-  def initialize
-    @dff = Logicuit::Circuits::Sequential::DFlipFlop.new
-    @not = Logicuit::Gates::Not.new
-    @dff.q >> @not.a
-    @not.y >> @dff.d
-  end
+class Multiplexer2To1 < Logicuit::Base
+  tag :MY_MUX
 
-  def to_s
-    <<~CIRCUIT
-      +-(#{@not.y})-|NOT|-(#{@not.a})-+
-      |               |
-      +-(#{@dff.d})-|   |-(#{@dff.q})-+
-            |DFF|
-       (CK)-|>  |
-    CIRCUIT
-  end
+  diagram <<~DIAGRAM
+    (C0)---------|
+                 |AND|--+
+         +-|NOT|-|      +--|
+         |                 |OR|--(Y)
+    (C1)---------|      +--|
+         |       |AND|--+
+    (A)--+-------|
+  DIAGRAM
+
+  define_inputs :c0, :c1, :a
+
+  define_outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 end
 
-obc = OneBitCpu.new
-loop do
-  system("clear")
-  puts obc
-  sleep 1
-  Logicuit::Signals::Clock.tick
-end
+Logicuit.run(:MY_MUX)
 ```
 
-you can execute the following as a one-liner:
+you can execute a same circuit by the following as a one-liner:
 
 ```
-$ ruby -r logicuit -e 'Logicuit::Circuits::SystemLevel::OneBitCpu.run'
+$ ruby -r ./lib/logicuit -e 'Logicuit.run(:mux)'
+```
+
+you can similarly execute other circuits with the following commands:
+
+```
+$ ruby -r ./lib/logicuit -e 'Logicuit.run(:mux)'
+```
+
+```
+$ ruby -r ./lib/logicuit -e 'Logicuit.run(:dff)'
+```
+
+```
+$ ruby -r ./lib/logicuit -e 'Logicuit.run(:one_bit_cpu)'
 ```
 
 ## Development
