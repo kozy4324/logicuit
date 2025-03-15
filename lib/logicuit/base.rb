@@ -8,7 +8,6 @@ module Logicuit
       @input_targets = []
       @output_targets = []
       @clock = false
-      use_clock if respond_to?(:use_clock)
       define_inputs(*args) if respond_to?(:define_inputs)
       define_outputs if respond_to?(:define_outputs)
       assembling if respond_to?(:assembling)
@@ -16,7 +15,7 @@ module Logicuit
       Signals::Clock.tick if @clock
     end
 
-    attr_reader :input_targets, :output_targets
+    attr_reader :input_targets, :output_targets, :clock
 
     def self.define_inputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       args.each do |input|
@@ -25,14 +24,8 @@ module Logicuit
         end
       end
 
-      if kwargs&.key?(:clock)
-        define_method(:use_clock) do
-          instance_variable_set("@clock", true)
-        end
-      end
-
       define_method(:define_inputs) do |*instance_method_args|
-        clock = instance_variable_get("@clock")
+        instance_variable_set("@clock", true) if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
           signal = Signals::Signal.new(instance_method_args[index] == 1)
           signal.on_change << self unless clock
@@ -129,31 +122,44 @@ module Logicuit
 
   def self.run(sym) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
     circuit = case sym
+              when :and
+                Gates::And.new
               when :dff
                 Circuits::Sequential::DFlipFlop.new
               end
 
-    Thread.new do
-      while input = gets
-        key = input.chomp.to_sym
-        next unless circuit.respond_to? key
+    render = lambda {
+      system("clear")
+      puts "tick: #{Signals::Clock.tick_count}"
+      puts
+      puts circuit
+      puts
+      puts "#{circuit.input_targets.join ","}?"
+    }
 
-        signal = circuit.send(key)
-        if signal.current
-          signal.off
-        else
-          signal.on
+    if circuit.clock
+      Thread.new do
+        loop do
+          sleep 1
+          Signals::Clock.tick
+          render.call
         end
-        system("clear")
-        puts circuit
       end
     end
 
-    loop do
-      system("clear")
-      puts circuit
-      sleep 1
-      Signals::Clock.tick
+    render.call
+
+    while (input = gets)
+      key = input.chomp.to_sym
+      next unless circuit.respond_to? key
+
+      signal = circuit.send(key)
+      if signal.current
+        signal.off
+      else
+        signal.on
+      end
+      render.call
     end
   end
 end

@@ -6,11 +6,13 @@ module Logicuit
     class Clock
       def initialize
         @on_tick = []
+        @tick_count = 0
       end
 
-      attr_reader :on_tick
+      attr_reader :on_tick, :tick_count
 
       def tick
+        @tick_count += 1
         @on_tick.each(&:evaluate)
       end
 
@@ -24,6 +26,10 @@ module Logicuit
 
       def self.tick
         instance.tick
+      end
+
+      def self.tick_count
+        instance.tick_count
       end
     end
   end
