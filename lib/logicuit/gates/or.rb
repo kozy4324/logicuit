@@ -4,15 +4,15 @@ module Logicuit
   module Gates
     # OR gate
     class Or < Base
-      define_inputs :a, :b
-
-      define_outputs y: ->(a, b) { a || b }
-
       diagram <<~DIAGRAM
         (A)-|
             |OR|-(Y)
         (B)-|
       DIAGRAM
+
+      define_inputs :a, :b
+
+      define_outputs y: ->(a, b) { a || b }
 
       truth_table <<~TRUTH_TABLE
         | A | B | Y |

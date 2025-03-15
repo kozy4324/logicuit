@@ -5,12 +5,6 @@ module Logicuit
     module Combinational
       # A Multiplexer with 4 inputs and 1 output
       class Multiplexer4To1 < Base
-        define_inputs :c0, :c1, :c2, :c3, :b, :a
-
-        define_outputs y: lambda { |c0, c1, c2, c3, b, a|
-          (c0 && !b && !a) || (c1 && !b && a) || (c2 && b && !a) || (c3 && b && a)
-        }
-
         diagram <<~DIAGRAM
           (C0)---------------|
                          +---|AND|---+
@@ -32,6 +26,12 @@ module Logicuit
                  |         |
           (A)----+-|NOT|---+
         DIAGRAM
+
+        define_inputs :c0, :c1, :c2, :c3, :b, :a
+
+        define_outputs y: lambda { |c0, c1, c2, c3, b, a|
+          (c0 && !b && !a) || (c1 && !b && a) || (c2 && b && !a) || (c3 && b && a)
+        }
 
         truth_table <<~TRUTH_TABLE
           | B | A | C0 | C1 | C2 | C3 | Y |

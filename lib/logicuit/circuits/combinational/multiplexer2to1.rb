@@ -5,10 +5,6 @@ module Logicuit
     module Combinational
       # A Multiplexer with 2 inputs and 1 output
       class Multiplexer2To1 < Base
-        define_inputs :c0, :c1, :a
-
-        define_outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
-
         diagram <<~DIAGRAM
           (C0)---------|
                        |AND|--+
@@ -18,6 +14,10 @@ module Logicuit
                |       |AND|--+
           (A)--+-------|
         DIAGRAM
+
+        define_inputs :c0, :c1, :a
+
+        define_outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 
         truth_table <<~TRUTH_TABLE
           | C0 | C1 | A | Y |

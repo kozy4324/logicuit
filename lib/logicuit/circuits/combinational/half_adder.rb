@@ -5,11 +5,6 @@ module Logicuit
     module Combinational
       # HalfAdder class
       class HalfAdder < Base
-        define_inputs :a, :b
-
-        define_outputs c: ->(a, b) { a && b },
-                       s: ->(a, b) { (a && !b) || (!a && b) }
-
         diagram <<~DIAGRAM
           (A)---+-+---------|
                 | |         |AND|--+
@@ -23,6 +18,11 @@ module Logicuit
               |             |AND|-----------(C)
               +-------------|
         DIAGRAM
+
+        define_inputs :a, :b
+
+        define_outputs c: ->(a, b) { a && b },
+                       s: ->(a, b) { (a && !b) || (!a && b) }
 
         truth_table <<~TRUTH_TABLE
           | A | B | C | S |
