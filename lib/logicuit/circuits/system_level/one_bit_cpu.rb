@@ -4,39 +4,29 @@ module Logicuit
   module Circuits
     module SystemLevel
       # 1 bit CPU
-      #
-      #  +-(Y)-|NOT|-(A)-+
-      #  |               |
-      #  +-(D)-|   |-(Q)-+
-      #        |DFF|
-      #   (CK)-|>  |
-      #
-      class OneBitCpu
-        def initialize
-          @dff = Sequential::DFlipFlop.new
-          @not = Gates::Not.new
-          @dff.q >> @not.a
-          @not.y >> @dff.d
-        end
+      class OneBitCpu < Base
+        tag :ONE_BIT_CPU
 
-        def to_s
-          <<~CIRCUIT
-            +-(#{@not.y})-|NOT|-(#{@not.a})-+
-            |               |
-            +-(#{@dff.d})-|   |-(#{@dff.q})-+
+        diagram <<~DIAGRAM
+          +-------------+
+          |             |
+          +-|NOT|-|   |-+-(Y)
                   |DFF|
              (CK)-|>  |
-          CIRCUIT
-        end
+        DIAGRAM
 
-        def self.run
-          obc = new
-          loop do
-            system("clear")
-            puts obc
-            sleep 1
-            Signals::Clock.tick
-          end
+        define_inputs clock: :ck
+
+        define_outputs :y
+
+        assembling do |y|
+          dff = Sequential::DFlipFlop.new
+          not_gate = Gates::Not.new
+
+          dff.q >> not_gate.a
+          not_gate.y >> dff.d
+
+          dff.q >> y
         end
       end
     end

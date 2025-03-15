@@ -24,7 +24,6 @@ module Logicuit
       define_outputs if respond_to?(:define_outputs)
       assembling if respond_to?(:assembling)
       evaluate if respond_to?(:evaluate)
-      Signals::Clock.tick if @clock
     end
 
     attr_reader :input_targets, :output_targets, :clock
@@ -146,9 +145,9 @@ module Logicuit
     if circuit.clock
       Thread.new do
         loop do
+          render.call
           sleep 1
           Signals::Clock.tick
-          render.call
         end
       end
     end
