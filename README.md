@@ -47,21 +47,17 @@ Logicuit.run(:MY_MUX)
 you can execute a same circuit by the following as a one-liner:
 
 ```
-$ ruby -r ./lib/logicuit -e 'Logicuit.run(:mux)'
+ruby -r ./lib/logicuit -e 'Logicuit.run(:mux)'
 ```
 
 you can similarly execute other circuits with the following commands:
 
 ```
-$ ruby -r ./lib/logicuit -e 'Logicuit.run(:mux)'
+ruby -r ./lib/logicuit -e 'Logicuit.run(:dff)'
 ```
 
 ```
-$ ruby -r ./lib/logicuit -e 'Logicuit.run(:dff)'
-```
-
-```
-$ ruby -r ./lib/logicuit -e 'Logicuit.run(:one_bit_cpu)'
+ruby -r ./lib/logicuit -e 'Logicuit.run(:one_bit_cpu)'
 ```
 
 ## Development
