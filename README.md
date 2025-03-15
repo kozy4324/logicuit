@@ -18,7 +18,7 @@ gem install logicuit
 
 ## Usage
 
-This is the code to create a 1-bit CPU:
+This is the code to create a Multiplexer with 2 inputs and 1 output:
 
 ```
 require 'logicuit'
