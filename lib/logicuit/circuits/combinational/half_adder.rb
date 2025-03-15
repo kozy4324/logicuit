@@ -17,7 +17,7 @@ module Logicuit
 
         define_inputs :a, :b
 
-        define_outputs c: nil, s: nil
+        define_outputs :c, :s
 
         assembling do |a, b, c, s|
           xor_gate = Gates::Xor.new

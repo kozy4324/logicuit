@@ -31,24 +31,22 @@ module Logicuit
       end
     end
 
-    def self.define_outputs(**outputs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
-      outputs.each_key do |output|
+    def self.define_outputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+      (args + kwargs.keys).each do |output|
         define_method(output) do
           instance_variable_get("@#{output}")
         end
       end
 
       define_method(:define_outputs) do
-        outputs.each_key do |output|
+        (args + kwargs.keys).each do |output|
           instance_variable_set("@#{output}", Signals::Signal.new(false))
           @output_targets << output
         end
       end
 
-      define_method(:evaluate) do # rubocop:disable Metrics/MethodLength
-        outputs.each do |output, evaluator|
-          next unless evaluator.is_a?(Proc)
-
+      define_method(:evaluate) do
+        kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
           if evaluator.call(*@input_targets.map do |input|
             instance_variable_get("@#{input}").current
