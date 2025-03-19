@@ -45,6 +45,13 @@ module Logicuit
             dff.q >> output
           end
         end
+
+        truth_table <<~TRUTH_TABLE
+          | CK | A | B | C | D | LD | QA | QB | QC | QD |
+          | -- | - | - | - | - | -- | -- | -- | -- | -- |
+          |  ^ | x | x | x | x |  0 |  A |  B |  C |  D |
+          |  ^ | x | x | x | x |  1 | QA | QB | QC | QD |
+        TRUTH_TABLE
       end
     end
   end
