@@ -106,7 +106,9 @@ module Logicuit
             when "0"
               false
             else
-              raise "Invalid value in truth table: #{v}"
+              raise "Invalid value in truth table: #{v}" unless headers.include?(v.to_sym)
+
+              [:ref, v.to_sym]
             end
           end
         end.select do |values| # rubocop:disable Style/MultilineBlockChain
