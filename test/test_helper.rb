@@ -7,7 +7,7 @@ require "minitest/autorun"
 
 module Minitest
   class Test
-    def assert_as_truth_table(subject_class) # rubocop:disable Metrics/AbcSize
+    def assert_as_truth_table(subject_class) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
       subject_class.new.truth_table.each do |row|
         args = row.values_at(*subject_class.new.input_targets).map { _1 ? 1 : 0 }
         subject = subject_class.new(*args)
@@ -17,8 +17,15 @@ module Minitest
         row.each do |key, value|
           next if value == :clock
 
-          assert_equal value, subject.send(key).current,
-                       "#{subject_class}.new(#{args.join(", ")}).#{key} should be #{value}"
+          if value.is_a?(Array) && value.first == :ref
+            expected = subject.send(value.last).current
+
+            assert_equal expected, subject.send(key).current,
+                         "#{subject_class}.new(#{args.join(", ")}).#{key} should be #{expected}"
+          else
+            assert_equal value, subject.send(key).current,
+                         "#{subject_class}.new(#{args.join(", ")}).#{key} should be #{value}"
+          end
         end
       end
     end
