@@ -10,7 +10,7 @@ module Logicuit
         diagram <<~DIAGRAM
           (A)---+-|
                 | |XOR|-(S)
-          (B)-+---+
+          (B)-+---|
               | |
               | +-|
               |   |AND|-(C)
