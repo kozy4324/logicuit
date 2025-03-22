@@ -12,13 +12,17 @@ module Minitest
         args = row.values_at(*subject_class.new.input_targets).map { _1 ? 1 : 0 }
         subject = subject_class.new(*args)
 
+        previous_values = row.reject do |_k, v|
+          v == :clock
+        end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) } # rubocop:disable Style/MultilineBlockChain
+
         Logicuit::Signals::Clock.tick if row.values.find :clock
 
         row.each do |key, value|
           next if value == :clock
 
           if value.is_a?(Array) && value.first == :ref
-            expected = subject.send(value.last).current
+            expected = previous_values[value.last]
 
             assert_equal expected, subject.send(key).current,
                          "#{subject_class}.new(#{args.join(", ")}).#{key} should be #{expected}"
