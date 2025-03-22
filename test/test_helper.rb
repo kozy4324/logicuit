@@ -47,14 +47,24 @@ module Minitest
           state_before_action = input_targets.map { |attr| [attr, subject.send(attr).current] }.to_h
 
           subject.send(input_target).send(target_action)
+          previous_values = row.reject do |_k, v|
+            v == :clock
+          end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) } # rubocop:disable Style/MultilineBlockChain
           Logicuit::Signals::Clock.tick if subject.clock
 
           state_after_action = input_targets.map { |attr| [attr, subject.send(attr).current] }.to_h
           target_state = truth_table.find { |r| r.slice(*input_targets) == state_after_action }
 
           target_state.slice(*output_targets).each do |key, value|
-            assert_equal value, subject.send(key).current,
-                         "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}" # rubocop:disable Layout/LineLength
+            if value.is_a?(Array) && value.first == :ref
+              expected = previous_values[value.last]
+
+              assert_equal expected, subject.send(key).current,
+                           "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}" # rubocop:disable Layout/LineLength
+            else
+              assert_equal value, subject.send(key).current,
+                           "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}" # rubocop:disable Layout/LineLength
+            end
           end
         end
       end
