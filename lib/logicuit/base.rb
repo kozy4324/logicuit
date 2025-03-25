@@ -83,8 +83,11 @@ module Logicuit
 
     def self.diagram(source)
       define_method(:to_s) do
-        (@input_targets + @output_targets).reduce(source) do |result, input|
+        source_ = @input_targets.reduce(source) do |result, input|
           result.gsub(/\(#{input}\)/i, "(#{instance_variable_get("@#{input}")})#{"-" * (input.size - 1)}")
+        end
+        @output_targets.reduce(source_) do |result, output|
+          result.gsub(/\(#{output}\)/i, "#{"-" * (output.size - 1)}(#{instance_variable_get("@#{output}")})")
         end
       end
     end
