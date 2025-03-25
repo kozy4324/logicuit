@@ -37,7 +37,7 @@ module Logicuit
         assembling do |a, b, c, d, ld, qa, qb, qc, qd| # rubocop:disable Metrics/ParameterLists
           [[a, qa], [b, qb], [c, qc], [d, qd]].each do |input, output|
             dff = Sequential::DFlipFlop.new
-            mux = Combinational::Multiplexer2To1.new
+            mux = Combinational::Multiplexer2to1.new
             input >> mux.c0
             dff.q >> mux.c1
             ld    >> mux.a
