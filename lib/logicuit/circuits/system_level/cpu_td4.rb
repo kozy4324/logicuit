@@ -51,8 +51,8 @@ module Logicuit
           [register_a, register_b, register_c, register_d, mux4_0, mux4_1, mux4_2, mux4_3, full_adder_4bit]
         end
 
-        def to_s
-          register_a, register_b, register_c, register_d, mux4_0, mux4_1, mux4_2, mux4_3, full_adder_4bit = components
+        def to_s # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+          register_a, register_b, register_c, register_d, mux4_0, mux4_1, mux4_2, mux4_3, full_adder_4bit = components # rubocop:disable Lint/UselessAssignment,Naming/VariableNumber
           <<~OUTPUT
             register_a: #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}
             register_b: #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
