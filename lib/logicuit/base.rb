@@ -20,13 +20,16 @@ module Logicuit
       @input_targets = []
       @output_targets = []
       @clock = false
+      @components = []
       define_inputs(*args) if respond_to?(:define_inputs)
       define_outputs if respond_to?(:define_outputs)
       assembling if respond_to?(:assembling)
       evaluate if respond_to?(:evaluate)
     end
 
-    attr_reader :input_targets, :output_targets, :clock
+    def evaluate; end
+
+    attr_reader :input_targets, :output_targets, :clock, :components
 
     def self.define_inputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
       args.each do |input|
@@ -77,7 +80,11 @@ module Logicuit
 
     def self.assembling
       define_method(:assembling) do
-        yield(*(@input_targets + @output_targets).map { |target| instance_variable_get("@#{target}") })
+        (yield(*(@input_targets + @output_targets).map do |target|
+          instance_variable_get("@#{target}")
+        end) || []).each do |component|
+          @components << component
+        end
       end
     end
 
