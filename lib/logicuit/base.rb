@@ -145,7 +145,7 @@ module Logicuit
     end
   end
 
-  def self.run(sym) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity
+  def self.run(sym, hz: 1) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Naming/MethodParameterName,Metrics/CyclomaticComplexity
     circuit = Base.registry[sym.upcase.to_sym].new
 
     render = lambda {
@@ -156,11 +156,11 @@ module Logicuit
       puts "input: #{circuit.input_targets.join ","}?" if circuit.input_targets.any?
     }
 
-    if circuit.clock
+    if circuit.clock && hz.nonzero?
       Thread.new do
         loop do
           render.call
-          sleep 1
+          sleep 1.0 / hz
           Signals::Clock.tick
         end
       end
@@ -170,7 +170,13 @@ module Logicuit
 
     while (input = gets)
       key = input.chomp.to_sym
-      next unless circuit.respond_to? key
+      unless circuit.respond_to? key
+        if circuit.clock && hz.zero?
+          Signals::Clock.tick
+          render.call
+        end
+        next
+      end
 
       signal = circuit.send(key)
       if signal.current
@@ -178,6 +184,7 @@ module Logicuit
       else
         signal.on
       end
+      Signals::Clock.tick if circuit.clock && hz.zero?
       render.call
     end
   end
