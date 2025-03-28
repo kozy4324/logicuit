@@ -145,11 +145,11 @@ module Logicuit
     end
   end
 
-  def self.run(sym, hz: 1) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Naming/MethodParameterName,Metrics/CyclomaticComplexity
+  def self.run(sym, hz: 1, noclear: false) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Naming/MethodParameterName,Metrics/CyclomaticComplexity
     circuit = Base.registry[sym.upcase.to_sym].new
 
     render = lambda {
-      system("clear")
+      system("clear") unless noclear
       puts circuit
       puts
       puts "tick: #{Signals::Clock.tick_count}" if circuit.clock
@@ -184,7 +184,6 @@ module Logicuit
       else
         signal.on
       end
-      Signals::Clock.tick if circuit.clock && hz.zero?
       render.call
     end
   end
