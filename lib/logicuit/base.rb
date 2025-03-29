@@ -72,14 +72,14 @@ module Logicuit
       define_method(:evaluate) do |*override_args| # rubocop:disable Metrics/MethodLength
         kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
-          args = if override_args.empty?
-                   @input_targets.map do |input|
-                     instance_variable_get("@#{input}").current
+          e_args = if override_args.empty?
+                     @input_targets.map do |input|
+                       instance_variable_get("@#{input}").current
+                     end
+                   else
+                     override_args
                    end
-                 else
-                   override_args
-                 end
-          if evaluator.call(*args)
+          if evaluator.call(*e_args)
             signal.on
           else
             signal.off
