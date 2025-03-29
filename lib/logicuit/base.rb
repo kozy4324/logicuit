@@ -32,12 +32,14 @@ module Logicuit
     attr_reader :input_targets, :output_targets, :clock, :components
 
     def self.define_inputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+      # define getter methods for inputs
       args.each do |input|
         define_method(input) do
           instance_variable_get("@#{input}")
         end
       end
 
+      # define initializer for inputs
       define_method(:define_inputs) do |*instance_method_args|
         instance_variable_set("@clock", true) if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
@@ -51,12 +53,14 @@ module Logicuit
     end
 
     def self.define_outputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+      # define getter methods for outputs
       (args + kwargs.keys).each do |output|
         define_method(output) do
           instance_variable_get("@#{output}")
         end
       end
 
+      # define initializer for outputs
       define_method(:define_outputs) do
         (args + kwargs.keys).each do |output|
           instance_variable_set("@#{output}", Signals::Signal.new(false))
@@ -64,6 +68,7 @@ module Logicuit
         end
       end
 
+      # define evaluate method
       define_method(:evaluate) do
         kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
