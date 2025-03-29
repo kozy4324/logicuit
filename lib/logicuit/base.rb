@@ -27,7 +27,7 @@ module Logicuit
       evaluate if respond_to?(:evaluate)
     end
 
-    def evaluate; end
+    def evaluate(*args); end
 
     attr_reader :input_targets, :output_targets, :clock, :components
 
@@ -52,7 +52,7 @@ module Logicuit
       end
     end
 
-    def self.define_outputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+    def self.define_outputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize,Metrics/PerceivedComplexity
       # define getter methods for outputs
       (args + kwargs.keys).each do |output|
         define_method(output) do
@@ -69,12 +69,17 @@ module Logicuit
       end
 
       # define evaluate method
-      define_method(:evaluate) do
+      define_method(:evaluate) do |*override_args| # rubocop:disable Metrics/MethodLength
         kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
-          if evaluator.call(*@input_targets.map do |input|
-            instance_variable_get("@#{input}").current
-          end)
+          args = if override_args.empty?
+                   @input_targets.map do |input|
+                     instance_variable_get("@#{input}").current
+                   end
+                 else
+                   override_args
+                 end
+          if evaluator.call(*args)
             signal.on
           else
             signal.off

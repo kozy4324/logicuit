@@ -13,7 +13,12 @@ module Logicuit
 
       def tick
         @tick_count += 1
-        @on_tick.each(&:evaluate)
+        # Call the `evaluate` method for all components.
+        # However, the input argument values should be bound to the values at the time `on_tick` is called.
+        @on_tick.map do |component|
+          args = component.input_targets.map { |input| component.instance_variable_get("@#{input}").current }
+          -> { component.evaluate(*args) }
+        end.each(&:call)
       end
 
       def self.instance
