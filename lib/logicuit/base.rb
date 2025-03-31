@@ -50,6 +50,18 @@ module Logicuit
         end
         Signals::Clock.on_tick << self if clock
       end
+
+      # define bulk_setter for inputs
+      define_method(:bulk_set) do |str|
+        args.zip(str.gsub(/\s/, "").split("")).each do |input, value|
+          signal = send(input)
+          if value == "1"
+            signal.on
+          else
+            signal.off
+          end
+        end
+      end
     end
 
     def self.define_outputs(*args, **kwargs)
@@ -109,7 +121,7 @@ module Logicuit
           match = Regexp.new(instruction.gsub(/Im/, "([01]{4})")).match(input)
           next unless match
 
-          instance_exec(*match[1].split("").map { _1 == "1" }, &block)
+          instance_exec(*match[1].split(""), &block)
           true
         end
       end

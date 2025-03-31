@@ -47,30 +47,8 @@ module Logicuit
           [register_a, register_b, register_c, register_d, alu]
         end
 
-        define_instructions "ADD A,Im" => lambda { |im3, im2, im1, im0|
-                              ld0.off
-                              ld1.on
-                              ld2.on
-                              ld3.on
-                              sel_a.off
-                              sel_b.off
-                              im0 ? self.im0.on : self.im0.off
-                              im1 ? self.im1.on : self.im1.off
-                              im2 ? self.im2.on : self.im2.off
-                              im3 ? self.im3.on : self.im3.off
-                            }, # rubocop:disable Layout/BlockAlignment
-                            "ADD B,Im" => lambda { |im3, im2, im1, im0|
-                              ld0.on
-                              ld1.off
-                              ld2.on
-                              ld3.on
-                              sel_a.on
-                              sel_b.off
-                              im0 ? self.im0.on : self.im0.off
-                              im1 ? self.im1.on : self.im1.off
-                              im2 ? self.im2.on : self.im2.off
-                              im3 ? self.im3.on : self.im3.off
-                            }
+        define_instructions "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 00 #{im0}#{im1}#{im2}#{im3}" },
+                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 01 #{im0}#{im1}#{im2}#{im3}" }
         # "MOV A,Im" => -> { :do_something },
         # "MOV B,Im" => -> { :do_something },
         # "MOV A,B" => -> { :do_something },
