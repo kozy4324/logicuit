@@ -48,11 +48,11 @@ module Logicuit
         end
 
         define_instructions "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 00 #{im0}#{im1}#{im2}#{im3}" },
-                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 01 #{im0}#{im1}#{im2}#{im3}" }
-        # "MOV A,Im" => -> { :do_something },
-        # "MOV B,Im" => -> { :do_something },
-        # "MOV A,B" => -> { :do_something },
-        # "MOV B,A" => -> { :do_something },
+                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 01 #{im0}#{im1}#{im2}#{im3}" },
+                            # "MOV A,Im" => -> { :do_something },
+                            # "MOV B,Im" => -> { :do_something },
+                            "MOV A,B" => -> { bulk_set "0111 10 0000" },
+                            "MOV B,A" => -> { bulk_set "1011 00 0000" }
         # "JMP Im" => -> { :do_something },
         # "JNC Im" => -> { :do_something },
         # "IN A" => -> { :do_something },

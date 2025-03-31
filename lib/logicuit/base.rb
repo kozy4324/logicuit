@@ -121,7 +121,11 @@ module Logicuit
           match = Regexp.new(instruction.gsub(/Im/, "([01]{4})")).match(input)
           next unless match
 
-          instance_exec(*match[1].split(""), &block)
+          if match[1]
+            instance_exec(*match[1].split(""), &block)
+          else
+            instance_exec(&block)
+          end
           true
         end
       end
