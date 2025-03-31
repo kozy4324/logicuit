@@ -3,7 +3,7 @@
 # Logicuit module
 module Logicuit
   # base class for all gates and circuits
-  class Base # rubocop:disable Metrics/ClassLength
+  class Base
     def self.tag(*tags)
       tags.each do |tag|
         registry[tag] = self
@@ -31,7 +31,7 @@ module Logicuit
 
     attr_reader :input_targets, :output_targets, :clock, :components
 
-    def self.define_inputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize
+    def self.define_inputs(*args, **kwargs)
       # define getter methods for inputs
       args.each do |input|
         define_method(input) do
@@ -52,7 +52,7 @@ module Logicuit
       end
     end
 
-    def self.define_outputs(*args, **kwargs) # rubocop:disable Metrics/MethodLength,Metrics/AbcSize,Metrics/PerceivedComplexity
+    def self.define_outputs(*args, **kwargs)
       # define getter methods for outputs
       (args + kwargs.keys).each do |output|
         define_method(output) do
@@ -69,7 +69,7 @@ module Logicuit
       end
 
       # define evaluate method
-      define_method(:evaluate) do |*override_args| # rubocop:disable Metrics/MethodLength
+      define_method(:evaluate) do |*override_args|
         kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
           e_args = if override_args.empty?
@@ -109,8 +109,8 @@ module Logicuit
       end
     end
 
-    def self.truth_table(source) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
-      define_method(:truth_table) do # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity,Metrics/BlockLength
+    def self.truth_table(source)
+      define_method(:truth_table) do
         rows = source.strip.split("\n")
         headers = rows.shift.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map(&:to_sym)
         rows.shift # devide line
@@ -155,7 +155,7 @@ module Logicuit
     end
   end
 
-  def self.run(sym, hz: 1, noclear: false) # rubocop:disable Metrics/AbcSize,Metrics/MethodLength,Metrics/PerceivedComplexity,Naming/MethodParameterName,Metrics/CyclomaticComplexity
+  def self.run(sym, hz: 1, noclear: false) # rubocop:disable Naming/MethodParameterName
     circuit = Base.registry[sym.upcase.to_sym].new
 
     render = lambda {

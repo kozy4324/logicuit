@@ -9,7 +9,7 @@ module Logicuit
 
         define_inputs :ld0, :ld1, :ld2, :ld3, :sel_a, :sel_b, :im0, :im1, :im2, :im3, clock: :ck
 
-        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3| # rubocop:disable Metrics/ParameterLists,Metrics/BlockLength
+        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3|
           register_a = Sequential::Register4bit.new
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
@@ -51,7 +51,7 @@ module Logicuit
           [register_a, register_b, register_c, register_d, mux0, mux1, mux2, mux3, alu]
         end
 
-        def to_s # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+        def to_s
           register_a, register_b, register_c, register_d, mux0, mux1, mux2, mux3, alu = components
           <<~OUTPUT
             register_a: #{register_a.d}#{register_a.c}#{register_a.b}#{register_a.a} -> #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}

@@ -7,7 +7,7 @@ require "minitest/autorun"
 
 module Minitest
   class Test
-    def assert_as_truth_table(subject_class) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+    def assert_as_truth_table(subject_class)
       subject_class.new.truth_table.each do |row|
         args = row.values_at(*subject_class.new.input_targets).map { _1 ? 1 : 0 }
         subject = subject_class.new(*args)
@@ -34,7 +34,7 @@ module Minitest
       end
     end
 
-    def assert_behavior_against_truth_table(subject_class) # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity,Metrics/MethodLength,Metrics/PerceivedComplexity
+    def assert_behavior_against_truth_table(subject_class)
       truth_table = subject_class.new.truth_table
       input_targets = subject_class.new.input_targets
       output_targets = subject_class.new.output_targets
