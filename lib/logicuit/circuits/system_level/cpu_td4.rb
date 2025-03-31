@@ -26,14 +26,10 @@ module Logicuit
             alu.send(sel) >> register_c.send(reg)
             alu.send(sel) >> register_d.send(reg)
           end
-          ld0.on
-          ld0 >> register_a.ld
-          ld1.on
-          ld1 >> register_b.ld
-          ld2.on
-          ld2 >> register_c.ld
-          ld3.on
-          ld3 >> register_d.ld
+          ld0.on >> register_a.ld
+          ld1.on >> register_b.ld
+          ld2.on >> register_c.ld
+          ld3.on >> register_d.ld
           [[:qa, mux0, :a0], [:qb, mux1, :a1], [:qc, mux2, :a2], [:qd, mux3, :a3]].each do |output, mux, alu_in|
             register_a.send(output) >> mux.c0
             register_b.send(output) >> mux.c1

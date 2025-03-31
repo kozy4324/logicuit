@@ -17,12 +17,14 @@ module Logicuit
         changed = @current.!
         @current = true
         @on_change.each(&:evaluate) if changed
+        self
       end
 
       def off
         changed = @current
         @current = false
         @on_change.each(&:evaluate) if changed
+        self
       end
 
       def toggle
