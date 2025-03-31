@@ -44,25 +44,54 @@ module Logicuit
           im2 >> alu.b2
           im3 >> alu.b3
 
-          [register_a, register_b, register_c, register_d, mux0, mux1, mux2, mux3, alu]
+          [register_a, register_b, register_c, register_d, alu]
         end
 
-        def to_s
-          register_a, register_b, register_c, register_d, mux0, mux1, mux2, mux3, alu = components
-          <<~OUTPUT
-            register_a: #{register_a.d}#{register_a.c}#{register_a.b}#{register_a.a} -> #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}
-            register_b: #{register_b.d}#{register_b.c}#{register_b.b}#{register_b.a} -> #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
-            register_c: #{register_c.d}#{register_c.c}#{register_c.b}#{register_c.a} -> #{register_c.qd}#{register_c.qc}#{register_c.qb}#{register_c.qa}
-            register_d: #{register_d.d}#{register_d.c}#{register_d.b}#{register_d.a} -> #{register_d.qd}#{register_d.qc}#{register_d.qb}#{register_d.qa}
+        define_instructions "ADD A,Im" => lambda { |im3, im2, im1, im0|
+          ld0.off
+          ld1.on
+          ld2.on
+          ld3.on
+          sel_a.off
+          sel_b.off
+          im0 ? self.im0.on : self.im0.off
+          im1 ? self.im1.on : self.im1.off
+          im2 ? self.im2.on : self.im2.off
+          im3 ? self.im3.on : self.im3.off
+        }
+        # "ADD B,Im" => -> { :do_something },
+        # "MOV A,Im" => -> { :do_something },
+        # "MOV B,Im" => -> { :do_something },
+        # "MOV A,B" => -> { :do_something },
+        # "MOV B,A" => -> { :do_something },
+        # "JMP Im" => -> { :do_something },
+        # "JNC Im" => -> { :do_something },
+        # "IN A" => -> { :do_something },
+        # "IN B" => -> { :do_something },
+        # "OUT B" => -> { :do_something }
 
-            mux: #{mux3.y}#{mux2.y}#{mux1.y}#{mux0.y}
+        def to_s
+          register_a, register_b, register_c, register_d, alu = components
+          <<~OUTPUT
+            register_a: #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}
+            register_b: #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
+            register_c: #{register_c.qd}#{register_c.qc}#{register_c.qb}#{register_c.qa}
+            register_d: #{register_d.qd}#{register_d.qc}#{register_d.qb}#{register_d.qa}
+
+            select: #{if sel_a.current && sel_b.current
+                        "register_d"
+                      elsif sel_b.current
+                        "register_c"
+                      else
+                        sel_a.current ? "register_b" : "register_a"
+                      end}
+
+            ImData: #{im3}#{im2}#{im1}#{im0}
 
             alu_in : #{alu.a3}#{alu.a2}#{alu.a1}#{alu.a0} + #{alu.b3}#{alu.b2}#{alu.b1}#{alu.b0}
             alu_out: #{alu.s3}#{alu.s2}#{alu.s1}#{alu.s0}
 
             ld0: #{ld0}, ld1: #{ld1}, ld2: #{ld2}, ld3: #{ld3}
-            sel: #{sel_b}#{sel_a}
-            ImData: #{im3}#{im2}#{im1}#{im0}
           OUTPUT
         end
       end

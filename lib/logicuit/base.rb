@@ -98,6 +98,23 @@ module Logicuit
       end
     end
 
+    def self.define_instructions(**kwargs)
+      define_method(:instructions) do
+        kwargs.keys
+      end
+
+      define_method(:execute) do |input|
+        # input: e.g. "ADD A,Im"
+        kwargs.find do |instruction, block|
+          match = Regexp.new(instruction.gsub(/Im/, "([01]{4})")).match(input)
+          next unless match
+
+          instance_exec(*match[1].split("").map { _1 == "1" }, &block)
+          true
+        end
+      end
+    end
+
     def self.diagram(source)
       define_method(:to_s) do
         source_ = @input_targets.reduce(source) do |result, input|
@@ -163,7 +180,11 @@ module Logicuit
       puts circuit
       puts
       puts "tick: #{Signals::Clock.tick_count}" if circuit.clock
-      puts "input: #{circuit.input_targets.join ","}?" if circuit.input_targets.any?
+      if circuit.respond_to?(:instructions)
+        puts "instructions: #{circuit.instructions.join "|"}"
+      elsif circuit.input_targets.any?
+        puts "input: #{circuit.input_targets.join ","}?"
+      end
     }
 
     if circuit.clock && hz.nonzero?
@@ -178,23 +199,28 @@ module Logicuit
       render.call
     end
 
-    while (input = gets)
-      key = input.chomp.to_sym
-      unless circuit.respond_to? key
-        if circuit.clock && hz.zero?
-          Signals::Clock.tick
-          render.call
-        end
-        next
-      end
-
-      signal = circuit.send(key)
-      if signal.current
-        signal.off
+    while (input = gets.chomp)
+      if circuit.respond_to?(:execute) && circuit.execute(input)
+        Signals::Clock.tick
+        render.call # rubocop:disable Style/IdenticalConditionalBranches
       else
-        signal.on
+        key = input.to_sym
+        unless circuit.respond_to? key
+          if circuit.clock && hz.zero?
+            Signals::Clock.tick
+            render.call
+          end
+          next
+        end
+
+        signal = circuit.send(key)
+        if signal.current
+          signal.off
+        else
+          signal.on
+        end
+        render.call # rubocop:disable Style/IdenticalConditionalBranches
       end
-      render.call
     end
   end
 end
