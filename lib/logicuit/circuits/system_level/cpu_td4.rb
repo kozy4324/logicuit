@@ -57,8 +57,8 @@ module Logicuit
                             "MOV A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 11 #{im0}#{im1}#{im2}#{im3}" },
                             "MOV B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 11 #{im0}#{im1}#{im2}#{im3}" },
                             "MOV A,B" => -> { bulk_set "0111 10 0000" },
-                            "MOV B,A" => -> { bulk_set "1011 00 0000" }
-        # "JMP Im" => -> { :do_something },
+                            "MOV B,A" => -> { bulk_set "1011 00 0000" },
+                            "JMP Im" => ->(im3, im2, im1, im0) { bulk_set "1110 11 #{im0}#{im1}#{im2}#{im3}" }
         # "JNC Im" => -> { :do_something },
         # "IN A" => -> { :do_something },
         # "IN B" => -> { :do_something },
