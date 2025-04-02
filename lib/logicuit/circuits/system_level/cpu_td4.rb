@@ -9,7 +9,9 @@ module Logicuit
 
         define_inputs :ld0, :ld1, :ld2, :sel_a, :sel_b, :im0, :im1, :im2, :im3, clock: :ck
 
-        assembling do |ld0, ld1, ld2, sel_a, sel_b, im0, im1, im2, im3|
+        define_outputs :carry_flag
+
+        assembling do |ld0, ld1, ld2, sel_a, sel_b, im0, im1, im2, im3, carry_flag|
           register_a = Sequential::Register4bit.new
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
@@ -18,6 +20,7 @@ module Logicuit
           mux2 = Combinational::Multiplexer4to1.new
           mux3 = Combinational::Multiplexer4to1.new
           alu = Combinational::FullAdder4bit.new
+          dff = Sequential::DFlipFlop.new
 
           [%i[s0 a], %i[s1 b], %i[s2 c], %i[s3 d]].each do |sel, reg|
             alu.send(sel) >> register_a.send(reg)
@@ -40,6 +43,8 @@ module Logicuit
           im1 >> alu.b1
           im2 >> alu.b2
           im3 >> alu.b3
+          alu.c >> dff.d
+          dff.q >> carry_flag
 
           [register_a, register_b, register_c, alu]
         end
@@ -75,6 +80,7 @@ module Logicuit
 
             alu_in : #{alu.a3}#{alu.a2}#{alu.a1}#{alu.a0} + #{alu.b3}#{alu.b2}#{alu.b1}#{alu.b0}
             alu_out: #{alu.s3}#{alu.s2}#{alu.s1}#{alu.s0}
+            carry  : #{carry_flag}
 
             ld0: #{ld0}, ld1: #{ld1}, ld2: #{ld2}
           OUTPUT
