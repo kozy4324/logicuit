@@ -7,14 +7,15 @@ module Logicuit
       class CpuTd4 < Base
         tag :TD4
 
-        define_inputs :ld0, :ld1, :ld2, :sel_a, :sel_b, :im0, :im1, :im2, :im3, clock: :ck
+        define_inputs :ld0, :ld1, :ld2, :ld3, :sel_a, :sel_b, :im0, :im1, :im2, :im3, clock: :ck
 
         define_outputs :carry_flag
 
-        assembling do |ld0, ld1, ld2, sel_a, sel_b, im0, im1, im2, im3, carry_flag|
+        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, carry_flag|
           register_a = Sequential::Register4bit.new
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
+          pc = Sequential::ProgramCounter.new
           mux0 = Combinational::Multiplexer4to1.new
           mux1 = Combinational::Multiplexer4to1.new
           mux2 = Combinational::Multiplexer4to1.new
@@ -26,10 +27,12 @@ module Logicuit
             alu.send(sel) >> register_a.send(reg)
             alu.send(sel) >> register_b.send(reg)
             alu.send(sel) >> register_c.send(reg)
+            alu.send(sel) >> pc.send(reg)
           end
           ld0.on >> register_a.ld
           ld1.on >> register_b.ld
           ld2.on >> register_c.ld
+          ld3.on >> pc.ld
           [[:qa, mux0, :a0], [:qb, mux1, :a1], [:qc, mux2, :a2], [:qd, mux3, :a3]].each do |output, mux, alu_in|
             register_a.send(output) >> mux.c0
             register_b.send(output) >> mux.c1
@@ -46,15 +49,15 @@ module Logicuit
           alu.c >> dff.d
           dff.q >> carry_flag
 
-          [register_a, register_b, register_c, alu]
+          [register_a, register_b, register_c, pc, alu]
         end
 
-        define_instructions "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "011 00 #{im0}#{im1}#{im2}#{im3}" },
-                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "101 10 #{im0}#{im1}#{im2}#{im3}" },
-                            "MOV A,Im" => ->(im3, im2, im1, im0) { bulk_set "011 11 #{im0}#{im1}#{im2}#{im3}" },
-                            "MOV B,Im" => ->(im3, im2, im1, im0) { bulk_set "101 11 #{im0}#{im1}#{im2}#{im3}" },
-                            "MOV A,B" => -> { bulk_set "011 10 0000" },
-                            "MOV B,A" => -> { bulk_set "101 00 0000" }
+        define_instructions "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 00 #{im0}#{im1}#{im2}#{im3}" },
+                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 10 #{im0}#{im1}#{im2}#{im3}" },
+                            "MOV A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 11 #{im0}#{im1}#{im2}#{im3}" },
+                            "MOV B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 11 #{im0}#{im1}#{im2}#{im3}" },
+                            "MOV A,B" => -> { bulk_set "0111 10 0000" },
+                            "MOV B,A" => -> { bulk_set "1011 00 0000" }
         # "JMP Im" => -> { :do_something },
         # "JNC Im" => -> { :do_something },
         # "IN A" => -> { :do_something },
@@ -62,11 +65,13 @@ module Logicuit
         # "OUT B" => -> { :do_something }
 
         def to_s
-          register_a, register_b, register_c, alu = components
+          register_a, register_b, register_c, pc, alu = components
           <<~OUTPUT
             register_a: #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}
             register_b: #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
             register_c: #{register_c.qd}#{register_c.qc}#{register_c.qb}#{register_c.qa}
+
+            program_counter: #{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}
 
             select: #{if sel_a.current && sel_b.current
                         "register_d"
@@ -82,7 +87,7 @@ module Logicuit
             alu_out: #{alu.s3}#{alu.s2}#{alu.s1}#{alu.s0}
             carry  : #{carry_flag}
 
-            ld0: #{ld0}, ld1: #{ld1}, ld2: #{ld2}
+            ld0: #{ld0}, ld1: #{ld1}, ld2: #{ld2}, ld3: #{ld3}
           OUTPUT
         end
       end
