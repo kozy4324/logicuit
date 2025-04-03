@@ -9,9 +9,9 @@ module Logicuit
 
         define_inputs :ld0, :ld1, :ld2, :ld3, :sel_a, :sel_b, :im0, :im1, :im2, :im3, clock: :ck
 
-        define_outputs :carry_flag
+        define_outputs :carry_flag, :led1, :led2, :led3, :led4
 
-        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, carry_flag|
+        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, carry_flag, led1, led2, led3, led4|
           register_a = Sequential::Register4bit.new
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
@@ -36,12 +36,16 @@ module Logicuit
           [[:qa, mux0, :a0], [:qb, mux1, :a1], [:qc, mux2, :a2], [:qd, mux3, :a3]].each do |output, mux, alu_in|
             register_a.send(output) >> mux.c0
             register_b.send(output) >> mux.c1
-            register_c.send(output) >> mux.c2
+            Signals::Signal.new.off >> mux.c2
             Signals::Signal.new.off >> mux.c3
             sel_a >> mux.a
             sel_b >> mux.b
             mux.y >> alu.send(alu_in)
           end
+          register_c.qa >> led4
+          register_c.qb >> led3
+          register_c.qc >> led2
+          register_c.qd >> led1
           im0 >> alu.b0
           im1 >> alu.b1
           im2 >> alu.b2
@@ -58,11 +62,12 @@ module Logicuit
                             "MOV B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 11 #{im0}#{im1}#{im2}#{im3}" },
                             "MOV A,B" => -> { bulk_set "0111 10 0000" },
                             "MOV B,A" => -> { bulk_set "1011 00 0000" },
-                            "JMP Im" => ->(im3, im2, im1, im0) { bulk_set "1110 11 #{im0}#{im1}#{im2}#{im3}" }
-        # "JNC Im" => -> { :do_something },
-        # "IN A" => -> { :do_something },
-        # "IN B" => -> { :do_something },
-        # "OUT B" => -> { :do_something }
+                            "JMP Im" => ->(im3, im2, im1, im0) { bulk_set "1110 11 #{im0}#{im1}#{im2}#{im3}" },
+                            # "JNC Im" => -> { :do_something },
+                            # "IN A" => -> { :do_something },
+                            # "IN B" => -> { :do_something },
+                            "OUT B" => -> { bulk_set "1101 10 0000" },
+                            "OUT Im" => ->(im3, im2, im1, im0) { bulk_set "1101 11 #{im0}#{im1}#{im2}#{im3}" }
 
         def to_s
           register_a, register_b, register_c, pc, alu = components
@@ -70,6 +75,8 @@ module Logicuit
             register_a: #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}
             register_b: #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
             register_c: #{register_c.qd}#{register_c.qc}#{register_c.qb}#{register_c.qa}
+
+            LED: #{led1}#{led2}#{led3}#{led4}
 
             program_counter: #{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}
 
