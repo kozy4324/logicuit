@@ -168,8 +168,8 @@ module Logicuit
           headers.size == values.size
         end.map do |values| # rubocop:disable Style/MultilineBlockChain
           array = [values]
-          while array.any? { |values| values.any? { |v| v == :any } }
-            target_index = array.find_index { |values| values.any? { |v| v == :any } }
+          while array.any? { it.any? { |v| v == :any } }
+            target_index = array.find_index { it.any? { |v| v == :any } }
             target = array[target_index]
             prop_index = target.find_index { |v| v == :any }
             array.delete_at(target_index)
