@@ -54,6 +54,8 @@ module Logicuit
       # define bulk_setter for inputs
       define_method(:bulk_set) do |str|
         args.zip(str.gsub(/\s/, "").split("")).each do |input, value|
+          next if value.nil?
+
           signal = send(input)
           if value == "1"
             signal.on

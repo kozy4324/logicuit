@@ -7,11 +7,11 @@ module Logicuit
       class CpuTd4 < Base
         tag :TD4
 
-        define_inputs :ld0, :ld1, :ld2, :ld3, :sel_a, :sel_b, :im0, :im1, :im2, :im3, clock: :ck
+        define_inputs :ld0, :ld1, :ld2, :ld3, :sel_a, :sel_b, :im0, :im1, :im2, :im3, :in0, :in1, :in2, :in3, clock: :ck
 
         define_outputs :carry_flag, :led1, :led2, :led3, :led4
 
-        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, carry_flag, led1, led2, led3, led4|
+        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, in0, in1, in2, in3, carry_flag, led1, led2, led3, led4| # rubocop:disable Layout/LineLength
           register_a = Sequential::Register4bit.new
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
@@ -33,10 +33,10 @@ module Logicuit
           ld1.on >> register_b.ld
           ld2.on >> register_c.ld
           ld3.on >> pc.ld
-          [[:qa, mux0, :a0], [:qb, mux1, :a1], [:qc, mux2, :a2], [:qd, mux3, :a3]].each do |output, mux, alu_in|
-            register_a.send(output) >> mux.c0
-            register_b.send(output) >> mux.c1
-            Signals::Signal.new.off >> mux.c2
+          [[:qa, in0, mux0, :a0], [:qb, in1, mux1, :a1], [:qc, in2, mux2, :a2], [:qd, in3, mux3, :a3]].each do |reg_out, in_port, mux, alu_in| # rubocop:disable Layout/LineLength
+            register_a.send(reg_out) >> mux.c0
+            register_b.send(reg_out) >> mux.c1
+            in_port >> mux.c2
             Signals::Signal.new.off >> mux.c3
             sel_a >> mux.a
             sel_b >> mux.b
@@ -64,8 +64,8 @@ module Logicuit
                             "MOV B,A" => -> { bulk_set "1011 00 0000" },
                             "JMP Im" => ->(im3, im2, im1, im0) { bulk_set "1110 11 #{im0}#{im1}#{im2}#{im3}" },
                             # "JNC Im" => -> { :do_something },
-                            # "IN A" => -> { :do_something },
-                            # "IN B" => -> { :do_something },
+                            "IN A" => -> { bulk_set "0111 01 0000" },
+                            "IN B" => -> { bulk_set "1011 01 0000" },
                             "OUT B" => -> { bulk_set "1101 10 0000" },
                             "OUT Im" => ->(im3, im2, im1, im0) { bulk_set "1101 11 #{im0}#{im1}#{im2}#{im3}" }
 
@@ -76,7 +76,8 @@ module Logicuit
             register_b: #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
             register_c: #{register_c.qd}#{register_c.qc}#{register_c.qb}#{register_c.qa}
 
-            LED: #{led1}#{led2}#{led3}#{led4}
+            INPUT_PORT : #{in3}#{in2}#{in1}#{in0}
+            OUTPUT_PORT: #{led1}#{led2}#{led3}#{led4}
 
             program_counter: #{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}
 
