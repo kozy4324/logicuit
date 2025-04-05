@@ -53,7 +53,7 @@ module Logicuit
           alu.c >> dff.d
           dff.q >> carry_flag
 
-          [register_a, register_b, register_c, pc, alu]
+          [register_a, register_b, pc]
         end
 
         define_instructions "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 00 #{im0}#{im1}#{im2}#{im3}" },
@@ -70,7 +70,7 @@ module Logicuit
                             "OUT Im" => ->(im3, im2, im1, im0) { bulk_set "1101 11 #{im0}#{im1}#{im2}#{im3}" }
 
         def to_s
-          register_a, register_b, register_c, pc, alu = components
+          register_a, register_b, pc = components
           a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
           b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
           p = "#{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}"
