@@ -56,12 +56,12 @@ module Logicuit
           [register_a, register_b, pc]
         end
 
-        define_instructions "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 00 #{im0}#{im1}#{im2}#{im3}" },
-                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 10 #{im0}#{im1}#{im2}#{im3}" },
-                            "MOV A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 11 #{im0}#{im1}#{im2}#{im3}" },
+        define_instructions "MOV A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 11 #{im0}#{im1}#{im2}#{im3}" },
                             "MOV B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 11 #{im0}#{im1}#{im2}#{im3}" },
                             "MOV A,B" => -> { bulk_set "0111 10 0000" },
                             "MOV B,A" => -> { bulk_set "1011 00 0000" },
+                            "ADD A,Im" => ->(im3, im2, im1, im0) { bulk_set "0111 00 #{im0}#{im1}#{im2}#{im3}" },
+                            "ADD B,Im" => ->(im3, im2, im1, im0) { bulk_set "1011 10 #{im0}#{im1}#{im2}#{im3}" },
                             "JMP Im" => ->(im3, im2, im1, im0) { bulk_set "1110 11 #{im0}#{im1}#{im2}#{im3}" },
                             "JNC Im" => ->(im3, im2, im1, im0, c) { bulk_set "111#{c} 11 #{im0}#{im1}#{im2}#{im3}" },
                             "IN A" => -> { bulk_set "0111 01 0000" },
