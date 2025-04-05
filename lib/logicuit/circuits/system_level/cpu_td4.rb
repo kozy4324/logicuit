@@ -70,9 +70,12 @@ module Logicuit
                             "OUT Im" => ->(im3, im2, im1, im0) { bulk_set "1101 11 #{im0}#{im1}#{im2}#{im3}" }
 
         def to_s
+          p_a = "(#{@a || "0000"})"
+          p_b = "(#{@b || "0000"})"
+
           register_a, register_b, pc = components
-          a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
-          b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
+          @a = a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
+          @b = b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
           p = "#{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}"
           o = "#{led1}#{led2}#{led3}#{led4}"
           i = "#{in3}#{in2}#{in1}#{in0}"
@@ -81,10 +84,10 @@ module Logicuit
           <<~OUTPUT
             +----------------------------------------------+
             |                                              |
-            +-->|rg_a|----------->|   |                    |
+            +-->|rg_a|#{p_a}----->|   |                    |
             |   |#{a}|            |   |                    |
             |                     |   |                    |
-            +-->|rg_b|----------->|   |----------->|   |---+
+            +-->|rg_b|#{p_b}----->|   |----------->|   |---+
             |   |#{b}|            |   |            |   |
             |                     |SEL|            |ALU|
             +-->| out|  |  in|--->|   |            |   |
