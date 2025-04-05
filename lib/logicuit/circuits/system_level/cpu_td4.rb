@@ -71,31 +71,27 @@ module Logicuit
 
         def to_s
           register_a, register_b, register_c, pc, alu = components
+          a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
+          b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
+          p = "#{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}"
+          o = "#{led1}#{led2}#{led3}#{led4}"
+          i = "#{in3}#{in2}#{in1}#{in0}"
+          m = "#{im3}#{im2}#{im1}#{im0}"
+
           <<~OUTPUT
-            register_a: #{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}
-            register_b: #{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}
-            register_c: #{register_c.qd}#{register_c.qc}#{register_c.qb}#{register_c.qa}
-
-            INPUT_PORT : #{in3}#{in2}#{in1}#{in0}
-            OUTPUT_PORT: #{led1}#{led2}#{led3}#{led4}
-
-            program_counter: #{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}
-
-            select: #{if sel_a.current && sel_b.current
-                        "register_d"
-                      elsif sel_b.current
-                        "register_c"
-                      else
-                        sel_a.current ? "register_b" : "register_a"
-                      end}
-
-            ImData: #{im3}#{im2}#{im1}#{im0}
-
-            alu_in : #{alu.a3}#{alu.a2}#{alu.a1}#{alu.a0} + #{alu.b3}#{alu.b2}#{alu.b1}#{alu.b0}
-            alu_out: #{alu.s3}#{alu.s2}#{alu.s1}#{alu.s0}
-            carry  : #{carry_flag}
-
-            ld0: #{ld0}, ld1: #{ld1}, ld2: #{ld2}, ld3: #{ld3}
+            +----------------------------------------------+
+            |                                              |
+            +-->|rg_a|----------->|   |                    |
+            |   |#{a}|            |   |                    |
+            |                     |   |                    |
+            +-->|rg_b|----------->|   |----------->|   |---+
+            |   |#{b}|            |   |            |   |
+            |                     |SEL|            |ALU|
+            +-->| out|  |  in|--->|   |            |   |
+            |   |#{o}|  |#{i}|    |   |  |  im|--->|   |--(#{carry_flag})
+            |                     |   |  |#{m}|
+            +-->|  pc|  (0000)--->|   |
+                |#{p}|
           OUTPUT
         end
       end
