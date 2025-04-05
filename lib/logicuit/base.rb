@@ -124,7 +124,11 @@ module Logicuit
           next unless match
 
           if match[1]
-            instance_exec(*match[1].split(""), &block)
+            if input.start_with?("JNC")
+              instance_exec(*match[1].split(""), carry_flag, &block)
+            else
+              instance_exec(*match[1].split(""), &block)
+            end
           else
             instance_exec(&block)
           end
