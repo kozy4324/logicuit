@@ -150,7 +150,7 @@ module Logicuit
 
     def self.truth_table(source)
       define_method(:truth_table) do
-        rows = source.strip.split("\n")
+        rows = source.strip.split("\n").map { |row| row.gsub(/#.*$/, "") }
         headers = rows.shift.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map(&:to_sym)
         rows.shift # devide line
         table = rows.map do |row|
