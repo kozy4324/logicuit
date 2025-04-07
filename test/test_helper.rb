@@ -55,7 +55,7 @@ module Minitest
           state_after_action = input_targets.map { |attr| [attr, subject.send(attr).current] }.to_h
           target_state = truth_table.find { |r| r.slice(*input_targets) == state_after_action }
 
-          target_state.slice(*output_targets).each do |key, value|
+          target_state&.slice(*output_targets)&.each do |key, value|
             if value.is_a?(Array) && value.first == :ref
               expected = previous_values[value.last]
 
