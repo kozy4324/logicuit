@@ -11,6 +11,9 @@ Style/StringLiteralsInInterpolation:
 Layout/LineLength:
   Enabled: false
 
+Style/NumericPredicate:
+  Enabled: false
+
 Metrics:
   Enabled: false
 
