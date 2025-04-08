@@ -3,7 +3,7 @@
 module Logicuit
   module Circuits
     module Combinational
-      # HalfAdder class
+      # Decoder class
       class Decoder < Base
         tag :DEC
 
