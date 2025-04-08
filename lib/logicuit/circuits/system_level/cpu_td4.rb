@@ -11,7 +11,7 @@ module Logicuit
 
         define_outputs :carry_flag, :led1, :led2, :led3, :led4
 
-        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, in0, in1, in2, in3, carry_flag, led1, led2, led3, led4| # rubocop:disable Layout/LineLength
+        assembling do |ld0, ld1, ld2, ld3, sel_a, sel_b, im0, im1, im2, im3, in0, in1, in2, in3, carry_flag, led1, led2, led3, led4|
           register_a = Sequential::Register4bit.new
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
@@ -33,7 +33,7 @@ module Logicuit
           ld1.on >> register_b.ld
           ld2.on >> register_c.ld
           ld3.on >> pc.ld
-          [[:qa, in0, mux0, :a0], [:qb, in1, mux1, :a1], [:qc, in2, mux2, :a2], [:qd, in3, mux3, :a3]].each do |reg_out, in_port, mux, alu_in| # rubocop:disable Layout/LineLength
+          [[:qa, in0, mux0, :a0], [:qb, in1, mux1, :a1], [:qc, in2, mux2, :a2], [:qd, in3, mux3, :a3]].each do |reg_out, in_port, mux, alu_in|
             register_a.send(reg_out) >> mux.c0
             register_b.send(reg_out) >> mux.c1
             in_port >> mux.c2

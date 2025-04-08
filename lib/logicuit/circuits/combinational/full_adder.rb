@@ -47,7 +47,7 @@ module Logicuit
 
         define_inputs :cin, :a, :b
 
-        define_outputs s: ->(cin, a, b) { (!cin && !a && b) || (!cin && a && !b) || (cin && !a && !b) || (cin && a && b) }, # rubocop:disable Layout/LineLength
+        define_outputs s: ->(cin, a, b) { (!cin && !a && b) || (!cin && a && !b) || (cin && !a && !b) || (cin && a && b) },
                        c: ->(cin, a, b) { (!cin && a && b) || (cin && !a && b) || (cin && a && !b) || (cin && a && b) }
 
         truth_table <<~TRUTH_TABLE

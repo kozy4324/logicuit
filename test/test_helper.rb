@@ -60,10 +60,10 @@ module Minitest
               expected = previous_values[value.last]
 
               assert_equal expected, subject.send(key).current,
-                           "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}" # rubocop:disable Layout/LineLength
+                           "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}"
             else
               assert_equal value, subject.send(key).current,
-                           "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}" # rubocop:disable Layout/LineLength
+                           "Input state is #{state_before_action}, #{subject_class}.#{input_target}.#{target_action} should set ##{key} to #{value}"
             end
           end
         end
