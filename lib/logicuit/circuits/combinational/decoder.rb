@@ -7,10 +7,6 @@ module Logicuit
       class Decoder < Base
         tag :DEC
 
-        diagram <<~DIAGRAM
-          TODO: implement decoder diagram
-        DIAGRAM
-
         define_inputs :op3, :op2, :op1, :op0, :c_flag
 
         define_outputs sel_b: ->(_, _, op1, _, _) { op1 },
