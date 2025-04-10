@@ -12,7 +12,7 @@ module Logicuit
 
       define_inputs :a
 
-      define_outputs y: ->(a) { !a } # rubocop:disable Style/SymbolProc
+      define_outputs y: ->(a) { !a }
 
       truth_table <<~TRUTH_TABLE
         | A | Y |
