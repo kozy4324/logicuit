@@ -83,6 +83,8 @@ module Logicuit
       end
 
       # define evaluate method
+      return if kwargs.empty?
+
       define_method(:evaluate) do |*override_args|
         kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
