@@ -51,11 +51,7 @@ module Logicuit
 
     def self.define_outputs(*args, **kwargs)
       # define getter methods for outputs
-      (args + kwargs.keys).each do |output|
-        define_method(output) do
-          instance_variable_get("@#{output}")
-        end
-      end
+      attr_reader(*(args + kwargs.keys))
 
       # define initializer for outputs
       define_method(:define_outputs) do
