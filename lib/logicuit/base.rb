@@ -33,12 +33,7 @@ module Logicuit
     attr_reader :input_targets, :output_targets, :clock, :components, :initialized
 
     def self.define_inputs(*args, **kwargs)
-      # define getter methods for inputs
-      args.each do |input|
-        define_method(input) do
-          instance_variable_get("@#{input}")
-        end
-      end
+      attr_reader(*args)
 
       # define initializer for inputs
       define_method(:define_inputs) do |*instance_method_args|
