@@ -44,7 +44,7 @@ module Logicuit
         instance_variable_set("@clock", true) if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
           signal = Signals::Signal.new(instance_method_args[index] == 1)
-          signal.on_change << self unless clock
+          signal.downstreams << self unless clock
           instance_variable_set("@#{input}", signal)
           @input_targets << input
         end

@@ -7,24 +7,24 @@ module Logicuit
       def initialize(current = false) # rubocop:disable Style/OptionalBooleanParameter
         @current = current
         @connected_by = nil
-        @on_change = []
+        @downstreams = []
       end
 
-      attr_reader :current, :on_change
+      attr_reader :current, :downstreams
       attr_accessor :connected_by
 
       def on
         return if @current
 
         @current = true
-        @on_change.each(&:evaluate)
+        @downstreams.each(&:evaluate)
       end
 
       def off
         return unless @current
 
         @current = false
-        @on_change.each(&:evaluate)
+        @downstreams.each(&:evaluate)
       end
 
       def toggle
@@ -34,7 +34,7 @@ module Logicuit
       def connects_to(other)
         other.connected_by = self
         other.evaluate
-        on_change << other
+        downstreams << other
       end
       alias >> connects_to
 
