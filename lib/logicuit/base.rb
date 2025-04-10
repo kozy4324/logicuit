@@ -112,31 +112,6 @@ module Logicuit
       end
     end
 
-    def self.define_instructions(**kwargs)
-      define_method(:instructions) do
-        kwargs.keys
-      end
-
-      define_method(:execute) do |input|
-        # input: e.g. "ADD A,Im"
-        kwargs.find do |instruction, block|
-          match = Regexp.new(instruction.gsub(/Im/, "([01]{4})")).match(input)
-          next unless match
-
-          if match[1]
-            if input.start_with?("JNC")
-              instance_exec(*match[1].split(""), carry_flag, &block)
-            else
-              instance_exec(*match[1].split(""), &block)
-            end
-          else
-            instance_exec(&block)
-          end
-          true
-        end
-      end
-    end
-
     def self.diagram(source)
       define_method(:to_s) do
         source_ = @input_targets.reduce(source) do |result, input|
