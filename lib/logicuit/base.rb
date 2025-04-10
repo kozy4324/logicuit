@@ -45,11 +45,11 @@ module Logicuit
         instance_variable_set("@clock", true) if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
           signal = Signals::Signal.new(instance_method_args[index] == 1)
-          signal.connects_to(self) unless clock
+          signal >> self unless clock
           instance_variable_set("@#{input}", signal)
           @input_targets << input
         end
-        Signals::Clock.connects_to(self) if clock
+        Signals::Clock >> self if clock
       end
 
       # define bulk_setter for inputs

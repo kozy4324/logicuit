@@ -21,20 +21,23 @@ module Logicuit
         end.each(&:call)
       end
 
-      def self.instance
-        @instance ||= new
-      end
+      class << self
+        def instance
+          @instance ||= new
+        end
 
-      def self.connects_to(component)
-        instance.downstreams << component
-      end
+        def connects_to(component)
+          instance.downstreams << component
+        end
+        alias >> connects_to
 
-      def self.tick
-        instance.tick
-      end
+        def tick
+          instance.tick
+        end
 
-      def self.tick_count
-        instance.tick_count
+        def tick_count
+          instance.tick_count
+        end
       end
     end
   end
