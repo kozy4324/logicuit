@@ -25,7 +25,7 @@ module Logicuit
       define_outputs if respond_to?(:define_outputs)
       assembling if respond_to?(:assembling)
       @initialized = true
-      evaluate if respond_to?(:evaluate)
+      evaluate
     end
 
     def evaluate(*args); end
