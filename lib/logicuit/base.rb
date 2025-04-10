@@ -38,7 +38,7 @@ module Logicuit
 
       # define initializer for inputs
       define_method(:define_inputs) do |*instance_method_args|
-        instance_variable_set("@clock", true) if kwargs&.key?(:clock)
+        @clock = true if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
           signal = Signals::Signal.new(instance_method_args[index] == 1)
           signal >> self unless clock
