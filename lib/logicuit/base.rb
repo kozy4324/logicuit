@@ -49,7 +49,7 @@ module Logicuit
           instance_variable_set("@#{input}", signal)
           @input_targets << input
         end
-        Signals::Clock.on_tick << self if clock
+        Signals::Clock.connects_to(self) if clock
       end
 
       # define bulk_setter for inputs
