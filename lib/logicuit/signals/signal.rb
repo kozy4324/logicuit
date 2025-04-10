@@ -6,25 +6,23 @@ module Logicuit
     class Signal
       def initialize(current = false) # rubocop:disable Style/OptionalBooleanParameter
         @current = current
-        @connected_by = nil
         @downstreams = []
       end
 
-      attr_reader :current, :downstreams
-      attr_accessor :connected_by
+      attr_reader :current
 
       def on
         return if @current
 
         @current = true
-        @downstreams.each(&:evaluate)
+        propagate_current
       end
 
       def off
         return unless @current
 
         @current = false
-        @downstreams.each(&:evaluate)
+        propagate_current
       end
 
       def toggle
@@ -32,16 +30,19 @@ module Logicuit
       end
 
       def connects_to(other)
-        other.connected_by = self
-        other.evaluate
-        downstreams << other
+        @downstreams << other
+        propagate_current
       end
       alias >> connects_to
 
-      def evaluate
-        return if @connected_by.nil?
-
-        @connected_by.current ? on : off
+      def propagate_current
+        @downstreams.each do |downstream|
+          if downstream.is_a?(Signal)
+            current ? downstream.on : downstream.off
+          elsif downstream.respond_to?(:evaluate)
+            downstream.evaluate
+          end
+        end
       end
 
       def to_s

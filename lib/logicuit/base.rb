@@ -24,12 +24,13 @@ module Logicuit
       define_inputs(*args) if respond_to?(:define_inputs)
       define_outputs if respond_to?(:define_outputs)
       assembling if respond_to?(:assembling)
+      @initialized = true
       evaluate if respond_to?(:evaluate)
     end
 
     def evaluate(*args); end
 
-    attr_reader :input_targets, :output_targets, :clock, :components
+    attr_reader :input_targets, :output_targets, :clock, :components, :initialized
 
     def self.define_inputs(*args, **kwargs)
       # define getter methods for inputs
@@ -44,7 +45,7 @@ module Logicuit
         instance_variable_set("@clock", true) if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
           signal = Signals::Signal.new(instance_method_args[index] == 1)
-          signal.downstreams << self unless clock
+          signal.connects_to(self) unless clock
           instance_variable_set("@#{input}", signal)
           @input_targets << input
         end
@@ -86,6 +87,8 @@ module Logicuit
       return if kwargs.empty?
 
       define_method(:evaluate) do |*override_args|
+        return unless initialized
+
         kwargs.each do |output, evaluator|
           signal = instance_variable_get("@#{output}")
           e_args = if override_args.empty?

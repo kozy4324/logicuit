@@ -10,6 +10,8 @@ module Logicuit
         define_outputs :d7, :d6, :d5, :d4, :d3, :d2, :d1, :d0
 
         def evaluate
+          return unless initialized
+
           output = case "#{a3}#{a2}#{a1}#{a0}"
                    in "0000" then "10110111"
                    in "0001" then "00000001"
