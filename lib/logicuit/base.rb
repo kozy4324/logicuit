@@ -47,20 +47,6 @@ module Logicuit
         end
         Signals::Clock >> self if clock
       end
-
-      # define bulk_setter for inputs
-      define_method(:bulk_set) do |str|
-        args.zip(str.gsub(/\s/, "").split("")).each do |input, value|
-          next if value.nil?
-
-          signal = send(input)
-          if value == "1"
-            signal.on
-          else
-            signal.off
-          end
-        end
-      end
     end
 
     def self.define_outputs(*args, **kwargs)
