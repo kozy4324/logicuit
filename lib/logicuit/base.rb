@@ -152,7 +152,7 @@ module Logicuit
     end
   end
 
-  def self.run(sym, hz: 1, noclear: false) # rubocop:disable Naming/MethodParameterName
+  def self.run(sym, hz: 1, noclear: false)
     circuit = Base.registry[sym.upcase.to_sym].new
 
     render = lambda {
