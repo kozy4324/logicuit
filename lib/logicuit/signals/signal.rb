@@ -14,17 +14,17 @@ module Logicuit
       attr_accessor :connected_by
 
       def on
-        changed = @current.!
+        return if @current
+
         @current = true
-        @on_change.each(&:evaluate) if changed
-        self
+        @on_change.each(&:evaluate)
       end
 
       def off
-        changed = @current
+        return unless @current
+
         @current = false
-        @on_change.each(&:evaluate) if changed
-        self
+        @on_change.each(&:evaluate)
       end
 
       def toggle

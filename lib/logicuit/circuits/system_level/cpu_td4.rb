@@ -37,7 +37,7 @@ module Logicuit
             register_a.send(reg_out) >> mux.c0
             register_b.send(reg_out) >> mux.c1
             in_port >> mux.c2
-            Signals::Signal.new.off >> mux.c3
+            Signals::Signal.new >> mux.c3
             dec.sel_a >> mux.a
             dec.sel_b >> mux.b
             mux.y >> alu.send(alu_in)
