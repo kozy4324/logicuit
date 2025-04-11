@@ -21,13 +21,16 @@ module Logicuit
       @output_targets = []
       @clock = false
       @components = []
-      define_inputs(*args) if respond_to?(:define_inputs)
-      define_outputs if respond_to?(:define_outputs)
-      assembling if respond_to?(:assembling)
+      define_inputs(*args)
+      define_outputs
+      assembling
       @initialized = true
       evaluate
     end
 
+    def define_inputs(*args); end
+    def define_outputs; end
+    def assembling; end
     def evaluate(*args); end
 
     attr_reader :input_targets, :output_targets, :clock, :components, :initialized
