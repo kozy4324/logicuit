@@ -2,7 +2,7 @@
 
 module Logicuit
   module Circuits
-    module SystemLevel
+    module Sequential
       # 1 bit CPU with a Multiplexer
       # Input A is H, MOV A,A
       # Input A is L, NOT A
