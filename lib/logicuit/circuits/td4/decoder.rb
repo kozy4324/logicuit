@@ -2,7 +2,7 @@
 
 module Logicuit
   module Circuits
-    module Combinational
+    module Td4
       # Decoder class
       class Decoder < Base
         tag :DEC

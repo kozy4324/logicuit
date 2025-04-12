@@ -2,9 +2,9 @@
 
 module Logicuit
   module Circuits
-    module SystemLevel
-      # TD4
-      class CpuTd4 < Base
+    module Td4
+      # TD4 CPU
+      class Cpu < Base
         tag :TD4
 
         define_inputs :in0, :in1, :in2, :in3, clock: :ck
@@ -16,8 +16,8 @@ module Logicuit
           register_b = Sequential::Register4bit.new
           register_c = Sequential::Register4bit.new
           pc = Sequential::ProgramCounter.new
-          rom = Rom::Timer.new
-          dec = Combinational::Decoder.new
+          rom = Rom.new
+          dec = Decoder.new
           mux0 = Combinational::Multiplexer4to1.new
           mux1 = Combinational::Multiplexer4to1.new
           mux2 = Combinational::Multiplexer4to1.new
