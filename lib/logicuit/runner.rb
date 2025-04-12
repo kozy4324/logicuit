@@ -30,27 +30,22 @@ module Logicuit
     end
 
     while (input = gets.chomp)
-      if circuit.respond_to?(:execute) && circuit.execute(input)
-        Signals::Clock.tick
-        render.call # rubocop:disable Style/IdenticalConditionalBranches
-      else
-        key = input.to_sym
-        unless circuit.respond_to? key
-          if circuit.clock && hz.zero?
-            Signals::Clock.tick
-            render.call
-          end
-          next
+      key = input.to_sym
+      unless circuit.respond_to? key
+        if circuit.clock && hz.zero?
+          Signals::Clock.tick
+          render.call
         end
-
-        signal = circuit.send(key)
-        if signal.current
-          signal.off
-        else
-          signal.on
-        end
-        render.call # rubocop:disable Style/IdenticalConditionalBranches
+        next
       end
+
+      signal = circuit.send(key)
+      if signal.current
+        signal.off
+      else
+        signal.on
+      end
+      render.call
     end
   end
 end
