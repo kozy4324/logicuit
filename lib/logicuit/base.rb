@@ -131,9 +131,9 @@ module Logicuit
               [:ref, v.to_sym]
             end
           end
-        end.select do |values| # rubocop:disable Style/MultilineBlockChain
+        end.select do |values|
           headers.size == values.size
-        end.map do |values| # rubocop:disable Style/MultilineBlockChain
+        end.map do |values|
           array = [values]
           while array.any? { it.any? { |v| v == :any } }
             target_index = array.find_index { it.any? { |v| v == :any } }
@@ -147,7 +147,7 @@ module Logicuit
             end)
           end
           array
-        end.flatten!(1).map do |values| # rubocop:disable Style/MultilineBlockChain
+        end.flatten!(1).map do |values|
           headers.zip(values).to_h
         end
         table

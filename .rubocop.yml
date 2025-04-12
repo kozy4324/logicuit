@@ -17,6 +17,9 @@ Style/NumericPredicate:
 Style/SymbolProc:
   Enabled: false
 
+Style/MultilineBlockChain:
+  Enabled: false
+
 Naming/MethodParameterName:
   Enabled: false
 

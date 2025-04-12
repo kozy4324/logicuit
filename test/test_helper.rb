@@ -14,7 +14,7 @@ module Minitest
 
         previous_values = row.reject do |_k, v|
           v == :clock
-        end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) } # rubocop:disable Style/MultilineBlockChain
+        end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) }
 
         Logicuit::Signals::Clock.tick if row.values.find :clock
 
@@ -49,7 +49,7 @@ module Minitest
           subject.send(input_target).send(target_action)
           previous_values = row.reject do |_k, v|
             v == :clock
-          end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) } # rubocop:disable Style/MultilineBlockChain
+          end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) }
           Logicuit::Signals::Clock.tick if subject.clock
 
           state_after_action = input_targets.map { |attr| [attr, subject.send(attr).current] }.to_h
