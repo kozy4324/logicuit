@@ -10,6 +10,15 @@ class OneBitCpuTest < Minitest::Test
 
     Logicuit::Signals::Clock.tick
 
+    refute subject.y.current
+
+    subject.a.on
+    Logicuit::Signals::Clock.tick
+
+    refute subject.y.current
+
+    Logicuit::Signals::Clock.tick
+
     assert subject.y.current
 
     Logicuit::Signals::Clock.tick

@@ -3,38 +3,38 @@
 module Logicuit
   module Circuits
     module SystemLevel
-      # 1 bit CPU
+      # 1 bit CPU with a Multiplexer
+      # Input A is H, MOV A,A
+      # Input A is L, NOT A
       class OneBitCpu < Base
         tag :ONE_BIT_CPU
 
         diagram <<~DIAGRAM
-          +-------------+
-          |             |
-          +-|NOT|-|   |-+-(Y)
-                  |DFF|
-             (CK)-|>  |
+          +-----------------------------+
+          |                             |
+          +----|   |---+---------|      |
+               |DFF|   |         |      |
+          (CK)-|>  |   +--|NOT|--|MUX|--+--(Y)
+                                 |
+                            (A)--|
         DIAGRAM
 
-        define_inputs clock: :ck
+        define_inputs :a, clock: :ck
 
         define_outputs :y
 
-        assembling do |y|
+        assembling do |a, y|
           dff = Sequential::DFlipFlop.new
           not_gate = Gates::Not.new
+          mux = Combinational::Multiplexer2to1.new
 
+          dff.q >> mux.c0
           dff.q >> not_gate.a
-          not_gate.y >> dff.d
-
-          dff.q >> y
+          not_gate.y >> mux.c1
+          a >> mux.a
+          mux.y >> dff.d
+          mux.y >> y
         end
-
-        truth_table <<~TRUTH_TABLE
-          | CK | prev Y | Y |
-          | -- | ------ | - |
-          |  ^ |      0 | 1 |
-          |  ^ |      1 | 0 |
-        TRUTH_TABLE
       end
     end
   end
