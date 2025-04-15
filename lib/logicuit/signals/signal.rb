@@ -25,10 +25,6 @@ module Logicuit
         propagate_current
       end
 
-      def toggle
-        @current ? off : on
-      end
-
       def connects_to(other)
         @downstreams << other
         propagate_current
