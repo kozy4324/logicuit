@@ -40,6 +40,10 @@ module Logicuit
       end
     end
 
+    def [](key)
+      send(key)
+    end
+
     def self.outputs(*args, **kwargs)
       # define getter methods for outputs
       attr_reader(*(args + kwargs.keys))

@@ -24,21 +24,21 @@ module Logicuit
           dff = Sequential::DFlipFlop.new
 
           [%i[s0 a], %i[s1 b], %i[s2 c], %i[s3 d]].each do |sel, reg|
-            alu.send(sel) >> register_a.send(reg)
-            alu.send(sel) >> register_b.send(reg)
-            alu.send(sel) >> register_c.send(reg)
-            alu.send(sel) >> pc.send(reg)
+            alu[sel] >> register_a[reg]
+            alu[sel] >> register_b[reg]
+            alu[sel] >> register_c[reg]
+            alu[sel] >> pc[reg]
           end
           alu.c >> dff.d
 
           [[:qa, in0, mux0, :a0], [:qb, in1, mux1, :a1], [:qc, in2, mux2, :a2], [:qd, in3, mux3, :a3]].each do |reg_out, in_port, mux, alu_in|
-            register_a.send(reg_out) >> mux.c0
-            register_b.send(reg_out) >> mux.c1
+            register_a[reg_out] >> mux.c0
+            register_b[reg_out] >> mux.c1
             in_port >> mux.c2
             Signals::Signal.new >> mux.c3
             dec.sel_a >> mux.a
             dec.sel_b >> mux.b
-            mux.y >> alu.send(alu_in)
+            mux.y >> alu[alu_in]
           end
 
           register_c.qa >> led4
