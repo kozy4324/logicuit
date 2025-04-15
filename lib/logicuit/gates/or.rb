@@ -3,7 +3,7 @@
 module Logicuit
   module Gates
     # OR gate
-    class Or < Base
+    class Or < DSL
       diagram <<~DIAGRAM
         (A)-|
             |OR|-(Y)

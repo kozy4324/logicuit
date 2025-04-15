@@ -3,7 +3,7 @@
 # Logicuit module
 module Logicuit
   # base class for all gates and circuits
-  class Base
+  class DSL
     def initialize(*args)
       @input_targets = []
       @output_targets = []

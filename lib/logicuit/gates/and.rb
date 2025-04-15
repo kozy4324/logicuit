@@ -3,7 +3,7 @@
 module Logicuit
   module Gates
     # AND gate
-    class And < Base
+    class And < DSL
       diagram <<~DIAGRAM
         (A)-|
             |AND|-(Y)

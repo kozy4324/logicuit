@@ -6,7 +6,7 @@ module Logicuit
       # 1 bit CPU with a Multiplexer
       # Input A is H, MOV A,A
       # Input A is L, NOT A
-      class OneBitCpu < Base
+      class OneBitCpu < DSL
         diagram <<~DIAGRAM
           +-----------------------------+
           |                             |

@@ -3,7 +3,7 @@
 module Logicuit
   module Gates
     # XOR gate
-    class Xor < Base
+    class Xor < DSL
       diagram <<~DIAGRAM
         (A)-|
             |XOR|-(Y)

@@ -23,7 +23,7 @@ This is the code to create a Multiplexer with 2 inputs and 1 output:
 ```
 require 'logicuit'
 
-class Multiplexer2to1 < Logicuit::Base
+class Multiplexer2to1 < Logicuit::DSL
   diagram <<~DIAGRAM
     (C0)---------|
                  |AND|--+

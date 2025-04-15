@@ -3,7 +3,7 @@
 module Logicuit
   module Gates
     # NAND gate
-    class Nand < Base
+    class Nand < DSL
       diagram <<~DIAGRAM
         (A)-|
             |NAND|-(Y)

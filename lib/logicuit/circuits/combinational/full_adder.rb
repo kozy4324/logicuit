@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Combinational
       # FullAdder class
-      class FullAdder < Base
+      class FullAdder < DSL
         diagram <<~DIAGRAM
           (Cin)---+-|NOT|-----+
                   |           |

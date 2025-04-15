@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Sequential
       # 4 bit register
-      class Register4bit < Base
+      class Register4bit < DSL
         diagram <<~DIAGRAM
                   +---------------------+
                   +-|                   |

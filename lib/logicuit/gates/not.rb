@@ -3,7 +3,7 @@
 module Logicuit
   module Gates
     # NOT gate
-    class Not < Base
+    class Not < DSL
       diagram <<~DIAGRAM
         (A)-|NOT|-(Y)
       DIAGRAM

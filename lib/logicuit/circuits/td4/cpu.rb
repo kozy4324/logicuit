@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Td4
       # TD4 CPU
-      class Cpu < Base
+      class Cpu < DSL
         define_inputs :in0, :in1, :in2, :in3, clock: :ck
 
         define_outputs :led1, :led2, :led3, :led4

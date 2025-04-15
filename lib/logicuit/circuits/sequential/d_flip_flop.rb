@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Sequential
       # D Flip-Flop
-      class DFlipFlop < Base
+      class DFlipFlop < DSL
         diagram <<~DIAGRAM
           (D)--|   |--(Q)
                |DFF|

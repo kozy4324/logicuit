@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Td4
       # Timer
-      class Rom < Base
+      class Rom < DSL
         define_inputs :a3, :a2, :a1, :a0
 
         define_outputs :d7, :d6, :d5, :d4, :d3, :d2, :d1, :d0

@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Sequential
       # Program Counter
-      class ProgramCounter < Base
+      class ProgramCounter < DSL
         diagram <<~DIAGRAM
           (A)---|  |---(QA)
           (B)---|  |---(QB)

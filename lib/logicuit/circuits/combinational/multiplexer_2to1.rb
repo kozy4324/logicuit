@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Combinational
       # A Multiplexer with 2 inputs and 1 output
-      class Multiplexer2to1 < Base
+      class Multiplexer2to1 < DSL
         diagram <<~DIAGRAM
           (C0)---------|
                        |AND|--+

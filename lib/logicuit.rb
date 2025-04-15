@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "logicuit/version"
-require_relative "logicuit/base"
+require_relative "logicuit/dsl"
 require_relative "logicuit/runner"
 require_relative "logicuit/gates/and"
 require_relative "logicuit/gates/or"

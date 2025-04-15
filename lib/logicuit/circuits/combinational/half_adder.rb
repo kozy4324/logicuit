@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Combinational
       # HalfAdder class
-      class HalfAdder < Base
+      class HalfAdder < DSL
         diagram <<~DIAGRAM
           (A)---+-|
                 | |XOR|-(S)

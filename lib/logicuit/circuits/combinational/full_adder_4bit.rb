@@ -4,7 +4,7 @@ module Logicuit
   module Circuits
     module Combinational
       # FullAdder class
-      class FullAdder4bit < Base
+      class FullAdder4bit < DSL
         diagram <<~DIAGRAM
           (Cin)-|    |--(S0)  +--------|    |--(S1)
           (A0)--|FADD|        |  (A1)--|FADD|
