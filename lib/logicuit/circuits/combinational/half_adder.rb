@@ -15,9 +15,9 @@ module Logicuit
               +---|
         DIAGRAM
 
-        define_inputs :a, :b
+        inputs :a, :b
 
-        define_outputs :c, :s
+        outputs :c, :s
 
         assembling do |a, b, c, s|
           xor_gate = Gates::Xor.new

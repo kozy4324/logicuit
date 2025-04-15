@@ -34,9 +34,9 @@ class Multiplexer2to1 < Logicuit::DSL
     (A)--+-------|
   DIAGRAM
 
-  define_inputs :c0, :c1, :a
+  inputs :c0, :c1, :a
 
-  define_outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
+  outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 end
 
 Logicuit.run(:MY_MUX)

@@ -17,9 +17,9 @@ module Logicuit
                             (A)--|
         DIAGRAM
 
-        define_inputs :a, clock: :ck
+        inputs :a, clock: :ck
 
-        define_outputs :y
+        outputs :y
 
         assembling do |a, y|
           dff = Sequential::DFlipFlop.new

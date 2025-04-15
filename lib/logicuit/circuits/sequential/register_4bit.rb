@@ -28,9 +28,9 @@ module Logicuit
           (LD)--+     (CK)--+
         DIAGRAM
 
-        define_inputs :a, :b, :c, :d, :ld, clock: :ck
+        inputs :a, :b, :c, :d, :ld, clock: :ck
 
-        define_outputs :qa, :qb, :qc, :qd
+        outputs :qa, :qb, :qc, :qd
 
         assembling do |a, b, c, d, ld, qa, qb, qc, qd|
           [[a, qa], [b, qb], [c, qc], [d, qd]].each do |input, output|

@@ -27,9 +27,9 @@ module Logicuit
           (A)----+-|NOT|---+
         DIAGRAM
 
-        define_inputs :c0, :c1, :c2, :c3, :b, :a
+        inputs :c0, :c1, :c2, :c3, :b, :a
 
-        define_outputs y: lambda { |c0, c1, c2, c3, b, a|
+        outputs y: lambda { |c0, c1, c2, c3, b, a|
           (c0 && !b && !a) || (c1 && !b && a) || (c2 && b && !a) || (c3 && b && a)
         }
 

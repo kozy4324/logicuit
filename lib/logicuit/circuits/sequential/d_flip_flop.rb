@@ -11,9 +11,9 @@ module Logicuit
           (CK)-|>  |
         DIAGRAM
 
-        define_inputs :d, clock: :ck
+        inputs :d, clock: :ck
 
-        define_outputs q: ->(d) { d }
+        outputs q: ->(d) { d }
 
         truth_table <<~TRUTH_TABLE
           | CK | D | Q |

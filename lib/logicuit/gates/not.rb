@@ -8,9 +8,9 @@ module Logicuit
         (A)-|NOT|-(Y)
       DIAGRAM
 
-      define_inputs :a
+      inputs :a
 
-      define_outputs y: ->(a) { !a }
+      outputs y: ->(a) { !a }
 
       truth_table <<~TRUTH_TABLE
         | A | Y |

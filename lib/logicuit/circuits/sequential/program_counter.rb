@@ -13,12 +13,12 @@ module Logicuit
           (LD)--|
         DIAGRAM
 
-        define_inputs :a, :b, :c, :d, :ld, clock: :ck
+        inputs :a, :b, :c, :d, :ld, clock: :ck
 
-        define_outputs :qa, :qb, :qc, :qd
+        outputs :qa, :qb, :qc, :qd
 
         assembling do |a, b, c, d, ld, qa, qb, qc, qd|
-          # define_inputs :cin, :a0, :b0, :a1, :b1, :a2, :b2, :a3, :b3
+          # inputs :cin, :a0, :b0, :a1, :b1, :a2, :b2, :a3, :b3
           fadd = Combinational::FullAdder4bit.new(0, 0, 1, 0, 0, 0, 0, 0, 0)
 
           [[a, qa, :a0, :s0], [b, qb, :a1, :s1], [c, qc, :a2, :s2],

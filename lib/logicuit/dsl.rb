@@ -9,26 +9,26 @@ module Logicuit
       @output_targets = []
       @clock = false
       @components = []
-      define_inputs(*args)
-      define_outputs
+      inputs(*args)
+      outputs
       assembling
       @initialized = true
       evaluate
     end
 
-    def define_inputs(*args); end
-    def define_outputs; end
+    def inputs(*args); end
+    def outputs; end
     def assembling; end
     def evaluate(*args); end
 
     attr_reader :input_targets, :output_targets, :clock, :components, :initialized
 
-    def self.define_inputs(*args, **kwargs)
+    def self.inputs(*args, **kwargs)
       # define getter methods for inputs
       attr_reader(*args)
 
       # define initializer for inputs
-      define_method(:define_inputs) do |*instance_method_args|
+      define_method(:inputs) do |*instance_method_args|
         @clock = true if kwargs&.key?(:clock)
         args.each_with_index do |input, index|
           signal = Signals::Signal.new(instance_method_args[index] == 1)
@@ -40,12 +40,12 @@ module Logicuit
       end
     end
 
-    def self.define_outputs(*args, **kwargs)
+    def self.outputs(*args, **kwargs)
       # define getter methods for outputs
       attr_reader(*(args + kwargs.keys))
 
       # define initializer for outputs
-      define_method(:define_outputs) do
+      define_method(:outputs) do
         (args + kwargs.keys).each do |output|
           instance_variable_set("@#{output}", Signals::Signal.new(false))
           @output_targets << output

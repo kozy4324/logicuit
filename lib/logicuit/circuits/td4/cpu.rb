@@ -5,9 +5,9 @@ module Logicuit
     module Td4
       # TD4 CPU
       class Cpu < DSL
-        define_inputs :in0, :in1, :in2, :in3, clock: :ck
+        inputs :in0, :in1, :in2, :in3, clock: :ck
 
-        define_outputs :led1, :led2, :led3, :led4
+        outputs :led1, :led2, :led3, :led4
 
         assembling do |in0, in1, in2, in3, led1, led2, led3, led4|
           register_a = Sequential::Register4bit.new

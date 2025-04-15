@@ -5,14 +5,14 @@ module Logicuit
     module Td4
       # Decoder class
       class Decoder < DSL
-        define_inputs :op3, :op2, :op1, :op0, :c_flag
+        inputs :op3, :op2, :op1, :op0, :c_flag
 
-        define_outputs sel_b: ->(_, _, op1, _, _) { op1 },
-                       sel_a: ->(op3, _, _, op0, _) { op3 || op0 },
-                       ld0: ->(op3, op2, _, _, _) { op3 || op2 },
-                       ld1: ->(op3, op2, _, _, _) { op3 || !op2 },
-                       ld2: ->(op3, op2, _, _, _) { !op3 || op2 },
-                       ld3: ->(op3, op2, _, op0, c_flag) { !op3 || !op2 || (!op0 && c_flag) }
+        outputs sel_b: ->(_, _, op1, _, _) { op1 },
+                sel_a: ->(op3, _, _, op0, _) { op3 || op0 },
+                ld0: ->(op3, op2, _, _, _) { op3 || op2 },
+                ld1: ->(op3, op2, _, _, _) { op3 || !op2 },
+                ld2: ->(op3, op2, _, _, _) { !op3 || op2 },
+                ld3: ->(op3, op2, _, op0, c_flag) { !op3 || !op2 || (!op0 && c_flag) }
 
         truth_table <<~TRUTH_TABLE
           | OP3 | OP2 | OP1 | OP0 | C_FLAG | SEL_B | SEL_A | LD0 | LD1 | LD2 | LD3 |

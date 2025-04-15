@@ -15,9 +15,9 @@ module Logicuit
           (A)--+-------|
         DIAGRAM
 
-        define_inputs :c0, :c1, :a
+        inputs :c0, :c1, :a
 
-        define_outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
+        outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 
         truth_table <<~TRUTH_TABLE
           | C0 | C1 | A | Y |

@@ -10,9 +10,9 @@ module Logicuit
         (B)-|
       DIAGRAM
 
-      define_inputs :a, :b
+      inputs :a, :b
 
-      define_outputs y: ->(a, b) { a && b }
+      outputs y: ->(a, b) { a && b }
 
       truth_table <<~TRUTH_TABLE
         | A | B | Y |

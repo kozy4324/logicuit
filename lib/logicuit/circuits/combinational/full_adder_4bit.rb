@@ -17,9 +17,9 @@ module Logicuit
           (B2)--|    |--------+  (B3)--|    |---(C)
         DIAGRAM
 
-        define_inputs :cin, :a0, :b0, :a1, :b1, :a2, :b2, :a3, :b3
+        inputs :cin, :a0, :b0, :a1, :b1, :a2, :b2, :a3, :b3
 
-        define_outputs :s0, :s1, :s2, :s3, :c
+        outputs :s0, :s1, :s2, :s3, :c
 
         assembling do |cin, a0, b0, a1, b1, a2, b2, a3, b3, s0, s1, s2, s3, cout|
           [[a0, b0, s0], [a1, b1, s1], [a2, b2, s2], [a3, b3, s3]].reduce(cin) do |c, sigs|
