@@ -31,6 +31,12 @@ module Logicuit
       end
       alias >> connects_to
 
+      def to_s
+        current ? "1" : "0"
+      end
+
+      private
+
       def propagate_current
         @downstreams.each do |downstream|
           if downstream.is_a?(Signal)
@@ -39,10 +45,6 @@ module Logicuit
             downstream.evaluate
           end
         end
-      end
-
-      def to_s
-        current ? "1" : "0"
       end
     end
   end
