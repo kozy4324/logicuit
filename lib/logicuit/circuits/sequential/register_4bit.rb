@@ -5,8 +5,6 @@ module Logicuit
     module Sequential
       # 4 bit register
       class Register4bit < Base
-        tag :REG4
-
         diagram <<~DIAGRAM
                   +---------------------+
                   +-|                   |

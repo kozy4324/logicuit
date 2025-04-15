@@ -5,8 +5,6 @@ module Logicuit
     module Sequential
       # Program Counter
       class ProgramCounter < Base
-        tag :PC
-
         diagram <<~DIAGRAM
           (A)---|  |---(QA)
           (B)---|  |---(QB)

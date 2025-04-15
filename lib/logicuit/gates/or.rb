@@ -4,8 +4,6 @@ module Logicuit
   module Gates
     # OR gate
     class Or < Base
-      tag :OR
-
       diagram <<~DIAGRAM
         (A)-|
             |OR|-(Y)

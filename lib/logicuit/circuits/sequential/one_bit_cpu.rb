@@ -7,8 +7,6 @@ module Logicuit
       # Input A is H, MOV A,A
       # Input A is L, NOT A
       class OneBitCpu < Base
-        tag :ONE_BIT_CPU
-
         diagram <<~DIAGRAM
           +-----------------------------+
           |                             |

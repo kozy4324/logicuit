@@ -4,8 +4,6 @@ module Logicuit
   module Gates
     # XOR gate
     class Xor < Base
-      tag :XOR
-
       diagram <<~DIAGRAM
         (A)-|
             |XOR|-(Y)

@@ -2,9 +2,7 @@
 
 # Logicuit module
 module Logicuit
-  def self.run(sym, hz: 1, noclear: false)
-    circuit = Base.registry[sym.upcase.to_sym].new
-
+  def self.run(circuit, hz: 1, noclear: false)
     render = lambda {
       system("clear") unless noclear
       puts circuit

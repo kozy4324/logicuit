@@ -5,8 +5,6 @@ module Logicuit
     module Sequential
       # D Flip-Flop
       class DFlipFlop < Base
-        tag :DFF
-
         diagram <<~DIAGRAM
           (D)--|   |--(Q)
                |DFF|

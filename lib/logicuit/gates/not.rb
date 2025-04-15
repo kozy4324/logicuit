@@ -4,8 +4,6 @@ module Logicuit
   module Gates
     # NOT gate
     class Not < Base
-      tag :NOT
-
       diagram <<~DIAGRAM
         (A)-|NOT|-(Y)
       DIAGRAM

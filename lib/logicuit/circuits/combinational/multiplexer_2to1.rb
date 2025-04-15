@@ -5,8 +5,6 @@ module Logicuit
     module Combinational
       # A Multiplexer with 2 inputs and 1 output
       class Multiplexer2to1 < Base
-        tag :MUX, :MUX2, :MUX2to1
-
         diagram <<~DIAGRAM
           (C0)---------|
                        |AND|--+

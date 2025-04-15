@@ -5,8 +5,6 @@ module Logicuit
     module Combinational
       # FullAdder class
       class FullAdder4bit < Base
-        tag :FADD4
-
         diagram <<~DIAGRAM
           (Cin)-|    |--(S0)  +--------|    |--(S1)
           (A0)--|FADD|        |  (A1)--|FADD|

@@ -4,18 +4,6 @@
 module Logicuit
   # base class for all gates and circuits
   class Base
-    def self.tag(*tags)
-      tags.each do |tag|
-        registry[tag] = self
-      end
-    end
-
-    @@registry = {} # rubocop:disable Style/ClassVars
-
-    def self.registry
-      @@registry
-    end
-
     def initialize(*args)
       @input_targets = []
       @output_targets = []
@@ -152,6 +140,10 @@ module Logicuit
         end
         table
       end
+    end
+
+    def self.run(opts = {})
+      ::Logicuit.run(new, **opts)
     end
   end
 end
