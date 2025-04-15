@@ -14,6 +14,9 @@ Layout/LineLength:
 Style/NumericPredicate:
   Enabled: false
 
+Style/OptionalBooleanParameter:
+  Enabled: false
+
 Style/SymbolProc:
   Enabled: false
 

@@ -4,7 +4,7 @@ module Logicuit
   module Signals
     # Signal
     class Signal
-      def initialize(current = false) # rubocop:disable Style/OptionalBooleanParameter
+      def initialize(current = false)
         @current = current
         @downstreams = []
       end
