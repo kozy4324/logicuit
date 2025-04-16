@@ -25,13 +25,13 @@ require 'logicuit'
 
 class Multiplexer2to1 < Logicuit::DSL
   diagram <<~DIAGRAM
-    (C0)---------|
+    (C0)---------|   |
                  |AND|--+
-         +-|NOT|-|      +--|
+         +-|NOT|-|   |  +--|  |
          |                 |OR|--(Y)
-    (C1)---------|      +--|
+    (C1)---------|   |  +--|  |
          |       |AND|--+
-    (A)--+-------|
+    (A)--+-------|   |
   DIAGRAM
 
   inputs :c0, :c1, :a
@@ -39,23 +39,23 @@ class Multiplexer2to1 < Logicuit::DSL
   outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 end
 
-Logicuit.run(:MY_MUX)
+Multiplexer2to1.run
 ```
 
 you can execute a same circuit by the following as a one-liner:
 
 ```
-ruby -r ./lib/logicuit -e 'Logicuit.run(:mux)'
+ruby -r logicuit -e 'Logicuit::Circuits::Combinational::Multiplexer2to1.run'
 ```
 
 you can similarly execute other circuits with the following commands:
 
 ```
-ruby -r ./lib/logicuit -e 'Logicuit.run(:dff)'
+ruby -r logicuit -e 'Logicuit::Circuits::Sequential::DFlipFlop.run'
 ```
 
 ```
-ruby -r ./lib/logicuit -e 'Logicuit.run(:one_bit_cpu)'
+ruby -r logicuit -e 'Logicuit::Circuits::Td4::Cpu.run'
 ```
 
 ## Development
