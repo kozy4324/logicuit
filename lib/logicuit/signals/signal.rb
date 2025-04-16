@@ -26,7 +26,11 @@ module Logicuit
       end
 
       def connects_to(other)
-        @downstreams << other
+        if other.is_a? Array
+          @downstreams.concat(other)
+        else
+          @downstreams << other
+        end
         propagate_current
       end
       alias >> connects_to

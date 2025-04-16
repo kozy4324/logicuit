@@ -23,12 +23,10 @@ module Logicuit
           alu = Combinational::FullAdder4bit.new
           dff = Sequential::DFlipFlop.new
 
-          [%i[s0 a], %i[s1 b], %i[s2 c], %i[s3 d]].each do |sel, reg|
-            alu[sel] >> register_a[reg]
-            alu[sel] >> register_b[reg]
-            alu[sel] >> register_c[reg]
-            alu[sel] >> pc[reg]
-          end
+          alu.s0 >> [register_a.a, register_b.a, register_c.a, pc.a]
+          alu.s1 >> [register_a.b, register_b.b, register_c.b, pc.b]
+          alu.s2 >> [register_a.c, register_b.c, register_c.c, pc.c]
+          alu.s3 >> [register_a.d, register_b.d, register_c.d, pc.d]
           alu.c >> dff.d
 
           [[:qa, in0, mux0, :a0], [:qb, in1, mux1, :a1], [:qc, in2, mux2, :a2], [:qd, in3, mux3, :a3]].each do |reg_out, in_port, mux, alu_in|
