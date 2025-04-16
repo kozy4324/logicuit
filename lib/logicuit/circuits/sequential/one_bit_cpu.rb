@@ -21,7 +21,7 @@ module Logicuit
 
         outputs :y
 
-        assembling do |a, y|
+        assembling do
           dff = Sequential::DFlipFlop.new
           not_gate = Gates::Not.new
           mux = Combinational::Multiplexer2to1.new

@@ -9,7 +9,7 @@ module Logicuit
 
         outputs :led1, :led2, :led3, :led4
 
-        assembling do |in0, in1, in2, in3, led1, led2, led3, led4|
+        assembling do
           register_a, register_b, register_c = (:a..:c).map { Sequential::Register4bit.new }
           pc = Sequential::ProgramCounter.new
           rom = Rom.new

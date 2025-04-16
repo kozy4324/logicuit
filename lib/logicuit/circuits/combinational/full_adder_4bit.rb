@@ -21,7 +21,7 @@ module Logicuit
 
         outputs :s0, :s1, :s2, :s3, :c
 
-        assembling do |cin, a0, b0, a1, b1, a2, b2, a3, b3, s0, s1, s2, s3, cout|
+        assembling do
           [[a0, b0, s0], [a1, b1, s1], [a2, b2, s2], [a3, b3, s3]].reduce(cin) do |c, sigs|
             a, b, s = sigs
             full_addr = Combinational::FullAdder.new
@@ -30,7 +30,7 @@ module Logicuit
             b >> full_addr.b
             full_addr.s >> s
             full_addr.c
-          end >> cout
+          end >> c
         end
       end
     end

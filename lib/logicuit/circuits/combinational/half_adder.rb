@@ -19,7 +19,7 @@ module Logicuit
 
         outputs :c, :s
 
-        assembling do |a, b, c, s|
+        assembling do
           xor_gate = Gates::Xor.new
           and_gate = Gates::And.new
 

@@ -17,7 +17,7 @@ module Logicuit
 
         outputs :qa, :qb, :qc, :qd
 
-        assembling do |a, b, c, d, ld, qa, qb, qc, qd|
+        assembling do
           # inputs :cin, :a0, :b0, :a1, :b1, :a2, :b2, :a3, :b3
           fadd = Combinational::FullAdder4bit.new(0, 0, 1, 0, 0, 0, 0, 0, 0)
 

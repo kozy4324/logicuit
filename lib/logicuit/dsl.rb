@@ -86,10 +86,9 @@ module Logicuit
       end
     end
 
-    def self.assembling
+    def self.assembling(&block)
       define_method(:assembling) do
-        args = (@input_targets + @output_targets).map { send it }
-        ret = yield(*args)
+        ret = instance_eval(&block)
         ret.each { @components << it } if ret.is_a?(Array)
       end
     end
