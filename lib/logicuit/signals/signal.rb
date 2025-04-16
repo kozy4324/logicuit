@@ -28,6 +28,8 @@ module Logicuit
       def connects_to(other)
         if other.is_a? Array
           @downstreams.concat(other)
+        elsif other.is_a? Signals::SignalGroup
+          @downstreams.concat(other.signals)
         else
           @downstreams << other
         end
