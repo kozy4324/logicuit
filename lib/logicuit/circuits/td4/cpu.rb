@@ -39,27 +39,11 @@ module Logicuit
             mux.y >> alu[alu_in]
           end
 
-          register_c.qa >> led4
-          register_c.qb >> led3
-          register_c.qc >> led2
-          register_c.qd >> led1
-
-          pc.qa >> rom.a0
-          pc.qb >> rom.a1
-          pc.qc >> rom.a2
-          pc.qd >> rom.a3
-          rom.d0 >> alu.b0
-          rom.d1 >> alu.b1
-          rom.d2 >> alu.b2
-          rom.d3 >> alu.b3
-          rom.d4 >> dec.op0
-          rom.d5 >> dec.op1
-          rom.d6 >> dec.op2
-          rom.d7 >> dec.op3
-          dec.ld0 >> register_a.ld
-          dec.ld1 >> register_b.ld
-          dec.ld2 >> register_c.ld
-          dec.ld3 >> pc.ld
+          register_c[:qa, :qb, :qc, :qd] >> [led4, led3, led2, led1]
+          pc[:qa, :qb, :qc, :qd] >> rom[:a0, :a1, :a2, :a3]
+          rom[:d0, :d1, :d2, :d3] >> alu[:a0, :a1, :a2, :a3]
+          rom[:d4, :d5, :d6, :d7] >> dec[:op0, :op1, :op2, :op3]
+          dec[:ld0, :ld1, :ld2, :ld3] >> [register_a.ld, register_b.ld, register_c.ld, pc.ld]
           dff.q >> dec.c_flag
 
           [register_a, register_b, pc, rom, dec]
