@@ -88,11 +88,9 @@ module Logicuit
 
     def self.assembling
       define_method(:assembling) do
-        (yield(*(@input_targets + @output_targets).map do |target|
-          instance_variable_get("@#{target}")
-        end) || []).each do |component|
-          @components << component
-        end
+        args = (@input_targets + @output_targets).map { send it }
+        ret = yield(*args)
+        ret.each { @components << it } if ret.is_a?(Array)
       end
     end
 
