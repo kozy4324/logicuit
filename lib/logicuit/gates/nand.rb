@@ -5,9 +5,9 @@ module Logicuit
     # NAND gate
     class Nand < DSL
       diagram <<~DIAGRAM
-        (A)-|
+        (A)-|    |
             |NAND|-(Y)
-        (B)-|
+        (B)-|    |
       DIAGRAM
 
       inputs :a, :b

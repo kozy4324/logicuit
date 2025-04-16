@@ -5,9 +5,9 @@ module Logicuit
     # OR gate
     class Or < DSL
       diagram <<~DIAGRAM
-        (A)-|
+        (A)-|  |
             |OR|-(Y)
-        (B)-|
+        (B)-|  |
       DIAGRAM
 
       inputs :a, :b

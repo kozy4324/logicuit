@@ -5,9 +5,9 @@ module Logicuit
     # AND gate
     class And < DSL
       diagram <<~DIAGRAM
-        (A)-|
+        (A)-|   |
             |AND|-(Y)
-        (B)-|
+        (B)-|   |
       DIAGRAM
 
       inputs :a, :b

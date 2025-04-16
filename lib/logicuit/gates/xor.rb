@@ -5,9 +5,9 @@ module Logicuit
     # XOR gate
     class Xor < DSL
       diagram <<~DIAGRAM
-        (A)-|
+        (A)-|   |
             |XOR|-(Y)
-        (B)-|
+        (B)-|   |
       DIAGRAM
 
       inputs :a, :b

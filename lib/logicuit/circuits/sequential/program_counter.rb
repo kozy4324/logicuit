@@ -10,7 +10,7 @@ module Logicuit
           (B)---|  |---(QB)
           (C)---|PC|---(QC)
           (D)---|  |---(QD)
-          (LD)--|
+          (LD)--|  |
         DIAGRAM
 
         inputs :a, :b, :c, :d, :ld, clock: :ck

@@ -6,13 +6,13 @@ module Logicuit
       # A Multiplexer with 2 inputs and 1 output
       class Multiplexer2to1 < DSL
         diagram <<~DIAGRAM
-          (C0)---------|
+          (C0)---------|   |
                        |AND|--+
-               +-|NOT|-|      +--|
+               +-|NOT|-|   |  +--|  |
                |                 |OR|--(Y)
-          (C1)---------|      +--|
+          (C1)---------|   |  +--|  |
                |       |AND|--+
-          (A)--+-------|
+          (A)--+-------|   |
         DIAGRAM
 
         inputs :c0, :c1, :a

@@ -6,13 +6,13 @@ module Logicuit
       # HalfAdder class
       class HalfAdder < DSL
         diagram <<~DIAGRAM
-          (A)---+-|
+          (A)---+-|   |
                 | |XOR|-(S)
-          (B)-+---|
+          (B)-+---|   |
               | |
-              | +-|
+              | +-|   |
               |   |AND|-(C)
-              +---|
+              +---|   |
         DIAGRAM
 
         inputs :a, :b
