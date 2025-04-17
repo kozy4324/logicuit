@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+using ArrayRefine
+
 module Logicuit
   module Circuits
     module Td4
@@ -24,16 +26,15 @@ module Logicuit
           alu.s3 >> [register_a.d, register_b.d, register_c.d, pc.d]
           alu.c >> dff.d
 
-          Signals::SignalGroup.new(register_a.qa, register_b.qa, in0, Signals::Signal.new) >> mux0[:c0, :c1, :c2, :c3]
-          Signals::SignalGroup.new(register_a.qb, register_b.qb, in1, Signals::Signal.new) >> mux1[:c0, :c1, :c2, :c3]
-          Signals::SignalGroup.new(register_a.qc, register_b.qc, in2, Signals::Signal.new) >> mux2[:c0, :c1, :c2, :c3]
-          Signals::SignalGroup.new(register_a.qd, register_b.qd, in3, Signals::Signal.new) >> mux3[:c0, :c1, :c2, :c3]
-          dec[:sel_a, :sel_b] >> [mux0[:a, :b], mux1[:a, :b], mux2[:a, :b], mux3[:a, :b]]
-          Signals::SignalGroup.new(mux0.y, mux1.y, mux2.y, mux3.y) >> alu[:a0, :a1, :a2, :a3]
+          [register_a.qa, register_b.qa, in0, dec.sel_a, dec.sel_b] >> mux0[:c0, :c1, :c2, :a, :b]
+          [register_a.qb, register_b.qb, in1, dec.sel_a, dec.sel_b] >> mux1[:c0, :c1, :c2, :a, :b]
+          [register_a.qc, register_b.qc, in2, dec.sel_a, dec.sel_b] >> mux2[:c0, :c1, :c2, :a, :b]
+          [register_a.qd, register_b.qd, in3, dec.sel_a, dec.sel_b] >> mux3[:c0, :c1, :c2, :a, :b]
+          [mux0.y, mux1.y, mux2.y, mux3.y] >> [alu.a0, alu.a1, alu.a2, alu.a3]
 
           register_c[:qa, :qb, :qc, :qd] >> [led4, led3, led2, led1]
           pc[:qa, :qb, :qc, :qd] >> rom[:a0, :a1, :a2, :a3]
-          rom[:d0, :d1, :d2, :d3] >> alu[:a0, :a1, :a2, :a3]
+          rom[:d0, :d1, :d2, :d3] >> alu[:b0, :b1, :b2, :b3]
           rom[:d4, :d5, :d6, :d7] >> dec[:op0, :op1, :op2, :op3]
           dec[:ld0, :ld1, :ld2, :ld3] >> [register_a.ld, register_b.ld, register_c.ld, pc.ld]
           dff.q >> dec.c_flag

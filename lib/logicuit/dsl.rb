@@ -1,5 +1,19 @@
 # frozen_string_literal: true
 
+# Refinements for Array
+module ArrayRefine
+  refine Array do
+    def >>(other)
+      if other.is_a?(::Logicuit::Signals::SignalGroup)
+        zip(other.signals).each { _1 >> _2 unless _1.nil? || _2.nil? }
+      else
+        # assume signal_group is a Array of signals
+        zip(other).each { _1 >> _2 unless _1.nil? || _2.nil? }
+      end
+    end
+  end
+end
+
 # Logicuit module
 module Logicuit
   # base class for all gates and circuits

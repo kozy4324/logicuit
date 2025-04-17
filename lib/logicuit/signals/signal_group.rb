@@ -13,10 +13,8 @@ module Logicuit
       end
 
       def connects_to(others)
-        others = others.signals if others.is_a?(self)
-        @signals.zip(others).each do |signal, other|
-          signal.connects_to(other) unless other.nil?
-        end
+        others = others.signals if others.is_a?(SignalGroup)
+        @signals.zip(others).each { _1 >> _2 unless _1.nil? || _2.nil? }
       end
       alias >> connects_to
     end
