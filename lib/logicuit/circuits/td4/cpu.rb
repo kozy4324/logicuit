@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-using ArrayRefine
-
 module Logicuit
   module Circuits
     module Td4
       # TD4 CPU
       class Cpu < DSL
+        using Logicuit::ArrayAsSignalGroup
+
         inputs :in0, :in1, :in2, :in3, clock: :ck
 
         outputs :led1, :led2, :led3, :led4
