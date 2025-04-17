@@ -26,10 +26,12 @@ module Logicuit
           alu.s3 >> [register_a.d, register_b.d, register_c.d, pc.d]
           alu.c >> dff.d
 
-          [register_a.qa, register_b.qa, in0, dec.sel_a, dec.sel_b] >> mux0[:c0, :c1, :c2, :a, :b]
-          [register_a.qb, register_b.qb, in1, dec.sel_a, dec.sel_b] >> mux1[:c0, :c1, :c2, :a, :b]
-          [register_a.qc, register_b.qc, in2, dec.sel_a, dec.sel_b] >> mux2[:c0, :c1, :c2, :a, :b]
-          [register_a.qd, register_b.qd, in3, dec.sel_a, dec.sel_b] >> mux3[:c0, :c1, :c2, :a, :b]
+          [register_a.qa, register_b.qa, in0] >> mux0[:c0, :c1, :c2]
+          [register_a.qb, register_b.qb, in1] >> mux1[:c0, :c1, :c2]
+          [register_a.qc, register_b.qc, in2] >> mux2[:c0, :c1, :c2]
+          [register_a.qd, register_b.qd, in3] >> mux3[:c0, :c1, :c2]
+          dec.sel_a >> [mux0.a, mux1.a, mux2.a, mux3.a]
+          dec.sel_b >> [mux0.b, mux1.b, mux2.b, mux3.b]
           [mux0.y, mux1.y, mux2.y, mux3.y] >> [alu.a0, alu.a1, alu.a2, alu.a3]
 
           register_c[:qa, :qb, :qc, :qd] >> [led4, led3, led2, led1]
@@ -49,12 +51,12 @@ module Logicuit
           register_a, register_b, pc, rom, dec = components
           @a = a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
           @b = b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
-          p = "#{pc.qd}#{pc.qc}#{pc.qb}#{pc.qa}"
-          o = "#{led1}#{led2}#{led3}#{led4}"
-          i = "#{in3}#{in2}#{in1}#{in0}"
-          m = "#{rom.d3}#{rom.d2}#{rom.d1}#{rom.d0}"
+          p = pc[:qd, :qc, :qb, :qa]
+          o = [led1, led2, led3, led4].to_signal_group
+          i = [in3, in2, in1, in0].to_signal_group
+          m = rom[:d3, :d2, :d1, :d0]
           c = "-(#{dec.c_flag})"
-          loc = p.to_i(2)
+          loc = p.to_s.to_i(2)
 
           l1 = led1.current ? "*" : " "
           l2 = led2.current ? "*" : " "

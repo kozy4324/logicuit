@@ -17,6 +17,10 @@ module Logicuit
         @signals.zip(others).each { _1 >> _2 unless _1.nil? || _2.nil? }
       end
       alias >> connects_to
+
+      def to_s
+        signals.map { it.current ? "1" : "0" }.join
+      end
     end
   end
 end

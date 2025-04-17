@@ -13,6 +13,10 @@ module Logicuit
           zip(other).each { _1 >> _2 unless _1.nil? || _2.nil? }
         end
       end
+
+      def to_signal_group
+        ::Logicuit::Signals::SignalGroup.new(*self)
+      end
     end
   end
 end
