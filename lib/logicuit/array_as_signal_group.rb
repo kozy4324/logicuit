@@ -6,16 +6,11 @@ module Logicuit
   module ArrayAsSignalGroup
     refine Array do
       def >>(other)
-        if other.is_a?(::Logicuit::Signals::SignalGroup)
-          zip(other.signals).each { _1 >> _2 unless _1.nil? || _2.nil? }
-        else
-          # assume signal_group is a Array of signals
-          zip(other).each { _1 >> _2 unless _1.nil? || _2.nil? }
-        end
+        to_signal_group.connects_to(other)
       end
 
       def to_signal_group
-        ::Logicuit::Signals::SignalGroup.new(*self)
+        Signals::SignalGroup.new(*self)
       end
     end
   end
