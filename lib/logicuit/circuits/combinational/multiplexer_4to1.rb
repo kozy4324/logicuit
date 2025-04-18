@@ -29,9 +29,7 @@ module Logicuit
 
         inputs :c0, :c1, :c2, :c3, :b, :a
 
-        outputs y: lambda { |c0, c1, c2, c3, b, a|
-          (c0 && !b && !a) || (c1 && !b && a) || (c2 && b && !a) || (c3 && b && a)
-        }
+        outputs y: -> { (c0 && !b && !a) || (c1 && !b && a) || (c2 && b && !a) || (c3 && b && a) }
 
         truth_table <<~TRUTH_TABLE
           | B | A | C0 | C1 | C2 | C3 | Y |

@@ -13,7 +13,7 @@ module Logicuit
 
         inputs :d, clock: :ck
 
-        outputs q: ->(d) { d }
+        outputs q: -> { d }
 
         truth_table <<~TRUTH_TABLE
           | CK | D | Q |

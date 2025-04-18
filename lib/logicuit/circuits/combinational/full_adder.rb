@@ -45,8 +45,8 @@ module Logicuit
 
         inputs :cin, :a, :b
 
-        outputs s: ->(cin, a, b) { (!cin && !a && b) || (!cin && a && !b) || (cin && !a && !b) || (cin && a && b) },
-                c: ->(cin, a, b) { (!cin && a && b) || (cin && !a && b) || (cin && a && !b) || (cin && a && b) }
+        outputs s: -> { (!cin && !a && b) || (!cin && a && !b) || (cin && !a && !b) || (cin && a && b) },
+                c: -> { (!cin && a && b) || (cin && !a && b) || (cin && a && !b) || (cin && a && b) }
 
         truth_table <<~TRUTH_TABLE
           | Cin | A | B | C | S |

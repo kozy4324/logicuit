@@ -6,6 +6,7 @@ module Logicuit
   class DSL
     def initialize(*args)
       @input_targets = []
+      @inputs_as_bool_struct = nil
       @output_targets = []
       @clock = false
       @components = []
@@ -37,6 +38,7 @@ module Logicuit
           @input_targets << input
         end
         Signals::Clock >> self if clock
+        @inputs_as_bool_struct = Struct.new(*@input_targets)
       end
     end
 
@@ -77,7 +79,7 @@ module Logicuit
                    else
                      override_args
                    end
-          if evaluator.call(*e_args)
+          if @inputs_as_bool_struct.new(*e_args).instance_exec(&evaluator)
             signal.on
           else
             signal.off
