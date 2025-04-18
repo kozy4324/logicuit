@@ -52,8 +52,8 @@ module Logicuit
           @a = a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
           @b = b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
           p = pc[:qd, :qc, :qb, :qa]
-          o = [led1, led2, led3, led4].to_signal_group
-          i = [in3, in2, in1, in0].to_signal_group
+          o = self[:led1, :led2, :led3, :led4]
+          i = self[:in3, :in2, :in1, :in0]
           m = rom[:d3, :d2, :d1, :d0]
           c = "-(#{dec.c_flag})"
           loc = p.to_s.to_i(2)
