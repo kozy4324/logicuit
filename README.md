@@ -206,6 +206,142 @@ end
 
 This lets you treat a plain Ruby array as a `SignalGroup` and connect it to another group of inputs in one line.
 
+### Sequential circuits
+
+In addition to combinational circuits, Logicuit also supports sequential circuits — circuits whose output depends not only on the current inputs, but also on past inputs.
+
+For example, here’s a D flip-flop:
+
+```
+require "logicuit"
+
+class MyDFlipFlop < Logicuit::DSL
+  inputs :d, clock: :ck
+
+  outputs q: -> { d }
+
+  diagram <<~DIAGRAM
+    (D)--|   |--(Q)
+         |DFF|
+    (CK)-|>  |
+  DIAGRAM
+end
+
+MyDFlipFlop.run
+```
+
+#### Defining a sequential circuit
+
+A circuit becomes sequential when the `inputs` declaration includes a keyword argument named `clock:`.
+You can assign any name to the clock signal — in the above example, it's `:ck` — but the presence of the `clock:` keyword is what tells Logicuit to treat the circuit as sequential.
+
+Once a clock is defined:
+
+- The `outputs` lambdas will be evaluated on each clock tick, not continuously.
+- A global singleton clock will drive the timing — you don’t need to define or manage the clock yourself.
+
+#### Interactive execution with a clock
+
+When a sequential circuit is run interactively, Logicuit enters clock mode. The clock ticks periodically, and the circuit is redrawn after each tick.
+
+```
+(0)--|   |--(0)
+     |DFF|
+(CK)-|>  |
+
+tick: 2
+input: d?
+```
+
+You can still toggle inputs as before (e.g., type `d` and press Enter), but updates take effect on the next tick.
+
+The number of elapsed ticks is shown as `tick: N`.
+
+#### Clock speed
+
+By default, the clock ticks at 1 Hz (once per second). You can change the frequency by passing the `hz:` option to `run`:
+
+```
+MyDFlipFlop.run(hz: 10)
+```
+
+This will run the clock at 10 ticks per second — useful when simulating more complex circuits.
+
+If you want full control, you can set `hz: 0` to disable automatic ticking.
+
+In this mode, the clock only ticks when you press Enter, allowing you to step through the simulation manually:
+
+```
+MyDFlipFlop.run(hz: 0)
+```
+
+This is useful for debugging or analyzing a circuit’s behavior step by step.
+
+#### Combining sequential circuits with `assembling`
+
+You can build sequential circuits out of smaller components using the `assembling` block, just like with combinational circuits.
+
+Here’s an example of a 4-bit register that stores its input when the load signal `ld` is not active:
+
+```
+require "logicuit"
+
+class MyRegister4bit < Logicuit::DSL
+  inputs :a, :b, :c, :d, :ld, clock: :ck
+
+  outputs :qa, :qb, :qc, :qd
+
+  assembling do
+    [[a, qa], [b, qb], [c, qc], [d, qd]].each do |input, output|
+      dff = Logicuit::Circuits::Sequential::DFlipFlop.new
+      mux = Logicuit::Circuits::Combinational::Multiplexer2to1.new
+      input >> mux.c0
+      dff.q >> mux.c1
+      ld    >> mux.a
+      mux.y >> dff.d
+      dff.q >> output
+    end
+  end
+
+  diagram <<~DIAGRAM
+            +---------------------+
+            +-|   |               |
+    (A)-------|MUX|-------|DFF|---+---(QA)
+          +---|   |   +---|   |
+          |           |
+          | +---------------------+
+          | +-|   |   |           |
+    (B)-------|MUX|-------|DFF|---+---(QB)
+          +---|   |   +---|   |
+          |           |
+          | +---------------------+
+          | +-|   |   |           |
+    (C)-------|MUX|-------|DFF|---+---(QC)
+          +---|   |   +---|   |
+          |           |
+          | +---------------------+
+          | +-|   |   |           |
+    (D)-------|MUX|-------|DFF|---+---(QD)
+          +---|   |   +---|   |
+    (LD)--+     (CK)--+
+  DIAGRAM
+end
+
+MyRegister4bit.run
+```
+
+#### Sequential detection
+
+If your circuit contains one or more sequential components (such as D flip-flops), Logicuit will treat the entire circuit as sequential, as long as you declare a clock input using the `clock:` keyword in `inputs`.
+
+The clock signal is automatically connected to all internal sequential components. You don't need to wire it manually — just declare it at the top level:
+
+```
+inputs ..., clock: :ck
+```
+
+> Note: If you forget to declare a clock input, Logicuit won't know it's a sequential circuit — even if you include flip-flops internally. Always include `clock:` to enable timing.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
