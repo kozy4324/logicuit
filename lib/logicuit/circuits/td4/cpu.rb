@@ -49,8 +49,8 @@ module Logicuit
           p_b = "(#{@b || "0000"})"
 
           register_a, register_b, pc, rom, dec = components
-          @a = a = "#{register_a.qd}#{register_a.qc}#{register_a.qb}#{register_a.qa}"
-          @b = b = "#{register_b.qd}#{register_b.qc}#{register_b.qb}#{register_b.qa}"
+          @a = a = register_a[:qd, :qc, :qb, :qa].to_s
+          @b = b = register_b[:qd, :qc, :qb, :qa].to_s
           p = pc[:qd, :qc, :qb, :qa]
           o = self[:led1, :led2, :led3, :led4]
           i = self[:in3, :in2, :in1, :in0]
