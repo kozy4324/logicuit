@@ -1,6 +1,8 @@
 # Logicuit
 
-logi(c cir)cuit -> logicuit
+From logic circuit to Logicuit — a playful portmanteau.
+
+A Ruby-based logic circuit simulator featuring an internal DSL for building circuits.
 
 ## Installation
 
@@ -16,47 +18,56 @@ If bundler is not being used to manage dependencies, install the gem by executin
 gem install logicuit
 ```
 
-## Usage
+## DSL
 
-This is the code to create a Multiplexer with 2 inputs and 1 output:
+This library provides an internal DSL for defining logic circuits in a declarative and readable way.
+You can define inputs, outputs, and even a visual diagram — all within a Ruby class.
+
+Here is an example of a simple 2-input AND gate:
 
 ```
-require 'logicuit'
+require "logicuit"
 
-class Multiplexer2to1 < Logicuit::DSL
+class MyAndGate < Logicuit::DSL
+  inputs :a, :b
+
+  outputs y: -> { a && b }
+
   diagram <<~DIAGRAM
-    (C0)---------|   |
-                 |AND|--+
-         +-|NOT|-|   |  +--|  |
-         |                 |OR|--(Y)
-    (C1)---------|   |  +--|  |
-         |       |AND|--+
-    (A)--+-------|   |
+    (A)-|   |
+        |AND|-(Y)
+    (B)-|   |
   DIAGRAM
-
-  inputs :c0, :c1, :a
-
-  outputs y: ->(c0, c1, a) { (c0 && !a) || (c1 && a) }
 end
 
-Multiplexer2to1.run
+MyAndGate.run
 ```
 
-you can execute a same circuit by the following as a one-liner:
+This defines:
+
+- two inputs (`a` and `b`),
+- one output (`y`) that returns the logical AND of the inputs,
+- and an ASCII diagram that shows the structure of the gate.
+
+### Interactive execution
+
+When you call `run`, the simulator enters an interactive mode.
+
+At first, the circuit is evaluated with all inputs set to `0`, and drawn as an ASCII diagram:
 
 ```
-ruby -r logicuit -e 'Logicuit::Circuits::Combinational::Multiplexer2to1.run'
+(0)-|   |
+    |AND|-(0)
+(0)-|   |
+
+input: a,b?
 ```
 
-you can similarly execute other circuits with the following commands:
+To interact with the circuit, just type the name of an input — for example, `a` — and press Enter.
+That input will toggle its value (`0 → 1` or `1 → 0`), and the diagram will be redrawn to reflect the new state.
+You can keep toggling inputs this way to observe how the circuit reacts in real time.
 
-```
-ruby -r logicuit -e 'Logicuit::Circuits::Sequential::DFlipFlop.run'
-```
-
-```
-ruby -r logicuit -e 'Logicuit::Circuits::Td4::Cpu.run'
-```
+To exit the simulator, simply press `Ctrl+C`.
 
 ## Development
 
