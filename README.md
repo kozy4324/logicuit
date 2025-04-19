@@ -146,6 +146,66 @@ Logicuit includes several built-in logic gates, which you can use as components:
 
 These gates expose their input and output pins as attributes (`a`, `b`, `y`, etc.), which can be freely connected using `>>`.
 
+### Signal groups
+
+When building larger circuits, it's common to connect one output to multiple inputs, or to connect multiple outputs to multiple inputs.
+
+Logicuit provides a convenient way to express these kinds of connections using signal groups.
+
+#### One-to-many connections
+
+These two lines:
+
+```
+a >> xor_gate.a
+a >> and_gate.a
+```
+
+can be written more concisely as:
+
+```
+a >> [xor_gate.a, and_gate.a]
+```
+
+The array on the right-hand side is treated as a signal group, and the connection is applied to each element.
+
+#### Many-to-many connections
+
+You can also connect multiple outputs to multiple inputs at once by using the [] method to access signals by name:
+
+```
+pc.qa >> rom.a0
+pc.qb >> rom.a1
+pc.qc >> rom.a2
+pc.qd >> rom.a3
+```
+
+is equivalent to:
+
+```
+pc[:qa, :qb, :qc, :qd] >> rom[:a0, :a1, :a2, :a3]
+```
+
+This `#[](*keys)` method returns a `SignalGroup` object — a Logicuit abstraction that makes it easier to handle groups of signals together.
+
+> Note: The number of signals on both sides must match.
+
+#### Connecting from different sources
+
+What if you want to connect signals from multiple different components as a single group?
+
+You can use `Logicuit::ArrayAsSignalGroup`, which adds signal group behavior to arrays:
+
+```
+using Logicuit::ArrayAsSignalGroup
+
+assembling do
+  [register_a.qa, register_b.qa, in0] >> mux0[:c0, :c1, :c2]
+end
+```
+
+This lets you treat a plain Ruby array as a `SignalGroup` and connect it to another group of inputs in one line.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
