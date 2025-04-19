@@ -66,7 +66,7 @@ You can define inputs, outputs, and even a visual diagram — all within a Ruby 
 
 Here is an example of a simple 2-input AND gate:
 
-```
+```ruby
 require "logicuit"
 
 class MyAndGate < Logicuit::DSL
@@ -118,7 +118,7 @@ This approach gives you more control and expressiveness when building complex ci
 
 Here's an example of a 2-to-1 multiplexer:
 
-```
+```ruby
 require "logicuit"
 
 class MyMultiplexer < Logicuit::DSL
@@ -166,7 +166,7 @@ This allows the code to resemble the actual structure of the circuit, making it 
 
 For example:
 
-```
+```ruby
 a >> not_gate.a
 not_gate.y >> and_gate1.b
 ```
@@ -197,14 +197,14 @@ Logicuit provides a convenient way to express these kinds of connections using s
 
 These two lines:
 
-```
+```ruby
 a >> xor_gate.a
 a >> and_gate.a
 ```
 
 can be written more concisely as:
 
-```
+```ruby
 a >> [xor_gate.a, and_gate.a]
 ```
 
@@ -214,7 +214,7 @@ The array on the right-hand side is treated as a signal group, and the connectio
 
 You can also connect multiple outputs to multiple inputs at once by using the [] method to access signals by name:
 
-```
+```ruby
 pc.qa >> rom.a0
 pc.qb >> rom.a1
 pc.qc >> rom.a2
@@ -223,7 +223,7 @@ pc.qd >> rom.a3
 
 is equivalent to:
 
-```
+```ruby
 pc[:qa, :qb, :qc, :qd] >> rom[:a0, :a1, :a2, :a3]
 ```
 
@@ -237,7 +237,7 @@ What if you want to connect signals from multiple different components as a sing
 
 You can use `Logicuit::ArrayAsSignalGroup`, which adds signal group behavior to arrays:
 
-```
+```ruby
 using Logicuit::ArrayAsSignalGroup
 
 assembling do
@@ -253,7 +253,7 @@ In addition to combinational circuits, Logicuit also supports sequential circuit
 
 For example, here’s a D flip-flop:
 
-```
+```ruby
 require "logicuit"
 
 class MyDFlipFlop < Logicuit::DSL
@@ -302,7 +302,7 @@ The number of elapsed ticks is shown as `tick: N`.
 
 By default, the clock ticks at 1 Hz (once per second). You can change the frequency by passing the `hz:` option to `run`:
 
-```
+```ruby
 MyDFlipFlop.run(hz: 10)
 ```
 
@@ -312,7 +312,7 @@ If you want full control, you can set `hz: 0` to disable automatic ticking.
 
 In this mode, the clock only ticks when you press Enter, allowing you to step through the simulation manually:
 
-```
+```ruby
 MyDFlipFlop.run(hz: 0)
 ```
 
@@ -324,7 +324,7 @@ You can build sequential circuits out of smaller components using the `assemblin
 
 Here’s an example of a 4-bit register that stores its input when the load signal `ld` is not active:
 
-```
+```ruby
 require "logicuit"
 
 class MyRegister4bit < Logicuit::DSL
@@ -377,7 +377,7 @@ If your circuit contains one or more sequential components (such as D flip-flops
 
 The clock signal is automatically connected to all internal sequential components. You don't need to wire it manually — just declare it at the top level:
 
-```
+```ruby
 inputs ..., clock: :ck
 ```
 
