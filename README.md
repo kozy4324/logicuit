@@ -32,6 +32,19 @@ From logic circuit to Logicuit — a playful portmanteau.
 
 A Ruby-based logic circuit simulator featuring an internal DSL for building circuits.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [DSL](#dsl)
+- [Interactive Execution](#interactive-execution)
+- [Assembling](#assembling)
+- [SignalGroup](#signalgroup)
+- [Sequential Circuits](#sequential-circuits)
+- [Demo: Ramen Timer](#demo-ramen-timer)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:
