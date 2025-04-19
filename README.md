@@ -69,6 +69,83 @@ You can keep toggling inputs this way to observe how the circuit reacts in real 
 
 To exit the simulator, simply press `Ctrl+C`.
 
+### Assembling circuits
+
+In addition to defining simple gates declaratively, Logicuit also lets you assemble circuits from reusable components using the `assembling` block.
+
+This approach gives you more control and expressiveness when building complex circuits.
+
+Here's an example of a 2-to-1 multiplexer:
+
+```
+require "logicuit"
+
+class MyMultiplexer < Logicuit::DSL
+  inputs :c0, :c1, :a
+
+  outputs :y
+
+  assembling do
+    and_gate1 = Logicuit::Gates::And.new
+    and_gate2 = Logicuit::Gates::And.new
+    not_gate = Logicuit::Gates::Not.new
+    or_gate = Logicuit::Gates::Or.new
+
+    c0 >> and_gate1.a
+    a >> not_gate.a
+    not_gate.y >> and_gate1.b
+
+    c1 >> and_gate2.a
+    a >> and_gate2.b
+
+    and_gate1.y >> or_gate.a
+    and_gate2.y >> or_gate.b
+    or_gate.y >> y
+  end
+
+  diagram <<~DIAGRAM
+    (C0)---------|   |
+                 |AND|--+
+         +-|NOT|-|   |  +--|  |
+         |                 |OR|--(Y)
+    (C1)---------|   |  +--|  |
+         |       |AND|--+
+    (A)--+-------|   |
+  DIAGRAM
+end
+
+MyMultiplexer.run
+```
+
+### Connection syntax
+
+The `>>` operator is used to connect outputs to inputs, mimicking the direction of signal flow.
+
+This allows the code to resemble the actual structure of the circuit, making it more intuitive to follow.
+
+For example:
+
+```
+a >> not_gate.a
+not_gate.y >> and_gate1.b
+```
+
+can be read as:
+
+*"Connect input `a` to the NOT gate's input. Then connect the NOT gate's output to one of the AND gate's inputs."*
+
+### Built-in gates
+
+Logicuit includes several built-in logic gates, which you can use as components:
+
+- `Logicuit::Gates::And`
+- `Logicuit::Gates::Or`
+- `Logicuit::Gates::Not`
+- `Logicuit::Gates::Nand`
+- `Logicuit::Gates::Xor`
+
+These gates expose their input and output pins as attributes (`a`, `b`, `y`, etc.), which can be freely connected using `>>`.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
