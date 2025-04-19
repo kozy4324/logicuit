@@ -1,5 +1,33 @@
 # Logicuit
 
+```
+                *******       *******       *******
+               *********     *********     *********
+              ***********   ***********   ***********
+               *********     *********     *********
+                *******       *******       *******
+
++-----------------------------------------------+       OUT 0111
+|                                               |       ADD A,0001
++--->|rg_a|(0111)----->|   |                    |       JNC 0001
+|    |1000|            |   |                    |       ADD A,0001
+|                      |   |                    |     > JNC 0011
++--->|rg_b|(0000)----->|   |----------->|   |---+       OUT 0110
+|    |0000|            |   |            |   |           ADD A,0001
+|                      |SEL|            |ALU|           JNC 0110
++--->| out|  |  in|--->|   |            |   |           ADD A,0001
+|    |0111|  |0000|    |   |  |  im|--->|   |--(0)      JNC 1000
+|                      |   |  |0011|                    OUT 0000
++--->|  pc|  (0000)--->|   |                            OUT 0100
+     |0100|                                             ADD A,0001
+                                                        JNC 1010
+                                                        OUT 1000
+                                                        JMP 1111
+
+tick: 48
+input: in0,in1,in2,in3?
+```
+
 From logic circuit to Logicuit — a playful portmanteau.
 
 A Ruby-based logic circuit simulator featuring an internal DSL for building circuits.
