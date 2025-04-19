@@ -370,6 +370,20 @@ inputs ..., clock: :ck
 
 > Note: If you forget to declare a clock input, Logicuit won't know it's a sequential circuit — even if you include flip-flops internally. Always include `clock:` to enable timing.
 
+### Demo: Ramen Timer
+
+Logicuit comes with a simple demo circuit — a working 4-bit CPU based on the TD4 architecture described in the book [CPUの創りかた](https://www.amazon.co.jp/dp/4839909865).
+
+You can try it out by running:
+
+```
+ruby -r logicuit -e 'Logicuit::Circuits::Td4::Cpu.run'
+```
+
+This launches a fully functional CPU simulation that counts down from a programmed value — perfect for timing your instant ramen 🍜
+
+The TD4 CPU is built entirely from logic gates and flip-flops, assembled using Logicuit’s DSL. It’s a great demonstration of how small components can be combined to create a complete digital system.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
