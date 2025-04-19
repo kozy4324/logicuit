@@ -8,11 +8,7 @@ module Logicuit
       puts circuit
       puts
       puts "tick: #{Signals::Clock.tick_count}" if circuit.clock
-      if circuit.respond_to?(:instructions)
-        puts "instructions: #{circuit.instructions.join "|"}"
-      elsif circuit.input_targets.any?
-        puts "input: #{circuit.input_targets.join ","}?"
-      end
+      puts "input: #{circuit.input_targets.join ","}?" if circuit.input_targets.any?
     }
 
     if circuit.clock && hz.nonzero?
