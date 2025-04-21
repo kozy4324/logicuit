@@ -21,6 +21,12 @@ module Logicuit
       def to_s
         signals.map { it.current ? "1" : "0" }.join
       end
+
+      def set(vals)
+        vals.split("").zip(signals).each do |v, o|
+          v == "1" ? o.on : o.off
+        end
+      end
     end
   end
 end

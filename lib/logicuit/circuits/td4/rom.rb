@@ -12,7 +12,7 @@ module Logicuit
         def evaluate
           return unless initialized
 
-          output = case "#{a3}#{a2}#{a1}#{a0}"
+          output = case self[:a3, :a2, :a1, :a0].to_s
                    in "0000" then "10110111"
                    in "0001" then "00000001"
                    in "0010" then "11100001"
@@ -30,9 +30,7 @@ module Logicuit
                    in "1110" then "10111000"
                    in "1111" then "11111111"
                    end
-          output.split("").zip([d7, d6, d5, d4, d3, d2, d1, d0]).each do |v, o|
-            v == "1" ? o.on : o.off
-          end
+          self[:d7, :d6, :d5, :d4, :d3, :d2, :d1, :d0].set output
         end
 
         truth_table <<~TRUTH_TABLE
