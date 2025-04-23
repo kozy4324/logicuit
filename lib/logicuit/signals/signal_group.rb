@@ -19,7 +19,7 @@ module Logicuit
       alias >> connects_to
 
       def to_s
-        signals.map { it.current ? "1" : "0" }.join
+        signals.map { _1.current ? "1" : "0" }.join
       end
 
       def set(vals)

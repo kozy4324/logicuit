@@ -91,7 +91,7 @@ module Logicuit
     def self.assembling(&block)
       define_method(:assembling) do
         ret = instance_eval(&block)
-        ret.each { @components << it } if ret.is_a?(Array)
+        ret.each { @components << _1 } if ret.is_a?(Array)
       end
     end
 
@@ -132,8 +132,8 @@ module Logicuit
           headers.size == values.size
         end.map do |values|
           array = [values]
-          while array.any? { it.any? { |v| v == :any } }
-            target_index = array.find_index { it.any? { |v| v == :any } }
+          while array.any? { _1.any? { |v| v == :any } }
+            target_index = array.find_index { _1.any? { |v| v == :any } }
             target = array[target_index]
             prop_index = target.find_index { |v| v == :any }
             array.delete_at(target_index)
