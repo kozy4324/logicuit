@@ -151,6 +151,31 @@ module Logicuit
       end
     end
 
+    def self.verify_against_truth_table
+      new.truth_table.each do |row|
+        args = row.values_at(*new.input_targets).map { _1 ? 1 : 0 }
+        subject = new(*args)
+
+        previous_values = row.reject do |_k, v|
+          v == :clock
+        end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) }
+
+        Signals::Clock.tick if row.values.find :clock
+
+        row.each do |key, value|
+          next if value == :clock
+
+          if value.is_a?(Array) && value.first == :ref
+            expected = previous_values[value.last]
+
+            raise "#{self}.new(#{args.join(", ")}).#{key} should be #{expected}" unless expected == subject.send(key).current
+          else
+            raise "#{self}.new(#{args.join(", ")}).#{key} should be #{value}" unless value == subject.send(key).current
+          end
+        end
+      end
+    end
+
     def self.run(opts = {})
       ::Logicuit.run(new, **opts)
     end
