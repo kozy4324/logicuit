@@ -40,6 +40,7 @@ A Ruby-based logic circuit simulator featuring an internal DSL for building circ
 - [Assembling](#assembling)
 - [SignalGroup](#signalgroup)
 - [Sequential Circuits](#sequential-circuits)
+- [Truth Table Verification](#truth-table-verification)
 - [Demo: Ramen Timer](#demo-ramen-timer)
 - [Development](#development)
 - [Contributing](#contributing)
@@ -419,7 +420,7 @@ The `#verify_against_truth_table` method evaluates the circuit for each row of t
 If the behavior of the circuit doesn't match the truth table, you'll see an error like this:
 
 ```
-MyAndGate.new(0, 1).y should be true (RuntimeError)
+MyAndGate.new(0, 1).y should be 0 (RuntimeError)
 ```
 
 This feature is useful for validating your logic circuits against formal truth tables as part of development or testing workflows.

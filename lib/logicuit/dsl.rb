@@ -168,9 +168,9 @@ module Logicuit
           if value.is_a?(Array) && value.first == :ref
             expected = previous_values[value.last]
 
-            raise "#{self}.new(#{args.join(", ")}).#{key} should be #{expected}" unless expected == subject.send(key).current
+            raise "#{self}.new(#{args.join(", ")}).#{key} should be #{expected ? 1 : 0}" unless expected == subject.send(key).current
           else
-            raise "#{self}.new(#{args.join(", ")}).#{key} should be #{value}" unless value == subject.send(key).current
+            raise "#{self}.new(#{args.join(", ")}).#{key} should be #{value ? 1 : 0}" unless value == subject.send(key).current
           end
         end
       end
