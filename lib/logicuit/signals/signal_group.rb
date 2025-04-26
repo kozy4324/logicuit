@@ -24,7 +24,7 @@ module Logicuit
 
       def set(vals)
         vals.split("").zip(signals).each do |v, o|
-          v == "1" ? o.on : o.off
+          v == "1" ? o&.on : o&.off
         end
       end
     end
