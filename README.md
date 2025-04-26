@@ -425,6 +425,43 @@ MyAndGate.new(0, 1).y should be 0 (RuntimeError)
 
 This feature is useful for validating your logic circuits against formal truth tables as part of development or testing workflows.
 
+### Verifying sequential circuits
+
+Sequential circuits can also be verified using truth tables. When verifying a sequential circuit, the symbol `^` represents the rising edge of the clock.
+
+Here’s an example for a D flip-flop:
+
+```ruby
+class MyDFlipFlop < Logicuit::DSL
+  inputs :d, clock: :ck
+
+  outputs q: -> { d }
+
+  diagram <<~DIAGRAM
+    (D)--|   |--(Q)
+         |DFF|
+    (CK)-|>  |
+  DIAGRAM
+
+  truth_table <<~TRUTH_TABLE
+    | CK | D | Q |
+    | -- | - | - |
+    |  ^ | 0 | 0 |
+    |  ^ | 1 | 1 |
+  TRUTH_TABLE
+end
+
+MyDFlipFlop.verify_against_truth_table
+```
+
+In this table:
+
+- The `CK` column uses `^` to indicate a clock tick.
+- The circuit is initialized with the given inputs, then the clock is ticked once.
+- The outputs are evaluated immediately after the tick and compared against the expected values.
+
+This mechanism makes it easy to specify and verify the behavior of memory elements and registers.
+
 ## Demo: Ramen Timer
 
 Logicuit comes with a simple demo circuit — a working 4-bit CPU based on the TD4 architecture described in the book [CPUの創りかた](https://www.amazon.co.jp/dp/4839909865).
