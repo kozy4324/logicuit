@@ -383,7 +383,48 @@ inputs ..., clock: :ck
 
 > Note: If you forget to declare a clock input, Logicuit won't know it's a sequential circuit — even if you include flip-flops internally. Always include `clock:` to enable timing.
 
-### Demo: Ramen Timer
+## Truth Table Verification
+
+You can attach a truth table to your circuit class using the `#truth_table`. The truth table should be written in Markdown table format.
+
+```ruby
+require "logicuit"
+
+class MyAndGate < Logicuit::DSL
+  inputs :a, :b
+
+  outputs y: -> { a && b }
+
+  diagram <<~DIAGRAM
+    (A)-|   |
+        |AND|-(Y)
+    (B)-|   |
+  DIAGRAM
+
+  truth_table <<~TRUTH_TABLE
+    | A | B | Y |
+    | - | - | - |
+    | 0 | 0 | 0 |
+    | 1 | 0 | 0 |
+    | 0 | 1 | 0 |
+    | 1 | 1 | 1 |
+  TRUTH_TABLE
+end
+
+MyAndGate.verify_against_truth_table
+```
+
+The `#verify_against_truth_table` method evaluates the circuit for each row of the truth table and checks whether the outputs match the expected values.
+
+If the behavior of the circuit doesn't match the truth table, you'll see an error like this:
+
+```
+MyAndGate.new(0, 1).y should be true (RuntimeError)
+```
+
+This feature is useful for validating your logic circuits against formal truth tables as part of development or testing workflows.
+
+## Demo: Ramen Timer
 
 Logicuit comes with a simple demo circuit — a working 4-bit CPU based on the TD4 architecture described in the book [CPUの創りかた](https://www.amazon.co.jp/dp/4839909865).
 
