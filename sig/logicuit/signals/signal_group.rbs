@@ -1,0 +1,20 @@
+module Logicuit
+  module Signals
+    # Signal Group
+    class SignalGroup
+      @signals: Array[Signal]
+
+      def initialize: (*Signal signals) -> void
+
+      def signals: () -> Array[Signal]
+
+      def connects_to: (SignalGroup | Array[Signal] others) -> void
+
+      alias >> connects_to
+
+      def to_s: () -> String
+
+      def set: (String vals) -> void
+    end
+  end
+end

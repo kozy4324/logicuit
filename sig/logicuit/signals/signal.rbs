@@ -1,0 +1,28 @@
+module Logicuit
+  module Signals
+    # Signal
+    class Signal
+      @current: bool
+
+      @downstreams: Array[Signal | DSL]
+
+      def initialize: (?bool current) -> void
+
+      attr_reader current: bool
+
+      def on: () -> void
+
+      def off: () -> void
+
+      def connects_to: (Signal | SignalGroup | Array[Signal] | DSL other) -> void
+
+      alias >> connects_to
+
+      def to_s: () -> ("1" | "0")
+
+      private
+
+      def propagate_current: () -> void
+    end
+  end
+end
