@@ -23,7 +23,7 @@ module Logicuit
       render.call
     end
 
-    while (input = gets.chomp)
+    while (input = gets&.chomp)
       key = input.to_sym
       unless circuit.respond_to? key
         if circuit.clock && hz.zero?
