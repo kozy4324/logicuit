@@ -24,9 +24,9 @@ module Logicuit
         assembling do
           [[a0, b0, s0], [a1, b1, s1], [a2, b2, s2], [a3, b3, s3]].reduce(cin) do |c, sigs|
             a, b, s = sigs
-            next if a.nil? || b.nil? || s.nil?
-
             full_addr = Combinational::FullAdder.new
+            next full_addr.c if a.nil? || b.nil? || s.nil? # avoid rbs error and rubocop error...
+
             c >> full_addr.cin
             a >> full_addr.a
             b >> full_addr.b

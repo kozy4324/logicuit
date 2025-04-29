@@ -34,6 +34,8 @@ module Logicuit
 
         assembling do
           [[a, qa], [b, qb], [c, qc], [d, qd]].each do |input, output|
+            next if input.nil? || output.nil?
+
             dff = Sequential::DFlipFlop.new
             mux = Combinational::Multiplexer2to1.new
             input >> mux.c0

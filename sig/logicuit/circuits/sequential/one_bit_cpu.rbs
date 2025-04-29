@@ -1,0 +1,16 @@
+module Logicuit
+  module Circuits
+    module Sequential
+      # 1 bit CPU with a Multiplexer
+      # Input A is H, MOV A,A
+      # Input A is L, NOT A
+      class OneBitCpu < DSL
+        def self.a: () -> Signals::Signal
+        def self.y: () -> Signals::Signal
+
+        def a: () -> Signals::Signal
+        def y: () -> Signals::Signal
+      end
+    end
+  end
+end
