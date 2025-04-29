@@ -134,6 +134,8 @@ module Logicuit
           array = [values]
           while array.any? { _1.any? { |v| v == :any } }
             target_index = array.find_index { _1.any? { |v| v == :any } }
+            next if target_index.nil? # avoid rbs error...
+
             target = array[target_index]
             prop_index = target.find_index { |v| v == :any }
             array.delete_at(target_index)
