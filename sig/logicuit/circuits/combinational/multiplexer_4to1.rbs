@@ -3,14 +3,6 @@ module Logicuit
     module Combinational
       # A Multiplexer with 4 inputs and 1 output
       class Multiplexer4to1 < DSL
-        def self.c0: () -> Signals::Signal
-        def self.c1: () -> Signals::Signal
-        def self.c2: () -> Signals::Signal
-        def self.c3: () -> Signals::Signal
-        def self.b: () -> Signals::Signal
-        def self.a: () -> Signals::Signal
-        def self.y: () -> Signals::Signal
-
         def c0: () -> Signals::Signal
         def c1: () -> Signals::Signal
         def c2: () -> Signals::Signal
@@ -18,6 +10,16 @@ module Logicuit
         def b: () -> Signals::Signal
         def a: () -> Signals::Signal
         def y: () -> Signals::Signal
+        class Struct
+          attr_reader c0: bool
+          attr_reader c1: bool
+          attr_reader c2: bool
+          attr_reader c3: bool
+          attr_reader b: bool
+          attr_reader a: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

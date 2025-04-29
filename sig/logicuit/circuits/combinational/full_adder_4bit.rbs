@@ -3,21 +3,6 @@ module Logicuit
     module Combinational
       # FullAdder class
       class FullAdder4bit < DSL
-        def self.cin: () -> Signals::Signal
-        def self.a0: () -> Signals::Signal
-        def self.b0: () -> Signals::Signal
-        def self.a1: () -> Signals::Signal
-        def self.b1: () -> Signals::Signal
-        def self.a2: () -> Signals::Signal
-        def self.b2: () -> Signals::Signal
-        def self.a3: () -> Signals::Signal
-        def self.b3: () -> Signals::Signal
-        def self.s0: () -> Signals::Signal
-        def self.s1: () -> Signals::Signal
-        def self.s2: () -> Signals::Signal
-        def self.s3: () -> Signals::Signal
-        def self.c: () -> Signals::Signal
-
         def cin: () -> Signals::Signal
         def a0: () -> Signals::Signal
         def b0: () -> Signals::Signal
@@ -32,6 +17,19 @@ module Logicuit
         def s2: () -> Signals::Signal
         def s3: () -> Signals::Signal
         def c: () -> Signals::Signal
+        class Struct
+          attr_reader cin: bool
+          attr_reader a0: bool
+          attr_reader b0: bool
+          attr_reader a1: bool
+          attr_reader b1: bool
+          attr_reader a2: bool
+          attr_reader b2: bool
+          attr_reader a3: bool
+          attr_reader b3: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

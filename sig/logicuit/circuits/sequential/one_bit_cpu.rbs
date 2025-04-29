@@ -5,11 +5,13 @@ module Logicuit
       # Input A is H, MOV A,A
       # Input A is L, NOT A
       class OneBitCpu < DSL
-        def self.a: () -> Signals::Signal
-        def self.y: () -> Signals::Signal
-
         def a: () -> Signals::Signal
         def y: () -> Signals::Signal
+        class Struct
+          attr_reader a: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

@@ -5,19 +5,6 @@ module Logicuit
       class Rom < DSL
         def evaluate: () -> (nil | untyped)
 
-        def self.a3: () -> Signals::Signal
-        def self.a2: () -> Signals::Signal
-        def self.a1: () -> Signals::Signal
-        def self.a0: () -> Signals::Signal
-        def self.d7: () -> Signals::Signal
-        def self.d6: () -> Signals::Signal
-        def self.d5: () -> Signals::Signal
-        def self.d4: () -> Signals::Signal
-        def self.d3: () -> Signals::Signal
-        def self.d2: () -> Signals::Signal
-        def self.d1: () -> Signals::Signal
-        def self.d0: () -> Signals::Signal
-
         def a3: () -> Signals::Signal
         def a2: () -> Signals::Signal
         def a1: () -> Signals::Signal
@@ -30,6 +17,14 @@ module Logicuit
         def d2: () -> Signals::Signal
         def d1: () -> Signals::Signal
         def d0: () -> Signals::Signal
+        class Struct
+          attr_reader a3: bool
+          attr_reader a2: bool
+          attr_reader a1: bool
+          attr_reader a0: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

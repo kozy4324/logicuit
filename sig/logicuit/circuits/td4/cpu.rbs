@@ -9,15 +9,6 @@ module Logicuit
 
         def to_s: () -> ::String
 
-        def self.in0: () -> Signals::Signal
-        def self.in1: () -> Signals::Signal
-        def self.in2: () -> Signals::Signal
-        def self.in3: () -> Signals::Signal
-        def self.led1: () -> Signals::Signal
-        def self.led2: () -> Signals::Signal
-        def self.led3: () -> Signals::Signal
-        def self.led4: () -> Signals::Signal
-
         def in0: () -> Signals::Signal
         def in1: () -> Signals::Signal
         def in2: () -> Signals::Signal
@@ -26,6 +17,14 @@ module Logicuit
         def led2: () -> Signals::Signal
         def led3: () -> Signals::Signal
         def led4: () -> Signals::Signal
+        class Struct
+          attr_reader in0: bool
+          attr_reader in1: bool
+          attr_reader in2: bool
+          attr_reader in3: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

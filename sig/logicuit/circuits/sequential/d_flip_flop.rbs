@@ -3,11 +3,13 @@ module Logicuit
     module Sequential
       # D Flip-Flop
       class DFlipFlop < DSL
-        def self.d: () -> Signals::Signal
-        def self.q: () -> Signals::Signal
-
         def d: () -> Signals::Signal
         def q: () -> Signals::Signal
+        class Struct
+          attr_reader d: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

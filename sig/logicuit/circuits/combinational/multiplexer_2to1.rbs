@@ -3,15 +3,17 @@ module Logicuit
     module Combinational
       # A Multiplexer with 2 inputs and 1 output
       class Multiplexer2to1 < DSL
-        def self.c0: () -> Signals::Signal
-        def self.c1: () -> Signals::Signal
-        def self.a: () -> Signals::Signal
-        def self.y: () -> Signals::Signal
-
         def c0: () -> Signals::Signal
         def c1: () -> Signals::Signal
         def a: () -> Signals::Signal
         def y: () -> Signals::Signal
+        class Struct
+          attr_reader c0: bool
+          attr_reader c1: bool
+          attr_reader a: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

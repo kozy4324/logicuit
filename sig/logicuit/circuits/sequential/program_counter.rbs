@@ -3,16 +3,6 @@ module Logicuit
     module Sequential
       # Program Counter
       class ProgramCounter < DSL
-        def self.a: () -> Signals::Signal
-        def self.b: () -> Signals::Signal
-        def self.c: () -> Signals::Signal
-        def self.d: () -> Signals::Signal
-        def self.ld: () -> Signals::Signal
-        def self.qa: () -> Signals::Signal
-        def self.qb: () -> Signals::Signal
-        def self.qc: () -> Signals::Signal
-        def self.qd: () -> Signals::Signal
-
         def a: () -> Signals::Signal
         def b: () -> Signals::Signal
         def c: () -> Signals::Signal
@@ -22,6 +12,15 @@ module Logicuit
         def qb: () -> Signals::Signal
         def qc: () -> Signals::Signal
         def qd: () -> Signals::Signal
+        class Struct
+          attr_reader a: bool
+          attr_reader b: bool
+          attr_reader c: bool
+          attr_reader d: bool
+          attr_reader ld: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

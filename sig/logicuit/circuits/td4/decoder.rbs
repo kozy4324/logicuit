@@ -3,18 +3,6 @@ module Logicuit
     module Td4
       # Decoder class
       class Decoder < DSL
-        def self.op3: () -> Signals::Signal
-        def self.op2: () -> Signals::Signal
-        def self.op1: () -> Signals::Signal
-        def self.op0: () -> Signals::Signal
-        def self.c_flag: () -> Signals::Signal
-        def self.sel_b: () -> Signals::Signal
-        def self.sel_a: () -> Signals::Signal
-        def self.ld0: () -> Signals::Signal
-        def self.ld1: () -> Signals::Signal
-        def self.ld2: () -> Signals::Signal
-        def self.ld3: () -> Signals::Signal
-
         def op3: () -> Signals::Signal
         def op2: () -> Signals::Signal
         def op1: () -> Signals::Signal
@@ -26,6 +14,15 @@ module Logicuit
         def ld1: () -> Signals::Signal
         def ld2: () -> Signals::Signal
         def ld3: () -> Signals::Signal
+        class Struct
+          attr_reader op3: bool
+          attr_reader op2: bool
+          attr_reader op1: bool
+          attr_reader op0: bool
+          attr_reader c_flag: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

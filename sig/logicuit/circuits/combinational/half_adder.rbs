@@ -3,15 +3,16 @@ module Logicuit
     module Combinational
       # HalfAdder class
       class HalfAdder < DSL
-        def self.a: () -> Signals::Signal
-        def self.b: () -> Signals::Signal
-        def self.c: () -> Signals::Signal
-        def self.s: () -> Signals::Signal
-
         def a: () -> Signals::Signal
         def b: () -> Signals::Signal
         def c: () -> Signals::Signal
         def s: () -> Signals::Signal
+        class Struct
+          attr_reader a: bool
+          attr_reader b: bool
+        end
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end
