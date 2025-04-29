@@ -18,7 +18,7 @@ module Logicuit
           attr_reader b: bool
           attr_reader a: bool
         end
-        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> (nil | untyped)
+        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> void
         def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
