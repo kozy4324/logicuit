@@ -1,0 +1,13 @@
+module Logicuit
+  module Gates
+    # XOR gate
+    class Xor < DSL
+      def self.a: () -> bool
+      def self.b: () -> bool
+
+      def a: () -> Signal
+      def b: () -> Signal
+      def y: () -> Signal
+    end
+  end
+end

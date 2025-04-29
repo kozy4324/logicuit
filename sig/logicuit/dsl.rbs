@@ -1,0 +1,53 @@
+# Logicuit module
+module Logicuit
+  # base class for all gates and circuits
+  class DSL
+    @input_targets: untyped
+
+    @inputs_as_bool_struct: untyped
+
+    @output_targets: untyped
+
+    @clock: untyped
+
+    @components: untyped
+
+    @initialized: untyped
+
+    def initialize: (*untyped args) -> void
+
+    def inputs: (*untyped args) -> nil
+
+    def outputs: () -> nil
+
+    def assembling: () -> nil
+
+    def evaluate: (*untyped args) -> nil
+
+    attr_reader input_targets: untyped
+
+    attr_reader output_targets: untyped
+
+    attr_reader clock: untyped
+
+    attr_reader components: untyped
+
+    attr_reader initialized: untyped
+
+    def self.inputs: (*untyped args, **untyped kwargs) -> untyped
+
+    def []: (*untyped keys) -> untyped
+
+    def self.outputs: (*untyped args, **untyped kwargs) -> (nil | untyped)
+
+    def self.assembling: () { (?) -> untyped } -> untyped
+
+    def self.diagram: (untyped source) -> untyped
+
+    def self.truth_table: (untyped source) -> untyped
+
+    def self.verify_against_truth_table: () -> untyped
+
+    def self.run: (?::Hash[untyped, untyped] opts) -> untyped
+  end
+end
