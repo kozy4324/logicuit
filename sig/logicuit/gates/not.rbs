@@ -2,10 +2,11 @@ module Logicuit
   module Gates
     # NOT gate
     class Not < DSL
-      def self.a: () -> bool
+      def self.a: () -> Signals::Signal
+      def self.y: () -> Signals::Signal
 
-      def a: () -> Signal
-      def y: () -> Signal
+      def a: () -> Signals::Signal
+      def y: () -> Signals::Signal
     end
   end
 end

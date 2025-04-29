@@ -1,0 +1,18 @@
+module Logicuit
+  module Circuits
+    module Combinational
+      # FullAdder class
+      class FullAdder < DSL
+        def self.cin: () -> Signals::Signal
+        def self.a: () -> Signals::Signal
+        def self.b: () -> Signals::Signal
+
+        def cin: () -> Signals::Signal
+        def a: () -> Signals::Signal
+        def b: () -> Signals::Signal
+        def s: () -> Signals::Signal
+        def c: () -> Signals::Signal
+      end
+    end
+  end
+end

@@ -1,0 +1,18 @@
+module Logicuit
+  module Circuits
+    module Combinational
+      # A Multiplexer with 2 inputs and 1 output
+      class Multiplexer2to1 < DSL
+        def self.c0: () -> Signals::Signal
+        def self.c1: () -> Signals::Signal
+        def self.a: () -> Signals::Signal
+        def self.y: () -> Signals::Signal
+
+        def c0: () -> Signals::Signal
+        def c1: () -> Signals::Signal
+        def a: () -> Signals::Signal
+        def y: () -> Signals::Signal
+      end
+    end
+  end
+end

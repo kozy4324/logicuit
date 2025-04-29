@@ -2,12 +2,13 @@ module Logicuit
   module Gates
     # XOR gate
     class Xor < DSL
-      def self.a: () -> bool
-      def self.b: () -> bool
+      def self.a: () -> Signals::Signal
+      def self.b: () -> Signals::Signal
+      def self.y: () -> Signals::Signal
 
-      def a: () -> Signal
-      def b: () -> Signal
-      def y: () -> Signal
+      def a: () -> Signals::Signal
+      def b: () -> Signals::Signal
+      def y: () -> Signals::Signal
     end
   end
 end

@@ -1,0 +1,18 @@
+module Logicuit
+  module Circuits
+    module Combinational
+      # HalfAdder class
+      class HalfAdder < DSL
+        def self.a: () -> Signals::Signal
+        def self.b: () -> Signals::Signal
+        def self.c: () -> Signals::Signal
+        def self.s: () -> Signals::Signal
+
+        def a: () -> Signals::Signal
+        def b: () -> Signals::Signal
+        def c: () -> Signals::Signal
+        def s: () -> Signals::Signal
+      end
+    end
+  end
+end

@@ -1,0 +1,24 @@
+module Logicuit
+  module Circuits
+    module Combinational
+      # A Multiplexer with 4 inputs and 1 output
+      class Multiplexer4to1 < DSL
+        def self.c0: () -> Signals::Signal
+        def self.c1: () -> Signals::Signal
+        def self.c2: () -> Signals::Signal
+        def self.c3: () -> Signals::Signal
+        def self.b: () -> Signals::Signal
+        def self.a: () -> Signals::Signal
+        def self.y: () -> Signals::Signal
+
+        def c0: () -> Signals::Signal
+        def c1: () -> Signals::Signal
+        def c2: () -> Signals::Signal
+        def c3: () -> Signals::Signal
+        def b: () -> Signals::Signal
+        def a: () -> Signals::Signal
+        def y: () -> Signals::Signal
+      end
+    end
+  end
+end
