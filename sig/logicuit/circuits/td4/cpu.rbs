@@ -1,0 +1,32 @@
+module Logicuit
+  module Circuits
+    module Td4
+      # TD4 CPU
+      class Cpu < DSL
+        @a: untyped
+
+        @b: untyped
+
+        def to_s: () -> ::String
+
+        def self.in0: () -> Signals::Signal
+        def self.in1: () -> Signals::Signal
+        def self.in2: () -> Signals::Signal
+        def self.in3: () -> Signals::Signal
+        def self.led1: () -> Signals::Signal
+        def self.led2: () -> Signals::Signal
+        def self.led3: () -> Signals::Signal
+        def self.led4: () -> Signals::Signal
+
+        def in0: () -> Signals::Signal
+        def in1: () -> Signals::Signal
+        def in2: () -> Signals::Signal
+        def in3: () -> Signals::Signal
+        def led1: () -> Signals::Signal
+        def led2: () -> Signals::Signal
+        def led3: () -> Signals::Signal
+        def led4: () -> Signals::Signal
+      end
+    end
+  end
+end

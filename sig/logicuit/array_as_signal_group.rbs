@@ -1,0 +1,10 @@
+# Logicuit module
+module Logicuit
+  # Treats Array#>> as SignalGroup#>> for the purpose of connecting signals
+  module ArrayAsSignalGroup
+  end
+end
+
+class Array[unchecked out T]
+  def >>: (untyped other) -> void
+end

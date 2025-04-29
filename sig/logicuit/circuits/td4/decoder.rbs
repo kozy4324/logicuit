@@ -1,0 +1,32 @@
+module Logicuit
+  module Circuits
+    module Td4
+      # Decoder class
+      class Decoder < DSL
+        def self.op3: () -> Signals::Signal
+        def self.op2: () -> Signals::Signal
+        def self.op1: () -> Signals::Signal
+        def self.op0: () -> Signals::Signal
+        def self.c_flag: () -> Signals::Signal
+        def self.sel_b: () -> Signals::Signal
+        def self.sel_a: () -> Signals::Signal
+        def self.ld0: () -> Signals::Signal
+        def self.ld1: () -> Signals::Signal
+        def self.ld2: () -> Signals::Signal
+        def self.ld3: () -> Signals::Signal
+
+        def op3: () -> Signals::Signal
+        def op2: () -> Signals::Signal
+        def op1: () -> Signals::Signal
+        def op0: () -> Signals::Signal
+        def c_flag: () -> Signals::Signal
+        def sel_b: () -> Signals::Signal
+        def sel_a: () -> Signals::Signal
+        def ld0: () -> Signals::Signal
+        def ld1: () -> Signals::Signal
+        def ld2: () -> Signals::Signal
+        def ld3: () -> Signals::Signal
+      end
+    end
+  end
+end

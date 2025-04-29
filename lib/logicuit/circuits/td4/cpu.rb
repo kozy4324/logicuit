@@ -12,11 +12,16 @@ module Logicuit
         outputs :led1, :led2, :led3, :led4
 
         assembling do
-          register_a, register_b, register_c = (:a..:c).map { Sequential::Register4bit.new }
+          register_a = Sequential::Register4bit.new
+          register_b = Sequential::Register4bit.new
+          register_c = Sequential::Register4bit.new
           pc = Sequential::ProgramCounter.new
           rom = Rom.new
           dec = Decoder.new
-          mux0, mux1, mux2, mux3 = (0..3).map { Combinational::Multiplexer4to1.new }
+          mux0 = Combinational::Multiplexer4to1.new
+          mux1 = Combinational::Multiplexer4to1.new
+          mux2 = Combinational::Multiplexer4to1.new
+          mux3 = Combinational::Multiplexer4to1.new
           alu = Combinational::FullAdder4bit.new
           dff = Sequential::DFlipFlop.new
 
