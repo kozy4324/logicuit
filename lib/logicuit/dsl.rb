@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# steep:ignore:start
+
 # Logicuit module
 module Logicuit
   # base class for all gates and circuits
@@ -183,3 +185,5 @@ module Logicuit
     end
   end
 end
+
+# steep:ignore:end

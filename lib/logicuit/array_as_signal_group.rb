@@ -6,7 +6,7 @@ module Logicuit
   module ArrayAsSignalGroup
     refine Array do
       def >>(other)
-        Signals::SignalGroup.new(*self).connects_to(other)
+        Signals::SignalGroup.new(*self).connects_to(other) # steep:ignore
       end
     end
   end

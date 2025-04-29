@@ -2,6 +2,7 @@
 module Logicuit
   # Treats Array#>> as SignalGroup#>> for the purpose of connecting signals
   module ArrayAsSignalGroup
+    def >>: (untyped other) -> void
   end
 end
 
