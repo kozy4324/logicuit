@@ -81,7 +81,12 @@ module Logicuit
                    else
                      override_args
                    end
-          if @inputs_as_bool_struct.new(*e_args).instance_exec(&evaluator)
+          ret = if evaluator.arity > 0
+                  evaluator.call(self)
+                else
+                  @inputs_as_bool_struct.new(*e_args).instance_exec(&evaluator)
+                end
+          if ret
             signal.on
           else
             signal.off
