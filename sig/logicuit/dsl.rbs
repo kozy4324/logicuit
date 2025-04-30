@@ -2,52 +2,34 @@
 module Logicuit
   # base class for all gates and circuits
   class DSL
-    @input_targets: untyped
+    def initialize: (*(0 | 1) args) -> void
 
-    @inputs_as_bool_struct: untyped
+    def evaluate: (*bool args) -> void
 
-    @output_targets: untyped
+    attr_reader input_targets: Array[Symbol]
 
-    @clock: untyped
+    attr_reader output_targets: Array[Symbol]
 
-    @components: untyped
+    attr_reader clock: bool
 
-    @initialized: untyped
+    attr_reader components: Array[untyped]
 
-    def initialize: (*untyped args) -> void
+    attr_reader initialized: bool 
 
-    def inputs: (*untyped args) -> nil
+    def self.inputs: (*Symbol args, ?clock: Symbol) -> void
 
-    def outputs: () -> nil
+    def []: (*Symbol keys) -> Signals::SignalGroup
 
-    def assembling: () -> nil
+    def self.outputs: (*Symbol args, **(^() -> bool)kwargs) -> void
 
-    def evaluate: (*untyped args) -> nil
+    def self.assembling: () { () -> void } -> void
 
-    attr_reader input_targets: untyped
+    def self.diagram: (String source) -> void
 
-    attr_reader output_targets: untyped
+    def self.truth_table: (String source) -> void
 
-    attr_reader clock: untyped
+    def self.verify_against_truth_table: () -> void
 
-    attr_reader components: untyped
-
-    attr_reader initialized: untyped
-
-    def self.inputs: (*untyped args, **untyped kwargs) -> untyped
-
-    def []: (*untyped keys) -> untyped
-
-    def self.outputs: (*untyped args, **untyped kwargs) -> (nil | untyped)
-
-    def self.assembling: () { (?) -> untyped } -> untyped
-
-    def self.diagram: (untyped source) -> untyped
-
-    def self.truth_table: (untyped source) -> untyped
-
-    def self.verify_against_truth_table: () -> untyped
-
-    def self.run: (?::Hash[untyped, untyped] opts) -> untyped
+    def self.run: (?hz: ::Integer, ?noclear: bool) -> void
   end
 end
