@@ -3,17 +3,17 @@ module Logicuit
     module Td4
       # Decoder class
       class Decoder < DSL
-        def op3: () -> Signals::Signal
-        def op2: () -> Signals::Signal
-        def op1: () -> Signals::Signal
-        def op0: () -> Signals::Signal
-        def c_flag: () -> Signals::Signal
-        def sel_b: () -> Signals::Signal
-        def sel_a: () -> Signals::Signal
-        def ld0: () -> Signals::Signal
-        def ld1: () -> Signals::Signal
-        def ld2: () -> Signals::Signal
-        def ld3: () -> Signals::Signal
+        attr_reader op3: Signals::Signal
+        attr_reader op2: Signals::Signal
+        attr_reader op1: Signals::Signal
+        attr_reader op0: Signals::Signal
+        attr_reader c_flag: Signals::Signal
+        attr_reader sel_b: Signals::Signal
+        attr_reader sel_a: Signals::Signal
+        attr_reader ld0: Signals::Signal
+        attr_reader ld1: Signals::Signal
+        attr_reader ld2: Signals::Signal
+        attr_reader ld3: Signals::Signal
         class Struct
           attr_reader op3: bool
           attr_reader op2: bool

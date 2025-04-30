@@ -3,11 +3,11 @@ module Logicuit
     module Combinational
       # FullAdder class
       class FullAdder < DSL
-        def cin: () -> Signals::Signal
-        def a: () -> Signals::Signal
-        def b: () -> Signals::Signal
-        def s: () -> Signals::Signal
-        def c: () -> Signals::Signal
+        attr_reader cin: Signals::Signal
+        attr_reader a: Signals::Signal
+        attr_reader b: Signals::Signal
+        attr_reader s: Signals::Signal
+        attr_reader c: Signals::Signal
         class Struct
           attr_reader cin: bool
           attr_reader a: bool

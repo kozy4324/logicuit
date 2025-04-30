@@ -3,10 +3,10 @@ module Logicuit
     module Combinational
       # A Multiplexer with 2 inputs and 1 output
       class Multiplexer2to1 < DSL
-        def c0: () -> Signals::Signal
-        def c1: () -> Signals::Signal
-        def a: () -> Signals::Signal
-        def y: () -> Signals::Signal
+        attr_reader c0: Signals::Signal
+        attr_reader c1: Signals::Signal
+        attr_reader a: Signals::Signal
+        attr_reader y: Signals::Signal
         class Struct
           attr_reader c0: bool
           attr_reader c1: bool

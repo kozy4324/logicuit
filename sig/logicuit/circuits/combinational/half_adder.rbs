@@ -3,10 +3,10 @@ module Logicuit
     module Combinational
       # HalfAdder class
       class HalfAdder < DSL
-        def a: () -> Signals::Signal
-        def b: () -> Signals::Signal
-        def c: () -> Signals::Signal
-        def s: () -> Signals::Signal
+        attr_reader a: Signals::Signal
+        attr_reader b: Signals::Signal
+        attr_reader c: Signals::Signal
+        attr_reader s: Signals::Signal
         class Struct
           attr_reader a: bool
           attr_reader b: bool

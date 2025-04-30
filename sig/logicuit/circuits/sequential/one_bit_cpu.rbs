@@ -5,8 +5,8 @@ module Logicuit
       # Input A is H, MOV A,A
       # Input A is L, NOT A
       class OneBitCpu < DSL
-        def a: () -> Signals::Signal
-        def y: () -> Signals::Signal
+        attr_reader a: Signals::Signal
+        attr_reader y: Signals::Signal
         class Struct
           attr_reader a: bool
         end

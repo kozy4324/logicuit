@@ -3,15 +3,15 @@ module Logicuit
     module Sequential
       # 4 bit register
       class Register4bit < DSL
-        def a: () -> Signals::Signal
-        def b: () -> Signals::Signal
-        def c: () -> Signals::Signal
-        def d: () -> Signals::Signal
-        def ld: () -> Signals::Signal
-        def qa: () -> Signals::Signal
-        def qb: () -> Signals::Signal
-        def qc: () -> Signals::Signal
-        def qd: () -> Signals::Signal
+        attr_reader a: Signals::Signal
+        attr_reader b: Signals::Signal
+        attr_reader c: Signals::Signal
+        attr_reader d: Signals::Signal
+        attr_reader ld: Signals::Signal
+        attr_reader qa: Signals::Signal
+        attr_reader qb: Signals::Signal
+        attr_reader qc: Signals::Signal
+        attr_reader qd: Signals::Signal
         class Struct
           attr_reader a: bool
           attr_reader b: bool

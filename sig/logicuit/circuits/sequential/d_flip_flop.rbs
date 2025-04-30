@@ -3,8 +3,8 @@ module Logicuit
     module Sequential
       # D Flip-Flop
       class DFlipFlop < DSL
-        def d: () -> Signals::Signal
-        def q: () -> Signals::Signal
+        attr_reader d: Signals::Signal
+        attr_reader q: Signals::Signal
         class Struct
           attr_reader d: bool
         end
