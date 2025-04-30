@@ -2,9 +2,9 @@ module Logicuit
   module Gates
     # NAND gate
     class Nand < DSL
-      def a: () -> Signals::Signal
-      def b: () -> Signals::Signal
-      def y: () -> Signals::Signal
+      attr_reader a: Signals::Signal
+      attr_reader b: Signals::Signal
+      attr_reader y: Signals::Signal
       class Struct
         attr_reader a: bool
         attr_reader b: bool
