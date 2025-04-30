@@ -20,7 +20,7 @@ module Logicuit
 
     def []: (*Symbol keys) -> Signals::SignalGroup
 
-    def self.outputs: (*Symbol args, **(^() -> bool)kwargs) -> void
+    def self.outputs: (*Symbol args, **^(instance) -> Signals::Signal kwargs) -> void
 
     def self.assembling: () { () -> void } -> void
 

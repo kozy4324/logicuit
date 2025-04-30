@@ -41,6 +41,18 @@ module Logicuit
         current ? "1" : "0"
       end
 
+      def &(other)
+        Signal.new(current && other.current)
+      end
+
+      def |(other)
+        Signal.new(current || other.current)
+      end
+
+      def !
+        Signal.new(!current)
+      end
+
       private
 
       def propagate_current

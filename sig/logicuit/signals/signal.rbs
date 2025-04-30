@@ -20,6 +20,10 @@ module Logicuit
 
       def to_s: () -> ("1" | "0")
 
+      def &: (Signal other) -> Signal
+      def |: (Signal other) -> Signal
+      def !: () -> Signal
+
       private
 
       def propagate_current: () -> void
