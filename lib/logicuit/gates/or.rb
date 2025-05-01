@@ -12,7 +12,7 @@ module Logicuit
 
       inputs :a, :b
 
-      outputs y: -> { a || b }
+      outputs y: ->(o) { o.a | o.b }
 
       truth_table <<~TRUTH_TABLE
         | A | B | Y |
