@@ -1,9 +1,12 @@
+# Generated from lib/logicuit/circuits/sequential/d_flip_flop.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Sequential
       # D Flip-Flop
       class DFlipFlop < DSL
         attr_reader d: Signals::Signal
+
         attr_reader q: Signals::Signal
       end
     end

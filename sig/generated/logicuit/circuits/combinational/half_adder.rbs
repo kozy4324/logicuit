@@ -1,13 +1,17 @@
+# Generated from lib/logicuit/circuits/combinational/half_adder.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Combinational
-      # FullAdder class
-      class FullAdder < DSL
-        attr_reader cin: Signals::Signal
+      # HalfAdder class
+      class HalfAdder < DSL
         attr_reader a: Signals::Signal
+
         attr_reader b: Signals::Signal
-        attr_reader s: Signals::Signal
+
         attr_reader c: Signals::Signal
+
+        attr_reader s: Signals::Signal
       end
     end
   end

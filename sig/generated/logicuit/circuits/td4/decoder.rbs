@@ -1,18 +1,30 @@
+# Generated from lib/logicuit/circuits/td4/decoder.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Td4
       # Decoder class
       class Decoder < DSL
         attr_reader op3: Signals::Signal
+
         attr_reader op2: Signals::Signal
+
         attr_reader op1: Signals::Signal
+
         attr_reader op0: Signals::Signal
+
         attr_reader c_flag: Signals::Signal
+
         attr_reader sel_b: Signals::Signal
+
         attr_reader sel_a: Signals::Signal
+
         attr_reader ld0: Signals::Signal
+
         attr_reader ld1: Signals::Signal
+
         attr_reader ld2: Signals::Signal
+
         attr_reader ld3: Signals::Signal
       end
     end

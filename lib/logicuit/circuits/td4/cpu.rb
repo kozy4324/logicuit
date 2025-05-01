@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Circuits
     module Td4
       # TD4 CPU
       class Cpu < DSL
         using Logicuit::ArrayAsSignalGroup
+
+        attr_reader :in0, :in1, :in2, :in3, :led1, :led2, :led3, :led4
 
         inputs :in0, :in1, :in2, :in3, clock: :ck
 

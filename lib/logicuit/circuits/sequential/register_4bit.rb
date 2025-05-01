@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Circuits
     module Sequential
@@ -27,6 +29,8 @@ module Logicuit
                 +---|   |   +---|   |
           (LD)--+     (CK)--+
         DIAGRAM
+
+        attr_reader :a, :b, :c, :d, :ld, :qa, :qb, :qc, :qd #: Signals::Signal
 
         inputs :a, :b, :c, :d, :ld, clock: :ck
 

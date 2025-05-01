@@ -1,14 +1,22 @@
+# Generated from lib/logicuit/circuits/combinational/multiplexer_4to1.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Combinational
       # A Multiplexer with 4 inputs and 1 output
       class Multiplexer4to1 < DSL
         attr_reader c0: Signals::Signal
+
         attr_reader c1: Signals::Signal
+
         attr_reader c2: Signals::Signal
+
         attr_reader c3: Signals::Signal
+
         attr_reader b: Signals::Signal
+
         attr_reader a: Signals::Signal
+
         attr_reader y: Signals::Signal
       end
     end

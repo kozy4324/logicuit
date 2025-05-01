@@ -1,8 +1,11 @@
+# Generated from lib/logicuit/gates/not.rb with RBS::Inline
+
 module Logicuit
   module Gates
     # NOT gate
     class Not < DSL
       attr_reader a: Signals::Signal
+
       attr_reader y: Signals::Signal
     end
   end

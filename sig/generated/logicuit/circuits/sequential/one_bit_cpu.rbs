@@ -1,3 +1,5 @@
+# Generated from lib/logicuit/circuits/sequential/one_bit_cpu.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Sequential
@@ -6,6 +8,7 @@ module Logicuit
       # Input A is L, NOT A
       class OneBitCpu < DSL
         attr_reader a: Signals::Signal
+
         attr_reader y: Signals::Signal
       end
     end

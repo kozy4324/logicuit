@@ -1,9 +1,13 @@
+# Generated from lib/logicuit/gates/nand.rb with RBS::Inline
+
 module Logicuit
   module Gates
-    # OR gate
-    class Or < DSL
+    # NAND gate
+    class Nand < DSL
       attr_reader a: Signals::Signal
+
       attr_reader b: Signals::Signal
+
       attr_reader y: Signals::Signal
     end
   end

@@ -1,16 +1,26 @@
+# Generated from lib/logicuit/circuits/sequential/program_counter.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Sequential
       # Program Counter
       class ProgramCounter < DSL
         attr_reader a: Signals::Signal
+
         attr_reader b: Signals::Signal
+
         attr_reader c: Signals::Signal
+
         attr_reader d: Signals::Signal
+
         attr_reader ld: Signals::Signal
+
         attr_reader qa: Signals::Signal
+
         attr_reader qb: Signals::Signal
+
         attr_reader qc: Signals::Signal
+
         attr_reader qd: Signals::Signal
       end
     end

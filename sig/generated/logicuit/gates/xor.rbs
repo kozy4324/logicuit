@@ -1,9 +1,13 @@
+# Generated from lib/logicuit/gates/xor.rb with RBS::Inline
+
 module Logicuit
   module Gates
     # XOR gate
     class Xor < DSL
       attr_reader a: Signals::Signal
+
       attr_reader b: Signals::Signal
+
       attr_reader y: Signals::Signal
     end
   end

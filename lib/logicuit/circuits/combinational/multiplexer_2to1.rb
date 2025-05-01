@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Circuits
     module Combinational
@@ -14,6 +16,8 @@ module Logicuit
                |       |AND|--+
           (A)--+-------|   |
         DIAGRAM
+
+        attr_reader :c0, :c1, :a, :y #: Signals::Signal
 
         inputs :c0, :c1, :a
 

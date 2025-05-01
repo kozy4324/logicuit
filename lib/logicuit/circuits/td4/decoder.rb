@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Circuits
     module Td4
       # Decoder class
       class Decoder < DSL
+        attr_reader :op3, :op2, :op1, :op0, :c_flag, :sel_b, :sel_a, :ld0, :ld1, :ld2, :ld3 #: Signals::Signal
+
         inputs :op3, :op2, :op1, :op0, :c_flag
 
         outputs sel_b: ->(o) { o.op1 },

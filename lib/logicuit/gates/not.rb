@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Gates
     # NOT gate
@@ -7,6 +9,8 @@ module Logicuit
       diagram <<~DIAGRAM
         (A)-|NOT|-(Y)
       DIAGRAM
+
+      attr_reader :a, :y #: Signals::Signal
 
       inputs :a
 

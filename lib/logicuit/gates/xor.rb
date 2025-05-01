@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Gates
     # XOR gate
@@ -9,6 +11,8 @@ module Logicuit
             |XOR|-(Y)
         (B)-|   |
       DIAGRAM
+
+      attr_reader :a, :b, :y #: Signals::Signal
 
       inputs :a, :b
 

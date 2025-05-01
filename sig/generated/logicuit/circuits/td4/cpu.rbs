@@ -1,0 +1,28 @@
+# Generated from lib/logicuit/circuits/td4/cpu.rb with RBS::Inline
+
+module Logicuit
+  module Circuits
+    module Td4
+      # TD4 CPU
+      class Cpu < DSL
+        attr_reader in0: untyped
+
+        attr_reader in1: untyped
+
+        attr_reader in2: untyped
+
+        attr_reader in3: untyped
+
+        attr_reader led1: untyped
+
+        attr_reader led2: untyped
+
+        attr_reader led3: untyped
+
+        attr_reader led4: untyped
+
+        def to_s: () -> untyped
+      end
+    end
+  end
+end

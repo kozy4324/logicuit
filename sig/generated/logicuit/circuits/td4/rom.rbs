@@ -1,22 +1,35 @@
+# Generated from lib/logicuit/circuits/td4/rom.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Td4
       # Timer
       class Rom < DSL
-        def evaluate: () -> (nil | untyped)
-
         attr_reader a3: Signals::Signal
+
         attr_reader a2: Signals::Signal
+
         attr_reader a1: Signals::Signal
+
         attr_reader a0: Signals::Signal
+
         attr_reader d7: Signals::Signal
+
         attr_reader d6: Signals::Signal
+
         attr_reader d5: Signals::Signal
+
         attr_reader d4: Signals::Signal
+
         attr_reader d3: Signals::Signal
+
         attr_reader d2: Signals::Signal
+
         attr_reader d1: Signals::Signal
+
         attr_reader d0: Signals::Signal
+
+        def evaluate: () -> untyped
       end
     end
   end

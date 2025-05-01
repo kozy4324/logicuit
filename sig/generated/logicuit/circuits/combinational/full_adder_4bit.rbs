@@ -1,21 +1,36 @@
+# Generated from lib/logicuit/circuits/combinational/full_adder_4bit.rb with RBS::Inline
+
 module Logicuit
   module Circuits
     module Combinational
       # FullAdder class
       class FullAdder4bit < DSL
         attr_reader cin: Signals::Signal
+
         attr_reader a0: Signals::Signal
+
         attr_reader b0: Signals::Signal
+
         attr_reader a1: Signals::Signal
+
         attr_reader b1: Signals::Signal
+
         attr_reader a2: Signals::Signal
+
         attr_reader b2: Signals::Signal
+
         attr_reader a3: Signals::Signal
+
         attr_reader b3: Signals::Signal
+
         attr_reader s0: Signals::Signal
+
         attr_reader s1: Signals::Signal
+
         attr_reader s2: Signals::Signal
+
         attr_reader s3: Signals::Signal
+
         attr_reader c: Signals::Signal
       end
     end
