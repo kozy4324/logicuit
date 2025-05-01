@@ -17,14 +17,6 @@ module Logicuit
         attr_reader d2: Signals::Signal
         attr_reader d1: Signals::Signal
         attr_reader d0: Signals::Signal
-        class Struct
-          attr_reader a3: bool
-          attr_reader a2: bool
-          attr_reader a1: bool
-          attr_reader a0: bool
-        end
-        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> void
-        def self.assembling: () { () [self: instance] -> void } -> void
       end
     end
   end

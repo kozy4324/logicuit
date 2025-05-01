@@ -22,7 +22,7 @@ module Logicuit
 
     def self.outputs: (*Symbol args, **^(instance) -> Signals::Signal kwargs) -> void
 
-    def self.assembling: () { () -> void } -> void
+    def self.assembling: () { () [self: instance] -> void } -> void
 
     def self.diagram: (String source) -> void
 
