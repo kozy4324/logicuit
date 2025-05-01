@@ -68,9 +68,13 @@ You can define inputs, outputs, and even a visual diagram — all within a Ruby 
 Here is an example of a simple 2-input AND gate:
 
 ```ruby
+# rbs_inline: enabled
+
 require "logicuit"
 
 class MyAndGate < Logicuit::DSL
+  attr_reader :a, :b, :y #: Logicuit::Signals::Signal
+
   inputs :a, :b
 
   outputs y: -> { a & b }
@@ -133,9 +137,13 @@ This approach gives you more control and expressiveness when building complex ci
 Here's an example of a 2-to-1 multiplexer:
 
 ```ruby
+# rbs_inline: enabled
+
 require "logicuit"
 
 class MyMultiplexer < Logicuit::DSL
+  attr_reader :c0, :c1, :a, :y #: Logicuit::Signals::Signal
+
   inputs :c0, :c1, :a
 
   outputs :y
@@ -268,9 +276,13 @@ In addition to combinational circuits, Logicuit also supports sequential circuit
 For example, here’s a D flip-flop:
 
 ```ruby
+# rbs_inline: enabled
+
 require "logicuit"
 
 class MyDFlipFlop < Logicuit::DSL
+  attr_reader :d, :q #: Logicuit::Signals::Signal
+
   inputs :d, clock: :ck
 
   outputs q: -> { d }
@@ -339,9 +351,13 @@ You can build sequential circuits out of smaller components using the `assemblin
 Here’s an example of a 4-bit register that stores its input when the load signal `ld` is not active:
 
 ```ruby
+# rbs_inline: enabled
+
 require "logicuit"
 
 class MyRegister4bit < Logicuit::DSL
+  attr_reader :a, :b, :c, :d, :ld, :qa, :qb, :qc, :qd #: Logicuit::Signals::Signal
+
   inputs :a, :b, :c, :d, :ld, clock: :ck
 
   outputs :qa, :qb, :qc, :qd
@@ -402,9 +418,13 @@ inputs ..., clock: :ck
 You can attach a truth table to your circuit class using the `#truth_table`. The truth table should be written in Markdown table format.
 
 ```ruby
+# rbs_inline: enabled
+
 require "logicuit"
 
 class MyAndGate < Logicuit::DSL
+  attr_reader :a, :b, :y #: Logicuit::Signals::Signal
+
   inputs :a, :b
 
   outputs y: -> { a & b }
@@ -445,7 +465,11 @@ Sequential circuits can also be verified using truth tables. When verifying a se
 Here’s an example for a D flip-flop:
 
 ```ruby
+# rbs_inline: enabled
+
 class MyDFlipFlop < Logicuit::DSL
+  attr_reader :d, :q #: Logicuit::Signals::Signal
+
   inputs :d, clock: :ck
 
   outputs q: -> { d }
