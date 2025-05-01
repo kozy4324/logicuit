@@ -14,7 +14,7 @@ module Logicuit
 
       inputs :a
 
-      outputs y: ->(o) { !o.a }
+      outputs y: -> { !a }
 
       truth_table <<~TRUTH_TABLE
         | A | Y |

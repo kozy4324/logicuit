@@ -78,9 +78,10 @@ module Logicuit
 
         kwargs.each do |output, evaluator|
           ret = if override_args.empty?
-                  evaluator.call(self)
+                  instance_exec(&evaluator)
                 else
-                  evaluator.call(@inputs_as_bool_struct.new(*override_args))
+                  o = @inputs_as_bool_struct.new(*override_args)
+                  o.instance_exec(&evaluator)
                 end
           send(output).send(ret.current ? :on : :off)
         end

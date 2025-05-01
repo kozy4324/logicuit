@@ -11,12 +11,12 @@ module Logicuit
 
         inputs :op3, :op2, :op1, :op0, :c_flag
 
-        outputs sel_b: ->(o) { o.op1 },
-                sel_a: ->(o) { o.op3 | o.op0 },
-                ld0: ->(o) { o.op3 | o.op2 },
-                ld1: ->(o) { o.op3 | !o.op2 },
-                ld2: ->(o) { !o.op3 | o.op2 },
-                ld3: ->(o) { !o.op3 | !o.op2 | (!o.op0 & o.c_flag) }
+        outputs sel_b: -> { op1 },
+                sel_a: -> { op3 | op0 },
+                ld0: -> { op3 | op2 },
+                ld1: -> { op3 | !op2 },
+                ld2: -> { !op3 | op2 },
+                ld3: -> { !op3 | !op2 | (!op0 & c_flag) }
 
         truth_table <<~TRUTH_TABLE
           | OP3 | OP2 | OP1 | OP0 | C_FLAG | SEL_B | SEL_A | LD0 | LD1 | LD2 | LD3 |
