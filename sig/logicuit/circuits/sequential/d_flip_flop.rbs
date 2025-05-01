@@ -5,10 +5,6 @@ module Logicuit
       class DFlipFlop < DSL
         attr_reader d: Signals::Signal
         attr_reader q: Signals::Signal
-        class Struct
-          attr_reader d: bool
-        end
-        def self.outputs: (*Symbol args, **^() [self: Struct] -> bool kwargs) -> void
       end
     end
   end
