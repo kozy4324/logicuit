@@ -20,8 +20,13 @@ module Logicuit
 
       def to_s: () -> ("1" | "0")
 
+      # logical AND operation
       def &: (Signal other) -> Signal
+
+      # logical OR operation
       def |: (Signal other) -> Signal
+
+      # logical NOT operation
       def !: () -> Signal
 
       private
