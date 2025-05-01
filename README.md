@@ -73,7 +73,7 @@ require "logicuit"
 class MyAndGate < Logicuit::DSL
   inputs :a, :b
 
-  outputs y: -> { a && b }
+  outputs y: -> { a & b }
 
   diagram <<~DIAGRAM
     (A)-|   |
@@ -90,6 +90,19 @@ This defines:
 - two inputs (`a` and `b`),
 - one output (`y`) that returns the logical AND of the inputs,
 - and an ASCII diagram that shows the structure of the gate.
+
+### About signals and logical operations
+
+Inputs and outputs in Logicuit are not plain booleans — they are instances of the `Logicuit::Signals::Signal` class.
+The `Signal` class provides methods like `&`, `|`, and `!` to represent logical AND, OR, and NOT operations, respectively.
+
+For example:
+
+```ruby
+outputs y: -> { (a & b) | !a }
+```
+
+This allows logic expressions to look natural and circuit-like while supporting chaining and composition.
 
 ### Interactive execution
 
@@ -394,7 +407,7 @@ require "logicuit"
 class MyAndGate < Logicuit::DSL
   inputs :a, :b
 
-  outputs y: -> { a && b }
+  outputs y: -> { a & b }
 
   diagram <<~DIAGRAM
     (A)-|   |
