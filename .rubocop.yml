@@ -8,6 +8,9 @@ Style/StringLiterals:
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
+Layout/LeadingCommentSpace:
+  Enabled: false
+
 Layout/LineLength:
   Enabled: false
 

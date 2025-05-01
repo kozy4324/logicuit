@@ -28,7 +28,9 @@ module Logicuit
 
     def self.inputs(*args, **kwargs)
       # define getter methods for inputs
-      attr_reader(*args)
+      args.each do |arg|
+        attr_reader(arg) unless instance_methods.include?(arg)
+      end
 
       # define initializer for inputs
       define_method(:inputs) do |*instance_method_args|
@@ -56,7 +58,9 @@ module Logicuit
 
     def self.outputs(*args, **kwargs)
       # define getter methods for outputs
-      attr_reader(*(args + kwargs.keys))
+      (args + kwargs.keys).each do |arg|
+        attr_reader(arg) unless instance_methods.include?(arg)
+      end
 
       # define initializer for outputs
       define_method(:outputs) do

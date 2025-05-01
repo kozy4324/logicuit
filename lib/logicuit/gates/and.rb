@@ -12,11 +12,10 @@ module Logicuit
         (B)-|   |
       DIAGRAM
 
-      # @rbs! attr_reader a: Signals::Signal
-      # @rbs! attr_reader b: Signals::Signal
+      attr_reader :a, :b, :y #: Signals::Signal
+
       inputs :a, :b
 
-      # @rbs! attr_reader y: Signals::Signal
       outputs y: ->(o) { o.a & o.b }
 
       truth_table <<~TRUTH_TABLE
