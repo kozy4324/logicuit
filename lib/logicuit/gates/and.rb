@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 module Logicuit
   module Gates
     # AND gate
@@ -10,8 +12,11 @@ module Logicuit
         (B)-|   |
       DIAGRAM
 
+      # @rbs! attr_reader a: Signals::Signal
+      # @rbs! attr_reader b: Signals::Signal
       inputs :a, :b
 
+      # @rbs! attr_reader y: Signals::Signal
       outputs y: ->(o) { o.a & o.b }
 
       truth_table <<~TRUTH_TABLE

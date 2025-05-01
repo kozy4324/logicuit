@@ -15,4 +15,9 @@ Steep::RakeTask.new do |t|
   t.watch.verbose
 end
 
-task default: %i[test rubocop steep]
+desc "Generate rbs files from inline comments"
+task "rbs-inline" do
+  sh "rbs-inline --output lib"
+end
+
+task default: %i[test rubocop rbs-inline steep]
