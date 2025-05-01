@@ -16,7 +16,7 @@ module Logicuit
         # Call the `evaluate` method for all components.
         # However, the input argument values should be bound to the values at the time `tick` is called.
         @downstreams.map do |component|
-          args = component.input_targets.map { |input| component.instance_variable_get("@#{input}").current }
+          args = component.input_targets.map { |input| Signal.new(component.send(input).current) }
           -> { component.evaluate(*args) }
         end.each(&:call)
       end

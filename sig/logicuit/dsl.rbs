@@ -4,7 +4,7 @@ module Logicuit
   class DSL
     def initialize: (*(0 | 1) args) -> void
 
-    def evaluate: (*bool args) -> void
+    def evaluate: (*Signals::Signal args) -> void
 
     attr_reader input_targets: Array[Symbol]
 

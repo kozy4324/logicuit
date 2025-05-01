@@ -73,28 +73,12 @@ module Logicuit
         return unless initialized
 
         kwargs.each do |output, evaluator|
-          signal = instance_variable_get("@#{output}")
-          e_args = if override_args.empty?
-                     @input_targets.map do |input|
-                       Signals::Signal.new(instance_variable_get("@#{input}").current)
-                     end
-                   else
-                     override_args.map { _1 ? Signals::Signal.new(true) : Signals::Signal.new(false) }
-                   end
-          ret = if evaluator.arity > 0
-                  if override_args.empty?
-                    evaluator.call(self)
-                  else
-                    evaluator.call(@inputs_as_bool_struct.new(*e_args))
-                  end
+          ret = if override_args.empty?
+                  evaluator.call(self)
                 else
-                  @inputs_as_bool_struct.new(*e_args).instance_exec(&evaluator)
+                  evaluator.call(@inputs_as_bool_struct.new(*override_args))
                 end
-          if ret.is_a?(Signals::Signal) ? ret.current : ret
-            signal.on
-          else
-            signal.off
-          end
+          send(output).send(ret.current ? :on : :off)
         end
       end
     end
