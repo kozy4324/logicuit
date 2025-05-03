@@ -1,4 +1,0 @@
-# Logicuit module
-module Logicuit
-  def self.run: (DSL circuit, ?hz: ::Integer, ?noclear: bool) -> void
-end

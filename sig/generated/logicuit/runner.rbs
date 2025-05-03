@@ -1,0 +1,7 @@
+# Generated from lib/logicuit/runner.rb with RBS::Inline
+
+# Logicuit module
+module Logicuit
+  # : (DSL circuit, ?hz: ::Integer, ?noclear: bool) -> void
+  def self.run: (DSL circuit, ?hz: ::Integer, ?noclear: bool) -> void
+end

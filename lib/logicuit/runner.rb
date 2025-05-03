@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
+
 # Logicuit module
 module Logicuit
+  #: (DSL circuit, ?hz: ::Integer, ?noclear: bool) -> void
   def self.run(circuit, hz: 1, noclear: false)
     render = lambda {
       system("clear") unless noclear
