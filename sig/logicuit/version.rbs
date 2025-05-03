@@ -1,3 +1,0 @@
-module Logicuit
-  VERSION: String
-end

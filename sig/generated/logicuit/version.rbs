@@ -1,0 +1,5 @@
+# Generated from lib/logicuit/version.rb with RBS::Inline
+
+module Logicuit
+  VERSION: ::String
+end
