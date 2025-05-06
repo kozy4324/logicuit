@@ -1,0 +1,25 @@
+# Generated from lib/logicuit/signals/signal_group.rb with RBS::Inline
+
+module Logicuit
+  module Signals
+    # Signal Group
+    class SignalGroup
+      # : def initialize: (*Signal signals) -> void
+      def initialize: (*untyped signals) -> untyped
+
+      # : def signals: () -> Array[Signal]
+      def signals: () -> untyped
+
+      # : def connects_to: (SignalGroup | Array[Signal] others) -> void
+      def connects_to: (untyped others) -> untyped
+
+      alias >> connects_to
+
+      # : def to_s: () -> String
+      def to_s: () -> untyped
+
+      # : def set: (String vals) -> void
+      def set: (untyped vals) -> untyped
+    end
+  end
+end
