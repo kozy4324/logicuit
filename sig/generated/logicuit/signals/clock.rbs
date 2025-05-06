@@ -1,0 +1,38 @@
+# Generated from lib/logicuit/signals/clock.rb with RBS::Inline
+
+module Logicuit
+  module Signals
+    # Clock
+    class Clock
+      # : def initialize: () -> void
+      def initialize: () -> untyped
+
+      # @rbs!
+      #   attr_reader downstreams: Array[DSL]
+      #   attr_reader tick_count: Integer
+      attr_reader downstreams: untyped
+
+      # @rbs!
+      #   attr_reader downstreams: Array[DSL]
+      #   attr_reader tick_count: Integer
+      attr_reader tick_count: untyped
+
+      # : def tick: () -> void
+      def tick: () -> untyped
+
+      # : def self.instance: () -> Clock
+      def self.instance: () -> untyped
+
+      # : def self.connects_to: (DSL component) -> void
+      def self.connects_to: (untyped component) -> untyped
+
+      alias self.>> self.connects_to
+
+      # : def self.tick: () -> void
+      def self.tick: () -> untyped
+
+      # : def self.tick_count: () -> Integer
+      def self.tick_count: () -> untyped
+    end
+  end
+end
