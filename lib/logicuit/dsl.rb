@@ -108,6 +108,8 @@ module Logicuit
 
     def self.truth_table(source)
       define_method(:truth_table) do
+        return @truth_table unless @truth_table.nil?
+
         rows = source.strip.split("\n").map { |row| row.gsub(/#.*$/, "") }
         headers = rows.shift.split("|").map(&:strip).reject(&:empty?).map(&:downcase).map(&:to_sym)
         rows.shift # devide line
@@ -149,7 +151,7 @@ module Logicuit
         end.flatten!(1).map do |values|
           headers.zip(values).to_h
         end
-        table
+        @truth_table = table
       end
     end
 

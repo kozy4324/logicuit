@@ -16,25 +16,10 @@ module Logicuit
         def evaluate
           return unless initialized
 
-          output = case self[:a3, :a2, :a1, :a0].to_s
-                   in "0000" then "10110111"
-                   in "0001" then "00000001"
-                   in "0010" then "11100001"
-                   in "0011" then "00000001"
-                   in "0100" then "11100011"
-                   in "0101" then "10110110"
-                   in "0110" then "00000001"
-                   in "0111" then "11100110"
-                   in "1000" then "00000001"
-                   in "1001" then "11101000"
-                   in "1010" then "10110000"
-                   in "1011" then "10110100"
-                   in "1100" then "00000001"
-                   in "1101" then "11101010"
-                   in "1110" then "10111000"
-                   in "1111" then "11111111"
-                   end
-          self[:d7, :d6, :d5, :d4, :d3, :d2, :d1, :d0].set output
+          rec = truth_table.find { |rec| input_targets.all? { |input| send(input).current == rec[input] } }
+          return if rec.nil?
+
+          output_targets.map { |output| send(output).send(rec[output] ? :on : :off) }
         end
 
         truth_table <<~TRUTH_TABLE

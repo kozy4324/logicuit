@@ -28,6 +28,8 @@ module Logicuit
 
     def self.truth_table: (String source) -> void
 
+    def truth_table: () -> Array[Hash[Symbol, bool]]
+
     def self.verify_against_truth_table: () -> void
 
     def self.run: (?hz: ::Integer, ?noclear: bool) -> void
