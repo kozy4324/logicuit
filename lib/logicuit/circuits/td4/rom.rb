@@ -16,10 +16,10 @@ module Logicuit
         def evaluate
           return unless initialized
 
-          rec = truth_table.find { |rec| input_targets.all? { |input| send(input).current == rec[input] } }
-          return if rec.nil?
+          record = truth_table.find { |rec| input_targets.all? { |input| send(input).current == rec[input] } }
+          return if record.nil?
 
-          output_targets.map { |output| send(output).send(rec[output] ? :on : :off) }
+          output_targets.map { |output| send(output).send(record[output] ? :on : :off) }
         end
 
         truth_table <<~TRUTH_TABLE
