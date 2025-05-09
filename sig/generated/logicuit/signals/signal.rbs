@@ -1,36 +1,45 @@
+# Generated from lib/logicuit/signals/signal.rb with RBS::Inline
+
 module Logicuit
   module Signals
     # Signal
     class Signal
-      @current: bool
-
       @downstreams: Array[Signal | DSL]
 
+      # : (?bool current) -> void
       def initialize: (?bool current) -> void
 
       attr_reader current: bool
 
+      # : () -> void
       def on: () -> void
 
+      # : () -> void
       def off: () -> void
 
+      # : (Signal | SignalGroup | Array[Signal] | DSL other) -> void
       def connects_to: (Signal | SignalGroup | Array[Signal] | DSL other) -> void
 
       alias >> connects_to
 
+      # : () -> ("1" | "0")
       def to_s: () -> ("1" | "0")
 
       # logical AND operation
+      # : (Signal other) -> Signal
       def &: (Signal other) -> Signal
 
       # logical OR operation
+      # : (Signal other) -> Signal
       def |: (Signal other) -> Signal
 
       # logical NOT operation
+      # : () -> Signal
       def !: () -> Signal
 
       private
 
+      # : () -> void
       def propagate_current: () -> void
     end
   end
