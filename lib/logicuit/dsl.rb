@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# rbs_inline: enabled
 # steep:ignore:start
 
 # Logicuit module
 module Logicuit
   # base class for all gates and circuits
   class DSL
+    #: (*(0 | 1) args) -> void
     def initialize(*args)
       @input_targets = []
       @inputs_as_bool_struct = nil
@@ -22,10 +24,17 @@ module Logicuit
     def inputs(*args); end
     def outputs; end
     def assembling; end
+
+    #: (*Signals::Signal args) -> void
     def evaluate(*args); end
 
-    attr_reader :input_targets, :output_targets, :clock, :components, :initialized
+    attr_reader :input_targets #: Array[Symbol]
+    attr_reader :output_targets #: Array[Symbol]
+    attr_reader :clock #: bool
+    attr_reader :components #: Array[untyped]
+    attr_reader :initialized #: bool
 
+    #: (*Symbol args, ?clock: Symbol) -> void
     def self.inputs(*args, **kwargs)
       # define getter methods for inputs
       args.each do |arg|
@@ -46,6 +55,7 @@ module Logicuit
       end
     end
 
+    #: (*Symbol keys) -> Signals::SignalGroup
     def [](*keys)
       if keys.size == 1
         send(keys.first)
@@ -56,6 +66,7 @@ module Logicuit
       end
     end
 
+    #: (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
     def self.outputs(*args, **kwargs)
       # define getter methods for outputs
       (args + kwargs.keys).each do |arg|
@@ -88,6 +99,7 @@ module Logicuit
       end
     end
 
+    #: () { () [self: instance] -> void } -> void
     def self.assembling(&block)
       define_method(:assembling) do
         ret = instance_eval(&block)
@@ -95,6 +107,7 @@ module Logicuit
       end
     end
 
+    #: (String source) -> void
     def self.diagram(source)
       define_method(:to_s) do
         source_ = @input_targets.reduce(source) do |result, input|
@@ -106,6 +119,9 @@ module Logicuit
       end
     end
 
+    # @rbs! def truth_table: () -> Array[Hash[Symbol, bool]]
+
+    #: (String source) -> void
     def self.truth_table(source)
       define_method(:truth_table) do
         return @truth_table unless @truth_table.nil?
@@ -155,6 +171,7 @@ module Logicuit
       end
     end
 
+    #: () -> void
     def self.verify_against_truth_table
       new.truth_table.each do |row|
         args = row.values_at(*new.input_targets).map { _1 ? 1 : 0 }
@@ -180,6 +197,7 @@ module Logicuit
       end
     end
 
+    #: (?hz: ::Integer, ?noclear: bool) -> void
     def self.run(opts = {})
       ::Logicuit.run(new, **opts)
     end

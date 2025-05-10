@@ -1,9 +1,19 @@
+# Generated from lib/logicuit/dsl.rb with RBS::Inline
+
 # Logicuit module
 module Logicuit
   # base class for all gates and circuits
   class DSL
-    def initialize: (*(0 | 1) args) -> void
+    # : (*(0 | 1) args) -> void
+    def initialize: (*0 | 1 args) -> void
 
+    def inputs: (*untyped args) -> untyped
+
+    def outputs: () -> untyped
+
+    def assembling: () -> untyped
+
+    # : (*Signals::Signal args) -> void
     def evaluate: (*Signals::Signal args) -> void
 
     attr_reader input_targets: Array[Symbol]
@@ -14,24 +24,32 @@ module Logicuit
 
     attr_reader components: Array[untyped]
 
-    attr_reader initialized: bool 
+    attr_reader initialized: bool
 
+    # : (*Symbol args, ?clock: Symbol) -> void
     def self.inputs: (*Symbol args, ?clock: Symbol) -> void
 
+    # : (*Symbol keys) -> Signals::SignalGroup
     def []: (*Symbol keys) -> Signals::SignalGroup
 
+    # : (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
     def self.outputs: (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
 
+    # : () { () [self: instance] -> void } -> void
     def self.assembling: () { () [self: instance] -> void } -> void
 
+    # : (String source) -> void
     def self.diagram: (String source) -> void
-
-    def self.truth_table: (String source) -> void
 
     def truth_table: () -> Array[Hash[Symbol, bool]]
 
+    # : (String source) -> void
+    def self.truth_table: (String source) -> void
+
+    # : () -> void
     def self.verify_against_truth_table: () -> void
 
+    # : (?hz: ::Integer, ?noclear: bool) -> void
     def self.run: (?hz: ::Integer, ?noclear: bool) -> void
   end
 end
