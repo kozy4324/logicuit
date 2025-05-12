@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # rbs_inline: enabled
-# steep:ignore:start
 
 # Logicuit module
 module Logicuit
@@ -34,6 +33,8 @@ module Logicuit
     attr_reader :components #: Array[untyped]
     attr_reader :initialized #: bool
 
+    # steep:ignore:start
+
     #: (*Symbol args, ?clock: Symbol) -> void
     def self.inputs(*args, **kwargs)
       # define getter methods for inputs
@@ -55,6 +56,8 @@ module Logicuit
       end
     end
 
+    # steep:ignore:end
+
     #: (*Symbol keys) -> Signals::SignalGroup
     def [](*keys)
       if keys.size == 1
@@ -65,6 +68,8 @@ module Logicuit
         raise ArgumentError, "Invalid number of arguments"
       end
     end
+
+    # steep:ignore:start
 
     #: (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
     def self.outputs(*args, **kwargs)
@@ -201,7 +206,7 @@ module Logicuit
     def self.run(opts = {})
       ::Logicuit.run(new, **opts)
     end
+
+    # steep:ignore:end
   end
 end
-
-# steep:ignore:end
