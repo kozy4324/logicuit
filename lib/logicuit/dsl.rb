@@ -6,6 +6,8 @@
 module Logicuit
   # base class for all gates and circuits
   class DSL
+    # @rbs! def self.define_method: (interned symbol) { (?) [self: DSL] -> untyped } -> Symbol
+
     #: (*(0 | 1) args) -> void
     def initialize(*args)
       @input_targets = []
@@ -33,8 +35,6 @@ module Logicuit
     attr_reader :components #: Array[untyped]
     attr_reader :initialized #: bool
 
-    # steep:ignore:start
-
     #: (*Symbol args, ?clock: Symbol) -> void
     def self.inputs(*args, **kwargs)
       # define getter methods for inputs
@@ -56,8 +56,6 @@ module Logicuit
       end
     end
 
-    # steep:ignore:end
-
     #: (*Symbol keys) -> Signals::SignalGroup
     def [](*keys)
       if keys.size == 1
@@ -68,8 +66,6 @@ module Logicuit
         raise ArgumentError, "Invalid number of arguments"
       end
     end
-
-    # steep:ignore:start
 
     #: (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
     def self.outputs(*args, **kwargs)
@@ -164,12 +160,14 @@ module Logicuit
             array.delete_at(target_index)
             array.insert(target_index, *[true, false].map do |v|
               target.dup.tap do |a|
+                # steep:ignore:start
                 a[prop_index] = v
+                # steep:ignore:end
               end
             end)
           end
           array
-        end.flatten!(1).map do |values|
+        end.flatten!(1)&.map do |values|
           headers.zip(values).to_h
         end
         @truth_table = table
@@ -180,13 +178,15 @@ module Logicuit
     def self.verify_against_truth_table
       new.truth_table.each do |row|
         args = row.values_at(*new.input_targets).map { _1 ? 1 : 0 }
+        # steep:ignore:start
         subject = new(*args)
+        # steep:ignore:end
 
         previous_values = row.reject do |_k, v|
           v == :clock
         end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) }
 
-        Signals::Clock.tick if row.values.find :clock
+        Signals::Clock.tick if row.values.find_index :clock
 
         row.each do |key, value|
           next if value == :clock
@@ -203,10 +203,8 @@ module Logicuit
     end
 
     #: (?hz: ::Integer, ?noclear: bool) -> void
-    def self.run(opts = {})
-      ::Logicuit.run(new, **opts)
+    def self.run(hz: 1, noclear: false)
+      ::Logicuit.run(new, hz: hz, noclear: noclear)
     end
-
-    # steep:ignore:end
   end
 end

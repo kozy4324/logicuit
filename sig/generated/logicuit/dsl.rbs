@@ -4,6 +4,8 @@
 module Logicuit
   # base class for all gates and circuits
   class DSL
+    def self.define_method: (interned symbol) { (?) [self: DSL] -> untyped } -> Symbol
+
     # : (*(0 | 1) args) -> void
     def initialize: (*0 | 1 args) -> void
 
