@@ -8,6 +8,9 @@ module Logicuit
   class DSL
     # @rbs! def self.define_method: (interned symbol) { (?) [self: DSL] -> untyped } -> Symbol
 
+    # @rbs @inputs_as_bool_struct: untyped
+    # @rbs @truth_table: untyped
+
     #: (*(0 | 1) args) -> void
     def initialize(*args)
       @input_targets = []
@@ -103,7 +106,7 @@ module Logicuit
     #: () { () [self: instance] -> void } -> void
     def self.assembling(&block)
       define_method(:assembling) do
-        ret = instance_eval(&block)
+        ret = instance_eval(&block) # steep:ignore
         ret.each { @components << _1 } if ret.is_a?(Array)
       end
     end
@@ -184,7 +187,7 @@ module Logicuit
 
         previous_values = row.reject do |_k, v|
           v == :clock
-        end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) }
+        end.keys.reduce({}) { |acc, key| acc.merge(key => subject.send(key).current) } # steep:ignore
 
         Signals::Clock.tick if row.values.find_index :clock
 
