@@ -9,7 +9,6 @@ gem "rake", "~> 13.0"
 
 gem "minitest", "~> 5.16"
 
-gem "rbs-inline", require: false
 gem "rubocop", "~> 1.21"
 gem "rubocop-minitest", require: false
 gem "rubocop-rake", require: false

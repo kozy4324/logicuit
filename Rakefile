@@ -17,7 +17,7 @@ end
 
 desc "Generate rbs files from inline comments"
 task "rbs-inline" do
-  sh "rbs-inline --output lib"
+  sh "rbs-inline --output lib" if system("which rbs-inline")
 end
 
 task default: %i[test rubocop rbs-inline steep]
