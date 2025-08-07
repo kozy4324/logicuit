@@ -64,7 +64,7 @@ module Logicuit
       if keys.size == 1
         send(keys.first)
       elsif keys.size > 1
-        Signals::SignalGroup.new(*(keys.map { |key| send(key) }))
+        Signals::SignalGroup.new(*keys.map { |key| send(key) })
       else
         raise ArgumentError, "Invalid number of arguments"
       end
