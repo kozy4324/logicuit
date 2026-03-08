@@ -10,8 +10,6 @@ module Logicuit
         (A)-|NOT|-(Y)
       DIAGRAM
 
-      attr_reader :a, :y #: Signals::Signal
-
       inputs :a
 
       outputs y: -> { !a }

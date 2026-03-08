@@ -32,13 +32,17 @@ module Logicuit
 
     attr_reader initialized: bool
 
-    # : (*Symbol args, ?clock: Symbol) -> void
+    # @rbs %a[siggen: <% args.each { |arg| %> attr_reader <%= arg %>: ::Logicuit::Signals::Signal <% } %> ]
+    # @rbs (*Symbol args, ?clock: Symbol) -> void
+    %a(siggen: <% args.each { |arg| %> attr_reader <%= arg %>: ::Logicuit::Signals::Signal <% } %> )
     def self.inputs: (*Symbol args, ?clock: Symbol) -> void
 
     # : (*Symbol keys) -> Signals::SignalGroup
     def []: (*Symbol keys) -> Signals::SignalGroup
 
+    # @rbs %a[siggen: <% (args + kwargs.keys).each { |arg| %> attr_reader <%= arg %>: ::Logicuit::Signals::Signal <% } %> ]
     # : (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
+    %a[siggen: <% (args + kwargs.keys).each { |arg| %> attr_reader <%= arg %>: ::Logicuit::Signals::Signal <% } %> ]
     def self.outputs: (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
 
     # : () { () [self: instance] -> void } -> void

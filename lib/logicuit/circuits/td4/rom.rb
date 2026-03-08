@@ -7,8 +7,6 @@ module Logicuit
     module Td4
       # Timer
       class Rom < DSL
-        attr_reader :a3, :a2, :a1, :a0, :d7, :d6, :d5, :d4, :d3, :d2, :d1, :d0 #: Signals::Signal
-
         inputs :a3, :a2, :a1, :a0
 
         outputs :d7, :d6, :d5, :d4, :d3, :d2, :d1, :d0

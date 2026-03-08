@@ -7,9 +7,6 @@ module Logicuit
       # Input A is H, MOV A,A
       # Input A is L, NOT A
       class OneBitCpu < DSL
-        attr_reader a: Signals::Signal
-
-        attr_reader y: Signals::Signal
       end
     end
   end

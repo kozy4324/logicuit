@@ -9,8 +9,6 @@ module Logicuit
       class Cpu < DSL
         using Logicuit::ArrayAsSignalGroup
 
-        attr_reader :in0, :in1, :in2, :in3, :led1, :led2, :led3, :led4
-
         inputs :in0, :in1, :in2, :in3, clock: :ck
 
         outputs :led1, :led2, :led3, :led4

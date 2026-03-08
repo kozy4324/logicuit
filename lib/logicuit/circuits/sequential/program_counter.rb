@@ -15,8 +15,6 @@ module Logicuit
           (LD)--|  |
         DIAGRAM
 
-        attr_reader :a, :b, :c, :d, :ld, :qa, :qb, :qc, :qd #: Signals::Signal
-
         inputs :a, :b, :c, :d, :ld, clock: :ck
 
         outputs :qa, :qb, :qc, :qd

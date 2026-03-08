@@ -38,7 +38,8 @@ module Logicuit
     attr_reader :components #: Array[untyped]
     attr_reader :initialized #: bool
 
-    #: (*Symbol args, ?clock: Symbol) -> void
+    # @rbs %a[siggen: <% args.each { |arg| %> attr_reader <%= arg %>: ::Logicuit::Signals::Signal <% } %> ]
+    # @rbs (*Symbol args, ?clock: Symbol) -> void
     def self.inputs(*args, **kwargs)
       # define getter methods for inputs
       args.each do |arg|
@@ -70,6 +71,7 @@ module Logicuit
       end
     end
 
+    # @rbs %a[siggen: <% (args + kwargs.keys).each { |arg| %> attr_reader <%= arg %>: ::Logicuit::Signals::Signal <% } %> ]
     #: (*Symbol args, **^(instance) [self: instance] -> Signals::Signal kwargs) -> void
     def self.outputs(*args, **kwargs)
       # define getter methods for outputs

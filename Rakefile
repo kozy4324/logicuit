@@ -18,6 +18,7 @@ end
 desc "Generate rbs files from inline comments"
 task "rbs-inline" do
   sh "rbs-inline --output lib" if system("which rbs-inline")
+  sh "rbs-siggen lib > sig/siggen.rbs 2>/dev/null" if system("which rbs-siggen")
 end
 
 task default: %i[test rubocop rbs-inline steep]

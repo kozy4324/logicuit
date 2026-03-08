@@ -13,8 +13,6 @@ module Logicuit
           (CK)-|>  |
         DIAGRAM
 
-        attr_reader :d, :q #: Signals::Signal
-
         inputs :d, clock: :ck
 
         outputs q: -> { d }

@@ -45,8 +45,6 @@ module Logicuit
               +-----------------|   |
         DIAGRAM
 
-        attr_reader :cin, :a, :b, :s, :c #: Signals::Signal
-
         inputs :cin, :a, :b
 
         outputs s: -> { (!cin & !a & b) | (!cin & a & !b) | (cin & !a & !b) | (cin & a & b) },

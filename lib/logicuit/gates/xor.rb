@@ -12,8 +12,6 @@ module Logicuit
         (B)-|   |
       DIAGRAM
 
-      attr_reader :a, :b, :y #: Signals::Signal
-
       inputs :a, :b
 
       outputs y: -> { (a & !b) | (!a & b) }

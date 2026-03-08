@@ -5,23 +5,6 @@ module Logicuit
     module Sequential
       # 4 bit register
       class Register4bit < DSL
-        attr_reader a: Signals::Signal
-
-        attr_reader b: Signals::Signal
-
-        attr_reader c: Signals::Signal
-
-        attr_reader d: Signals::Signal
-
-        attr_reader ld: Signals::Signal
-
-        attr_reader qa: Signals::Signal
-
-        attr_reader qb: Signals::Signal
-
-        attr_reader qc: Signals::Signal
-
-        attr_reader qd: Signals::Signal
       end
     end
   end

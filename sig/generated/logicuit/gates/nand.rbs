@@ -4,11 +4,6 @@ module Logicuit
   module Gates
     # NAND gate
     class Nand < DSL
-      attr_reader a: Signals::Signal
-
-      attr_reader b: Signals::Signal
-
-      attr_reader y: Signals::Signal
     end
   end
 end

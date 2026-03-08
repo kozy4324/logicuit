@@ -19,8 +19,6 @@ module Logicuit
                             (A)--|   |
         DIAGRAM
 
-        attr_reader :a, :y #: Signals::Signal
-
         inputs :a, clock: :ck
 
         outputs :y

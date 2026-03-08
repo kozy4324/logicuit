@@ -17,8 +17,6 @@ module Logicuit
               +---|   |
         DIAGRAM
 
-        attr_reader :a, :b, :c, :s #: Signals::Signal
-
         inputs :a, :b
 
         outputs :c, :s

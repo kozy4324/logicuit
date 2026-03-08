@@ -1,0 +1,3 @@
+#!/bin/bash
+
+fswatch -0 lib | xargs -0 -n1 rbs-inline --opt-out --output
