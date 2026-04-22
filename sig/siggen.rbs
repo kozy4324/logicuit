@@ -1,0 +1,160 @@
+
+class Logicuit::Circuits::Combinational::FullAdder
+  attr_reader cin: ::Logicuit::Signals::Signal
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+
+  attr_reader s: ::Logicuit::Signals::Signal
+  attr_reader c: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Combinational::FullAdder4bit
+  attr_reader cin: ::Logicuit::Signals::Signal
+  attr_reader a0: ::Logicuit::Signals::Signal
+  attr_reader b0: ::Logicuit::Signals::Signal
+  attr_reader a1: ::Logicuit::Signals::Signal
+  attr_reader b1: ::Logicuit::Signals::Signal
+  attr_reader a2: ::Logicuit::Signals::Signal
+  attr_reader b2: ::Logicuit::Signals::Signal
+  attr_reader a3: ::Logicuit::Signals::Signal
+  attr_reader b3: ::Logicuit::Signals::Signal
+
+  attr_reader s0: ::Logicuit::Signals::Signal
+  attr_reader s1: ::Logicuit::Signals::Signal
+  attr_reader s2: ::Logicuit::Signals::Signal
+  attr_reader s3: ::Logicuit::Signals::Signal
+  attr_reader c: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Combinational::HalfAdder
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+
+  attr_reader c: ::Logicuit::Signals::Signal
+  attr_reader s: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Combinational::Multiplexer2to1
+  attr_reader c0: ::Logicuit::Signals::Signal
+  attr_reader c1: ::Logicuit::Signals::Signal
+  attr_reader a: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Combinational::Multiplexer4to1
+  attr_reader c0: ::Logicuit::Signals::Signal
+  attr_reader c1: ::Logicuit::Signals::Signal
+  attr_reader c2: ::Logicuit::Signals::Signal
+  attr_reader c3: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+  attr_reader a: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Sequential::DFlipFlop
+  attr_reader d: ::Logicuit::Signals::Signal
+
+  attr_reader q: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Sequential::OneBitCpu
+  attr_reader a: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Sequential::ProgramCounter
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+  attr_reader c: ::Logicuit::Signals::Signal
+  attr_reader d: ::Logicuit::Signals::Signal
+  attr_reader ld: ::Logicuit::Signals::Signal
+
+  attr_reader qa: ::Logicuit::Signals::Signal
+  attr_reader qb: ::Logicuit::Signals::Signal
+  attr_reader qc: ::Logicuit::Signals::Signal
+  attr_reader qd: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Sequential::Register4bit
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+  attr_reader c: ::Logicuit::Signals::Signal
+  attr_reader d: ::Logicuit::Signals::Signal
+  attr_reader ld: ::Logicuit::Signals::Signal
+
+  attr_reader qa: ::Logicuit::Signals::Signal
+  attr_reader qb: ::Logicuit::Signals::Signal
+  attr_reader qc: ::Logicuit::Signals::Signal
+  attr_reader qd: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Td4::Cpu
+  attr_reader in0: ::Logicuit::Signals::Signal
+  attr_reader in1: ::Logicuit::Signals::Signal
+  attr_reader in2: ::Logicuit::Signals::Signal
+  attr_reader in3: ::Logicuit::Signals::Signal
+
+  attr_reader led1: ::Logicuit::Signals::Signal
+  attr_reader led2: ::Logicuit::Signals::Signal
+  attr_reader led3: ::Logicuit::Signals::Signal
+  attr_reader led4: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Td4::Decoder
+  attr_reader op3: ::Logicuit::Signals::Signal
+  attr_reader op2: ::Logicuit::Signals::Signal
+  attr_reader op1: ::Logicuit::Signals::Signal
+  attr_reader op0: ::Logicuit::Signals::Signal
+  attr_reader c_flag: ::Logicuit::Signals::Signal
+
+  attr_reader sel_b: ::Logicuit::Signals::Signal
+  attr_reader sel_a: ::Logicuit::Signals::Signal
+  attr_reader ld0: ::Logicuit::Signals::Signal
+  attr_reader ld1: ::Logicuit::Signals::Signal
+  attr_reader ld2: ::Logicuit::Signals::Signal
+  attr_reader ld3: ::Logicuit::Signals::Signal
+end
+class Logicuit::Circuits::Td4::Rom
+  attr_reader a3: ::Logicuit::Signals::Signal
+  attr_reader a2: ::Logicuit::Signals::Signal
+  attr_reader a1: ::Logicuit::Signals::Signal
+  attr_reader a0: ::Logicuit::Signals::Signal
+
+  attr_reader d7: ::Logicuit::Signals::Signal
+  attr_reader d6: ::Logicuit::Signals::Signal
+  attr_reader d5: ::Logicuit::Signals::Signal
+  attr_reader d4: ::Logicuit::Signals::Signal
+  attr_reader d3: ::Logicuit::Signals::Signal
+  attr_reader d2: ::Logicuit::Signals::Signal
+  attr_reader d1: ::Logicuit::Signals::Signal
+  attr_reader d0: ::Logicuit::Signals::Signal
+end
+
+class Logicuit::Gates::And
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Gates::Nand
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Gates::Not
+  attr_reader a: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Gates::Or
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+class Logicuit::Gates::Xor
+  attr_reader a: ::Logicuit::Signals::Signal
+  attr_reader b: ::Logicuit::Signals::Signal
+
+  attr_reader y: ::Logicuit::Signals::Signal
+end
+
+
+
+
+
+
